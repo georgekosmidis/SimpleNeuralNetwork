@@ -8,7 +8,6 @@ namespace SimpleNeuralNetwork.AI
 {
     public class NeuralNetwork
     {
-
         /// Represents the learging rate used in gradient descent to prevent weights from converging at sub-optimal solutions.
         public double LearningRate = 0.7;
 
@@ -86,19 +85,11 @@ namespace SimpleNeuralNetwork.AI
 
         public void FeedForward(int sampleNubmer)
         {
+            //var cycles = 0;
+            //while (cycles++ <= learningCycles)
+            //{
             for (var i = 0; i < inputNeurons.Count(); i++)
                 inputNeurons[i].Input = this.inputData[sampleNubmer][i];
-
-
-            //feedforward from input to hidden Neurons
-            for (var i = 0; i < hiddenNeurons.Count(); i++)
-            {
-                double inputNeuronsTotal = 0.0;
-                for (var j = 0; j < inputNeurons.Count(); j++)
-                    inputNeuronsTotal += inputNeurons[j].Output * inputNeurons[j].Weight[j];
-
-                hiddenNeurons[i].Input = inputNeuronsTotal + hiddenNeurons[i].Bias;
-            }
 
             //feedforward from hidden to output Neurons            
             for (var i = 0; i < outputNeurons.Count(); i++)
@@ -111,6 +102,19 @@ namespace SimpleNeuralNetwork.AI
 
                 outputNeurons[i].Input = hiddenNeuronsTotal + outputNeurons[i].Bias;
             }
+
+            //feedforward from input to hidden Neurons
+            for (var i = 0; i < hiddenNeurons.Count(); i++)
+            {
+                double inputNeuronsTotal = 0.0;
+                for (var j = 0; j < inputNeurons.Count(); j++)
+                    inputNeuronsTotal += inputNeurons[j].Output * inputNeurons[j].Weight[j];
+
+                hiddenNeurons[i].Input = inputNeuronsTotal + hiddenNeurons[i].Bias;
+            }
+
+
+
         }
 
         public void BackPropagate()
@@ -120,38 +124,36 @@ namespace SimpleNeuralNetwork.AI
             for (var i = 0; i < outputNeurons.Count(); i++)
                 outputNeurons[i].Error = outputNeurons[i].SigmoidDerivative(outputNeurons[i].Output) * (outputNeurons[i].OutputTraining - outputNeurons[i].Output);
 
-
             //error from output to hidden layer
             for (var i = 0; i < hiddenNeurons.Count(); i++)
             {
                 double outputNeuronsTotal = 0.0;
                 for (var j = 0; j < outputNeurons.Count(); j++)
-                    outputNeuronsTotal += outputNeurons[j].Error * outputNeurons[j].Weight[j];
+                    outputNeuronsTotal += outputNeurons[j].Error * outputNeurons[j].Weight[i];
 
-                hiddenNeurons[i].Error = hiddenNeurons[i].Sigmoid(outputNeurons[outputNeurons.Count() - 1].Output) * outputNeuronsTotal;
+                hiddenNeurons[i].Error = hiddenNeurons[i].Sigmoid(outputNeurons[0].Output) * outputNeuronsTotal;
             }
 
-            //update all weights in the network
-            //from output Neurons to hidden Neurons
+            //update all weights from output to hidden
             for (var i = 0; i < outputNeurons.Count(); i++)
             {
                 for (var j = 0; j < hiddenNeurons.Count(); j++)
-                    hiddenNeurons[j].Weight[j] += this.LearningRate * outputNeurons[i].Error * outputNeurons[i].Output;
+                    hiddenNeurons[j].Weight[i] += this.LearningRate * outputNeurons[i].Error * outputNeurons[i].Output;
 
                 outputNeurons[i].Bias += this.LearningRate * outputNeurons[i].Error;
 
             }
 
-            //update all weights in the network
-            //from hidden Neurons to input Neurons
+            //update all weights from hidden to input
             for (var i = 0; i < hiddenNeurons.Count(); i++)
             {
                 for (var j = 0; j < inputNeurons.Count(); j++)
-                    hiddenNeurons[i].Weight[j] += this.LearningRate * hiddenNeurons[i].Error * inputNeurons[j].Output;
+                    inputNeurons[j].Weight[i] += this.LearningRate * hiddenNeurons[i].Error * inputNeurons[j].Output;
 
                 hiddenNeurons[i].Bias += this.LearningRate * hiddenNeurons[i].Error;
 
             }
+
         }
     }
 }

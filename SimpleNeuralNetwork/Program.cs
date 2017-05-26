@@ -10,38 +10,48 @@ namespace SimpleNeuralNetwork
     {
         static void Main(string[] args)
         {
+            //Random rnd = new Random();
+            //var inputData2 = new double[10000][];
+            //var resultsData2 = new double[10000][];
+            //for (var i = 0; i < 10000; i++)
+            //{
+            //    var i1 = rnd.Next(1, 5) / 10d;
+            //    var i2 = rnd.Next(1, 5) / 10d;
+            //    var s = i1 + i2;
+            //    inputData2[i] = new double[] { i1, i2 };
+            //    resultsData2[i] = new double[] { s };
+            //}
+
             //second dimension defines number of input neurons, for this case 3
             var inputData = new double[][] {
-                                new double[] { 0.1, 0.2 },
-                                new double[] { 0.2, 0.3 },
-                                new double[] { 0.3, 0.5 },
-                                new double[] { 0.3, 0.1 }
+                                new double[] { .1, .2 },
+                                new double[] { .2, .3 },
+                                new double[] { .3, .1 }
                             };
 
             //Training data defines expected result, second dimension defines the number of output neurons 
             var resultsData = new double[][] {
-                                   new double[] { 0.3 },
-                                   new double[] { 0.5 },
-                                   new double[] { 0.8 },
-                                   new double[] { 0.4 }
+                                   new double[] { .3 },
+                                   new double[] { .5 },
+                                   new double[] { .4 }
 
                                };
 
-            var neuronNetwork = new AI.NeuralNetwork(inputData, resultsData, 10);
+            var neuronNetwork = new AI.NeuralNetwork(inputData, resultsData, 3);
 
+            Console.WriteLine("Training for input " + i);
             var j = 0;
-            while (j++ < 10000)
+            while (j++ < 100)
             {
-                for (var i = 0; i < inputData.Length; i++)
-                {
-                    neuronNetwork.FeedForward(i);
-                    neuronNetwork.BackPropagate();
-                }
+                neuronNetwork.FeedForward(0);
+                neuronNetwork.BackPropagate();
             }
 
-            var outputNeurons = neuronNetwork.Guess(new double[] { 0.2, 0.3 });
 
-            return;
+            var outputNeurons = neuronNetwork.Guess(new double[] { .1, .2 });
+
+            Console.WriteLine("Requested Result:" + outputNeurons[0].Output);
+            Console.ReadKey();
 
         } // Program
 
