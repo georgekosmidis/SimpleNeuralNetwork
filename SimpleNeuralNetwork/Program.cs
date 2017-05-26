@@ -39,9 +39,10 @@ namespace SimpleNeuralNetwork
 
             var neuronNetwork = new AI.NeuralNetwork(inputData, resultsData, 3);
 
-            Console.WriteLine("Training for input " + i);
+
+
             var j = 0;
-            while (j++ < 100)
+            while (j++ < 10000)
             {
                 neuronNetwork.FeedForward(0);
                 neuronNetwork.BackPropagate();

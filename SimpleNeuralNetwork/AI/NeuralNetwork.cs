@@ -65,7 +65,7 @@ namespace SimpleNeuralNetwork.AI
             {
                 double inputNeuronsTotal = 0.0;
                 for (var j = 0; j < inputNeurons.Count(); j++)
-                    inputNeuronsTotal += inputNeurons[j].Output * inputNeurons[j].Weight[j];
+                    inputNeuronsTotal += inputNeurons[j].Output * inputNeurons[j].Weight[i];//inputNeurons[j].Weight[j];
 
                 hiddenNeurons[i].Input = inputNeuronsTotal + hiddenNeurons[i].Bias;
             }
@@ -75,7 +75,7 @@ namespace SimpleNeuralNetwork.AI
             {
                 double hiddenNeuronsTotal = 0.0;
                 for (var j = 0; j < hiddenNeurons.Count(); j++)
-                    hiddenNeuronsTotal += hiddenNeurons[j].Output * outputNeurons[i].Weight[j];
+                    hiddenNeuronsTotal += hiddenNeurons[j].Output * outputNeurons[i].Weight[j];//outputNeurons[i].Weight[j];
 
                 outputNeurons[i].Input = hiddenNeuronsTotal + outputNeurons[i].Bias;
             }
