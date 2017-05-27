@@ -65,7 +65,7 @@ namespace SimpleNeuralNetwork
             Console.WriteLine("=================================");
 
             var result = neuronNetwork.Compute(new double[] { .3, .2 });
-            Console.WriteLine(result[0].ToString("0.000"));
+            Console.WriteLine(Math.Round(result[0], 1).ToString("0.0"));
             Console.ReadKey();
 
         }
