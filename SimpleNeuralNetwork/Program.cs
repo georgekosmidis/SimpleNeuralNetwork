@@ -25,7 +25,7 @@ namespace SimpleNeuralNetwork
                                    new double[] { .3 },
                                    new double[] { .4 },
                                    new double[] { .5 },
-                                   new double[] { .2 }
+                                   new double[] { .2 },
                                };
 
             //Create a neuron network with 2 input neurons, 5 hidden neurons and 1 output neuron
@@ -33,11 +33,13 @@ namespace SimpleNeuralNetwork
 
             //Train
             var j = 0;
-            while (Math.Abs(neuronNetwork.outputNeurons[0].Error) > .00001)//could be smaller but training data are few and makes no point...
+            var leastError = 1d;
+            do//could be smaller but training data are few and makes no point...
             {
                 Console.WriteLine("Iteration : " + (j++));
                 Console.WriteLine("---------------------");
 
+                var innerLeastError = 0d;
                 for (int i = 0; i < inputData.Length; i++)
                 {
                     neuronNetwork.FeedForward(inputData[i]);
@@ -47,16 +49,19 @@ namespace SimpleNeuralNetwork
                     Console.Write("Output : " + neuronNetwork.outputNeurons[0].Value.ToString("0.000000") + " ");
                     Console.Write("Expected : " + resultsData[i][0].ToString("0.000000") + " ");
                     Console.WriteLine("Error : " + neuronNetwork.outputNeurons[0].Error.ToString("0.000000") + " ");
+
+                    innerLeastError = Math.Max(innerLeastError, Math.Abs(neuronNetwork.outputNeurons[0].Error));
                 }
+                leastError = Math.Min(leastError, innerLeastError);
 
                 Console.WriteLine("");
-            }
+            } while (leastError > .00001);
 
             //Compute
             Console.WriteLine("");
             Console.WriteLine("Done after " + j + " iterations...");
             Console.WriteLine("");
-            Console.WriteLine("Calculation for unknown variables");
+            Console.WriteLine("Computation to add unknown variables (.3, .2)");
             Console.WriteLine("=================================");
 
             var result = neuronNetwork.Compute(new double[] { .3, .2 });
