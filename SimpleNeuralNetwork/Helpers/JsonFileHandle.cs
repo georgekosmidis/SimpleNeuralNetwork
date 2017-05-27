@@ -22,7 +22,7 @@ namespace SimpleNeuralNetwork.Helpers
         {
             TextWriter writer = null;
 
-            var json = JsonConvert.SerializeObject(obj, Formatting.Indented,
+            var json = JsonConvert.SerializeObject(obj, Formatting.None,
                                                         new JsonSerializerSettings
                                                         {
                                                             ReferenceLoopHandling = ReferenceLoopHandling.Ignore

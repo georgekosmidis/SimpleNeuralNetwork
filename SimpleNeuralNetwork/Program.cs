@@ -18,8 +18,7 @@ namespace SimpleNeuralNetwork
         static void Main(string[] args)
         {
 
-
-            //TRAIN A NUERAL NETWORK
+            //TRAIN THE NUERAL NETWORK
             var neuralNetwork = TrainAndReturn_Addition(true);
 
             Console.WriteLine("");
