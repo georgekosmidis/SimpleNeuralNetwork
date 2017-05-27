@@ -10,10 +10,10 @@ namespace SimpleNeuralNetwork.AI
     {
         public Neuron FromNeuron { get; set; }
         public Neuron ToNeuron { get; set; }
-        public double Weight { get; set; }
+        public double Weight { get; set; } = 0;
 
         public Synapse(Neuron fromNeuron, Neuron toNeuron)
-        {            
+        {
             FromNeuron = fromNeuron;
             ToNeuron = toNeuron;
             Weight = new Random(Guid.NewGuid().GetHashCode()).NextDouble();

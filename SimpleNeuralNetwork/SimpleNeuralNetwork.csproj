@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,15 +45,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\Math.cs" />
+    <Compile Include="Helpers\Math.cs" />
     <Compile Include="AI\NeuralNetwork.cs" />
     <Compile Include="AI\Neuron.cs" />
     <Compile Include="AI\Synapse.cs" />
+    <Compile Include="EventArgumens\ProgressEventArgs.cs" />
+    <Compile Include="Interfaces\IFileHandle.cs" />
+    <Compile Include="Helpers\JsonFileHandle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Trainers\AdditionTrainer.cs" />
+    <Compile Include="Interfaces\ITrainer.cs" />
+    <Compile Include="Trainers\TrainDataLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="TrainedNetworks\.gitkeep">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
