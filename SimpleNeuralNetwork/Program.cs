@@ -9,7 +9,7 @@ namespace SimpleNeuralNetwork
     class Program
     {
         static void Main(string[] args)
-        {   
+        {
             //Train with few inputs and many training cycles
 
             //Input data, defines variables inserted into the system, second dimension defines number of input neurons, for this case 2
@@ -60,7 +60,7 @@ namespace SimpleNeuralNetwork
             Console.WriteLine("=================================");
 
             var result = neuronNetwork.Compute(new double[] { .3, .2 });
-            Console.WriteLine(result[0]);
+            Console.WriteLine(result[0].ToString("0.000"));
             Console.ReadKey();
 
         }
