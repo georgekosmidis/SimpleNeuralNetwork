@@ -14,7 +14,7 @@ namespace SimpleNeuralNetwork.AI
 
         public Double Output { get; private set; }
 
-        public Double OutputTraining { get; set; }
+        public Double ExpectedOutput { get; set; }
 
         public Double Bias { get; set; }
 

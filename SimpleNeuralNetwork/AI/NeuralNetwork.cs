@@ -16,7 +16,7 @@ namespace SimpleNeuralNetwork.AI
 
         private Neurons inputNeurons;
         private Neurons hiddenNeurons;
-        private Neurons outputNeurons;
+        public Neurons outputNeurons;
 
         public NeuralNetwork(double[][] inputData, double[][] outputData, int hiddenNeurons)
         {
@@ -94,7 +94,7 @@ namespace SimpleNeuralNetwork.AI
             //feedforward from hidden to output Neurons            
             for (var i = 0; i < outputNeurons.Count(); i++)
             {
-                outputNeurons[i].OutputTraining = this.outputData[sampleNubmer][i];
+                outputNeurons[i].ExpectedOutput = this.outputData[sampleNubmer][i];
 
                 double hiddenNeuronsTotal = 0.0;
                 for (var j = 0; j < hiddenNeurons.Count(); j++)
@@ -122,7 +122,7 @@ namespace SimpleNeuralNetwork.AI
 
             //calculate error rate for Output layer
             for (var i = 0; i < outputNeurons.Count(); i++)
-                outputNeurons[i].Error = outputNeurons[i].SigmoidDerivative(outputNeurons[i].Output) * (outputNeurons[i].OutputTraining - outputNeurons[i].Output);
+                outputNeurons[i].Error = outputNeurons[i].SigmoidDerivative(outputNeurons[i].Output) * (outputNeurons[i].ExpectedOutput - outputNeurons[i].Output);
 
             //error from output to hidden layer
             for (var i = 0; i < hiddenNeurons.Count(); i++)

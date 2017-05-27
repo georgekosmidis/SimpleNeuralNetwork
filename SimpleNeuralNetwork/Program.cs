@@ -24,34 +24,38 @@ namespace SimpleNeuralNetwork
 
             //second dimension defines number of input neurons, for this case 3
             var inputData = new double[][] {
-                                new double[] { .1, .2 },
-                                new double[] { .2, .3 },
-                                new double[] { .3, .1 }
+                                new double[] { .1, .2},
+                                new double[] { .3, .1},
+                                new double[] { .1, .4},
+                                new double[] { .1, .1}
                             };
 
-            //Training data defines expected result, second dimension defines the number of output neurons 
+            //Training data defines expected result, first dimension defines number of output neurons 
             var resultsData = new double[][] {
                                    new double[] { .3 },
+                                   new double[] { .4 },
                                    new double[] { .5 },
-                                   new double[] { .4 }
-
+                                   new double[] { .2 }
                                };
 
             var neuronNetwork = new AI.NeuralNetwork(inputData, resultsData, 3);
 
 
-
-            var j = 0;
-            while (j++ < 10000)
+            var TRAIN_FOR_INDEX = 0;
+            var j = -1;
+            while (++j < 100)
             {
-                neuronNetwork.FeedForward(0);
+                Console.WriteLine("Iteration : " + (j + 1));
+                Console.WriteLine("---------------------");
+                neuronNetwork.FeedForward(TRAIN_FOR_INDEX);
                 neuronNetwork.BackPropagate();
+
+                Console.Write("Output : " + neuronNetwork.outputNeurons[0].Output.ToString("0.00000") + " ");
+                Console.WriteLine("Expected : " + neuronNetwork.outputNeurons[0].ExpectedOutput.ToString("0.00000") + " ");
+
+                Console.WriteLine("");
             }
 
-
-            var outputNeurons = neuronNetwork.Guess(new double[] { .1, .2 });
-
-            Console.WriteLine("Requested Result:" + outputNeurons[0].Output);
             Console.ReadKey();
 
         } // Program
