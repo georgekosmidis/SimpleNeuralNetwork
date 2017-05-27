@@ -9,28 +9,18 @@ namespace SimpleNeuralNetwork
     class Program
     {
         static void Main(string[] args)
-        {
-            //Random rnd = new Random();
-            //var inputData2 = new double[10000][];
-            //var resultsData2 = new double[10000][];
-            //for (var i = 0; i < 10000; i++)
-            //{
-            //    var i1 = rnd.Next(1, 5) / 10d;
-            //    var i2 = rnd.Next(1, 5) / 10d;
-            //    var s = i1 + i2;
-            //    inputData2[i] = new double[] { i1, i2 };
-            //    resultsData2[i] = new double[] { s };
-            //}
+        {   
+            //Train with few inputs and many training cycles
 
-            //second dimension defines number of input neurons, for this case 3
+            //Input data, defines variables inserted into the system, second dimension defines number of input neurons, for this case 2
             var inputData = new double[][] {
-                                new double[] { .1, .2},
-                                new double[] { .3, .1},
-                                new double[] { .1, .4},
-                                new double[] { .1, .1}
+                                new double[] { .1, .2 },
+                                new double[] { .3, .1 },
+                                new double[] { .1, .4 },
+                                new double[] { .1, .1 }
                             };
 
-            //Training data defines expected result, first dimension defines number of output neurons 
+            //Expected output data defines expected result, second dimension defines number of output neurons, for this case 1
             var resultsData = new double[][] {
                                    new double[] { .3 },
                                    new double[] { .4 },
@@ -38,27 +28,41 @@ namespace SimpleNeuralNetwork
                                    new double[] { .2 }
                                };
 
-            var neuronNetwork = new AI.NeuralNetwork(inputData, resultsData, 3);
+            //Create a neuron network with 2 input neurons, 5 hidden neurons and 1 output neuron
+            var neuronNetwork = new AI.NeuralNetwork(inputData[0].Length, 5, resultsData[0].Length);
 
-
-            var TRAIN_FOR_INDEX = 0;
-            var j = -1;
-            while (++j < 100)
+            //Train
+            var j = 0;
+            while (Math.Abs(neuronNetwork.outputNeurons[0].Error) > .00001)//could be smaller but training data are few and makes no point...
             {
-                Console.WriteLine("Iteration : " + (j + 1));
+                Console.WriteLine("Iteration : " + (j++));
                 Console.WriteLine("---------------------");
-                neuronNetwork.FeedForward(TRAIN_FOR_INDEX);
-                neuronNetwork.BackPropagate();
 
-                Console.Write("Output : " + neuronNetwork.outputNeurons[0].Output.ToString("0.00000") + " ");
-                Console.WriteLine("Expected : " + neuronNetwork.outputNeurons[0].ExpectedOutput.ToString("0.00000") + " ");
+                for (int i = 0; i < inputData.Length; i++)
+                {
+                    neuronNetwork.FeedForward(inputData[i]);
+                    neuronNetwork.BackPropagate(resultsData[i]);
+
+                    //ouput has only one neuron
+                    Console.Write("Output : " + neuronNetwork.outputNeurons[0].Value.ToString("0.000000") + " ");
+                    Console.Write("Expected : " + resultsData[i][0].ToString("0.000000") + " ");
+                    Console.WriteLine("Error : " + neuronNetwork.outputNeurons[0].Error.ToString("0.000000") + " ");
+                }
 
                 Console.WriteLine("");
             }
 
+            //Compute
+            Console.WriteLine("");
+            Console.WriteLine("Done after " + j + " iterations...");
+            Console.WriteLine("");
+            Console.WriteLine("Calculation for unknown variables");
+            Console.WriteLine("=================================");
+
+            var result = neuronNetwork.Compute(new double[] { .3, .2 });
+            Console.WriteLine(result[0]);
             Console.ReadKey();
 
-        } // Program
-
+        }
     }
 }

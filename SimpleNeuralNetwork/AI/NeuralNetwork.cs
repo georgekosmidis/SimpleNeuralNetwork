@@ -11,149 +11,84 @@ namespace SimpleNeuralNetwork.AI
         /// Represents the learging rate used in gradient descent to prevent weights from converging at sub-optimal solutions.
         public double LearningRate = 0.7;
 
-        private double[][] inputData;
-        private double[][] outputData;
+        private List<Neuron> inputNeurons = new List<Neuron>();
+        private List<Neuron> hiddenNeurons = new List<Neuron>();
+        public List<Neuron> outputNeurons = new List<Neuron>();
 
-        private Neurons inputNeurons;
-        private Neurons hiddenNeurons;
-        public Neurons outputNeurons;
-
-        public NeuralNetwork(double[][] inputData, double[][] outputData, int hiddenNeurons)
+        public NeuralNetwork(int inputNeuronsCount, int hiddenNeuronsCount, int outputNeuronsCount)
         {
 
-            this.inputData = inputData;
-            this.outputData = outputData;
+            var weightsCount = Math.Max(inputNeuronsCount, Math.Max(outputNeuronsCount, hiddenNeuronsCount));
 
-            var weightsCount = (this.inputData[0].Length * this.outputData[0].Length * hiddenNeurons);
+            for (var i = 0; i < inputNeuronsCount; i++)
+                this.inputNeurons.Add(new Neuron());
 
-            inputNeurons = new Neurons();
-            for (var i = 0; i < this.inputData[0].Length; i++)
+            for (var j = 0; j < hiddenNeuronsCount; j++)
             {
-                var a = new Neuron(0, i);
-                this.inputNeurons.Add(a);
+                var n = new Neuron();
+                n.SetSynapsis(this.inputNeurons);
+                this.hiddenNeurons.Add(n);
             }
-            this.inputNeurons.SetWeights(weightsCount);
 
-            this.hiddenNeurons = new Neurons();
-            for (var j = 0; j < hiddenNeurons; j++)
+            for (int k = 0; k < outputNeuronsCount; k++)
             {
-                var b = new Neuron(1, j);
-                this.hiddenNeurons.Add(b);
+                var n = new Neuron();
+                n.SetSynapsis(this.hiddenNeurons);
+                this.outputNeurons.Add(n);
             }
-            this.hiddenNeurons.SetWeights(weightsCount);
+        }
 
-            outputNeurons = new Neurons();
-            for (int k = 0; k < this.outputData[0].Length; k++)
-            {
-                var c = new Neuron(2, k);
-                this.outputNeurons.Add(c);
-            }
-            this.outputNeurons.SetWeights(weightsCount);
+        public double[] Compute(double[] inputData)
+        {
+            FeedForward(inputData);
+            return this.outputNeurons.Select(a => a.Value).ToArray();
         }
 
 
-        public Neurons Guess(double[] input)
+        public void FeedForward(double[] inputData)
         {
 
-            //feed input neurons
             for (var i = 0; i < inputNeurons.Count(); i++)
-                inputNeurons[i].Input = input[i];
+                inputNeurons[i].Value = inputData[i];
+            //for (var i = 0; i < outputNeurons.Count(); i++)
+            //    outputNeurons[i].Output = outputData[i];
 
-
-            //feedforward from input to hidden Neurons
-            for (var i = 0; i < hiddenNeurons.Count(); i++)
+            foreach (var hiddenNeuron in hiddenNeurons)
             {
-                double inputNeuronsTotal = 0.0;
-                for (var j = 0; j < inputNeurons.Count(); j++)
-                    inputNeuronsTotal += inputNeurons[j].Output * inputNeurons[j].Weight[i];//inputNeurons[j].Weight[j];
-
-                hiddenNeurons[i].Input = inputNeuronsTotal + hiddenNeurons[i].Bias;
+                var total = hiddenNeuron.InputSynapses.Sum(x => x.FromNeuron.Value * x.Weight);
+                hiddenNeuron.Value = Maths.Sigmoid(total);
             }
 
-            //feedforward from hidden to output Neurons            
-            for (var i = 0; i < outputNeurons.Count(); i++)
+            foreach (var outputNeuron in outputNeurons)
             {
-                double hiddenNeuronsTotal = 0.0;
-                for (var j = 0; j < hiddenNeurons.Count(); j++)
-                    hiddenNeuronsTotal += hiddenNeurons[j].Output * outputNeurons[i].Weight[j];//outputNeurons[i].Weight[j];
-
-                outputNeurons[i].Input = hiddenNeuronsTotal + outputNeurons[i].Bias;
+                var total = outputNeuron.InputSynapses.Sum(x => x.FromNeuron.Value * x.Weight);
+                outputNeuron.Value = Maths.Sigmoid(total);
             }
-
-            return outputNeurons;
         }
 
-        public void FeedForward(int sampleNubmer)
+        public void BackPropagate(double[] outputData)
         {
-            //var cycles = 0;
-            //while (cycles++ <= learningCycles)
-            //{
-            for (var i = 0; i < inputNeurons.Count(); i++)
-                inputNeurons[i].Input = this.inputData[sampleNubmer][i];
-
-            //feedforward from hidden to output Neurons            
             for (var i = 0; i < outputNeurons.Count(); i++)
+                outputNeurons[i].Error = Maths.Derivative(outputNeurons[i].Value) * (outputData[i] - outputNeurons[i].Value);
+
+            foreach (var hiddenNeuron in hiddenNeurons)
+                hiddenNeuron.Error = hiddenNeuron.OutputSynapses.Sum(x => x.ToNeuron.Error * x.Weight) * Maths.Derivative(hiddenNeuron.Value);
+
+            foreach (var outputNeuron in outputNeurons)
             {
-                outputNeurons[i].ExpectedOutput = this.outputData[sampleNubmer][i];
+                outputNeuron.Bias += this.LearningRate * outputNeuron.Error;
 
-                double hiddenNeuronsTotal = 0.0;
-                for (var j = 0; j < hiddenNeurons.Count(); j++)
-                    hiddenNeuronsTotal += hiddenNeurons[j].Output * outputNeurons[i].Weight[j];//outputNeurons[i]
-
-                outputNeurons[i].Input = hiddenNeuronsTotal + outputNeurons[i].Bias;
+                foreach (var synapse in outputNeuron.InputSynapses)
+                    synapse.Weight += this.LearningRate * outputNeuron.Error * synapse.FromNeuron.Value;
             }
 
-            //feedforward from input to hidden Neurons
-            for (var i = 0; i < hiddenNeurons.Count(); i++)
+            foreach (var hiddenNeuron in hiddenNeurons)
             {
-                double inputNeuronsTotal = 0.0;
-                for (var j = 0; j < inputNeurons.Count(); j++)
-                    inputNeuronsTotal += inputNeurons[j].Output * inputNeurons[j].Weight[j];
+                hiddenNeuron.Bias += this.LearningRate * hiddenNeuron.Error;
 
-                hiddenNeurons[i].Input = inputNeuronsTotal + hiddenNeurons[i].Bias;
+                foreach (var synapse in hiddenNeuron.InputSynapses)
+                    synapse.Weight += this.LearningRate * hiddenNeuron.Error * synapse.FromNeuron.Value;
             }
-
-
-
-        }
-
-        public void BackPropagate()
-        {
-
-            //calculate error rate for Output layer
-            for (var i = 0; i < outputNeurons.Count(); i++)
-                outputNeurons[i].Error = outputNeurons[i].SigmoidDerivative(outputNeurons[i].Output) * (outputNeurons[i].ExpectedOutput - outputNeurons[i].Output);
-
-            //error from output to hidden layer
-            for (var i = 0; i < hiddenNeurons.Count(); i++)
-            {
-                double outputNeuronsTotal = 0.0;
-                for (var j = 0; j < outputNeurons.Count(); j++)
-                    outputNeuronsTotal += outputNeurons[j].Error * outputNeurons[j].Weight[i];
-
-                hiddenNeurons[i].Error = hiddenNeurons[i].Sigmoid(outputNeurons[0].Output) * outputNeuronsTotal;
-            }
-
-            //update all weights from output to hidden
-            for (var i = 0; i < outputNeurons.Count(); i++)
-            {
-                for (var j = 0; j < hiddenNeurons.Count(); j++)
-                    hiddenNeurons[j].Weight[i] += this.LearningRate * outputNeurons[i].Error * outputNeurons[i].Output;
-
-                outputNeurons[i].Bias += this.LearningRate * outputNeurons[i].Error;
-
-            }
-
-            //update all weights from hidden to input
-            for (var i = 0; i < hiddenNeurons.Count(); i++)
-            {
-                for (var j = 0; j < inputNeurons.Count(); j++)
-                    inputNeurons[j].Weight[i] += this.LearningRate * hiddenNeurons[i].Error * inputNeurons[j].Output;
-
-                hiddenNeurons[i].Bias += this.LearningRate * hiddenNeurons[i].Error;
-
-            }
-
         }
     }
 }

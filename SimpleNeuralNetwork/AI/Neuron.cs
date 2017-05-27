@@ -8,52 +8,26 @@ namespace SimpleNeuralNetwork.AI
 {
     public class Neuron
     {
-        public Double Layer { get; set; }
+        public List<Synapse> InputSynapses { get; private set; } = new List<Synapse>();
+        public List<Synapse> OutputSynapses { get; private set; } = new List<Synapse>();
 
-        public Double Index { get; set; }
-
-        public Double Output { get; private set; }
-
-        public Double ExpectedOutput { get; set; }
-
+        public Double Value { get; set; }
         public Double Bias { get; set; }
+        public Double Error { get; set; } = 1;
 
-        public Double Error { get; set; }
-
-        private Double _input = 0;
-        public Double Input
+        public Neuron()
         {
-            get
+            Bias = new Random(Guid.NewGuid().GetHashCode()).NextDouble();
+        }
+
+        public void SetSynapsis(List<Neuron> inputNeurons) 
+        {
+            foreach (var inputNeuron in inputNeurons)
             {
-                return _input;
+                var synapse = new Synapse(inputNeuron, this);
+                inputNeuron.OutputSynapses.Add(synapse);
+                InputSynapses.Add(synapse);
             }
-            set
-            {
-                _input = value;
-                if (this.Layer == 0)
-                    this.Output = value;
-                else
-                    this.Output = Sigmoid(value);
-            }
-        }
-
-        private Double[] _weight = new Double[] { };
-        public Double[] Weight { get; set; }
-
-        public Neuron(Double layer, Double index)
-        {
-            this.Layer = layer;
-            this.Index = index;
-        }
-
-        public Double Sigmoid(double val)
-        {
-            return 1.0 / (1.0 + Math.Exp(-val));
-        }
-
-        public Double SigmoidDerivative(double val)
-        {
-            return val * (1 - val);
         }
     }
 }

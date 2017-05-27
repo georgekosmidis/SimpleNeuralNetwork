@@ -42,10 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\Math.cs" />
     <Compile Include="AI\NeuralNetwork.cs" />
     <Compile Include="AI\Neuron.cs" />
-    <Compile Include="AI\Neurons.cs" />
-    <Compile Include="data.cs" />
+    <Compile Include="AI\Synapse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
