@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SimpleNeuralNetwork.Helpers
 {
-    public class JsonFileHandle : IFileHandle
+    public class JsonFileHandle : IDataHandle
     {
         private string _folder;
 
@@ -18,7 +18,7 @@ namespace SimpleNeuralNetwork.Helpers
             _folder = folder;
         }
 
-        public void Write<T>(string fileName, T obj, bool append = false) where T : new()
+        public void Save<T>(string fileName, T obj, bool append = false) where T : new()
         {
             TextWriter writer = null;
 
@@ -33,7 +33,7 @@ namespace SimpleNeuralNetwork.Helpers
             writer.Close();
 
         }
-        public T Read<T>(string fileName) where T : new()
+        public T Load<T>(string fileName) where T : new()
         {
             TextReader reader = null;
             reader = new StreamReader(_folder + Path.DirectorySeparatorChar + fileName);

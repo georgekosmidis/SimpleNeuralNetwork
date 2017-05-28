@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleNeuralNetwork.AI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,14 +21,5 @@ namespace SimpleNeuralNetwork.AI
             Bias = new Random(Guid.NewGuid().GetHashCode()).NextDouble();
         }
 
-        public void SetSynapsis(List<Neuron> inputNeurons) 
-        {
-            foreach (var inputNeuron in inputNeurons)
-            {
-                var synapse = new Synapse(inputNeuron, this);
-                inputNeuron.OutputSynapses.Add(synapse);
-                InputSynapses.Add(synapse);
-            }
-        }
     }
 }

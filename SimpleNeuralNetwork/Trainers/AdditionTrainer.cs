@@ -1,4 +1,5 @@
 ﻿using SimpleNeuralNetwork.AI;
+using SimpleNeuralNetwork.AI.Models;
 using SimpleNeuralNetwork.EventArgumens;
 using SimpleNeuralNetwork.Interfaces;
 using System;
@@ -11,8 +12,9 @@ namespace SimpleNeuralNetwork.Trainers
 {
     public class AdditionTrainer : ITrainer
     {
-        private NeuralNetwork _neuralNetwork;
-        private IFileHandle _filehandle;
+        NeuralNetworkCompute _neuralNetworkCompute;
+        NeuralNetwork _nueralNetwork = new NeuralNetwork();
+        IDataHandle _filehandle;
 
         //Input data, defines variables inserted into the system, second dimension defines number of input neurons, for this case 2
         private double[][] inputData = new double[][] {
@@ -33,49 +35,45 @@ namespace SimpleNeuralNetwork.Trainers
         public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
         public event StatusUpdateHandler OnUpdateStatus;
 
-        public AdditionTrainer(NeuralNetwork neuralNetwork, IFileHandle filehandle)
+        public AdditionTrainer(NeuralNetworkCompute neuralNetworkCompute, IDataHandle filehandle)
         {
-            _neuralNetwork = neuralNetwork;
+            _neuralNetworkCompute = neuralNetworkCompute;
             _filehandle = filehandle;
         }
         public void Save(string filename)
         {
-            _filehandle.Write<NeuralNetwork>(filename, _neuralNetwork);
+            _filehandle.Save<NeuralNetwork>(filename, _nueralNetwork);
         }
         public void Train(int hiddenLayerNeurons, double acceptedError)
         {
             //Create a neuron network with 2 input neurons, 5 hidden neurons and 1 output neuron
-            _neuralNetwork.CreateLayers(inputData[0].Length, hiddenLayerNeurons, resultsData[0].Length);
+            _neuralNetworkCompute.CreateLayers(inputData[0].Length, hiddenLayerNeurons, resultsData[0].Length);
             //Train
             var j = 0;
             var leastError = 1d;
             do//could be smaller but training data are few and makes no point...
             {
                 OnUpdateStatus?.Invoke(this, new ProgressEventArgs("Iteration : " + (j++)));
-                OnUpdateStatus?.Invoke(this, new ProgressEventArgs("---------------------"));
 
                 var innerLeastError = 0d;
                 for (int i = 0; i < inputData.Length; i++)
                 {
-                    _neuralNetwork.FeedForward(inputData[i]);
-                    _neuralNetwork.BackPropagate(resultsData[i]);
+                    _nueralNetwork = _neuralNetworkCompute.Train(inputData[i], resultsData[i]);
 
-                    var status = "Output : " + _neuralNetwork.OutputNeurons[0].Value.ToString("0.000000") + " " +
+                    var status = "Output : " + _nueralNetwork.OutputNeurons[0].Value.ToString("0.000000") + " " +
                                  "Expected : " + resultsData[i][0].ToString("0.000000") + " " +
-                                 "Error : " + _neuralNetwork.OutputNeurons[0].Error.ToString("0.000000") + " ";
+                                 "Error : " + _nueralNetwork.OutputNeurons[0].Error.ToString("0.000000") + " ";
                     //ouput has only one neuron
                     OnUpdateStatus?.Invoke(this, new ProgressEventArgs(status));
 
-                    innerLeastError = Math.Max(innerLeastError, Math.Abs(_neuralNetwork.OutputNeurons[0].Error));
+                    innerLeastError = Math.Max(innerLeastError, Math.Abs(_nueralNetwork.OutputNeurons[0].Error));
                 }
                 leastError = Math.Min(leastError, innerLeastError);
 
-                OnUpdateStatus?.Invoke(this, new ProgressEventArgs("---------------------"));
+                OnUpdateStatus?.Invoke(this, new ProgressEventArgs("*************************"));
             } while (leastError > acceptedError);
 
-
             OnUpdateStatus?.Invoke(this, new ProgressEventArgs("Done after " + j + " iterations..."));
-
         }
     }
 }

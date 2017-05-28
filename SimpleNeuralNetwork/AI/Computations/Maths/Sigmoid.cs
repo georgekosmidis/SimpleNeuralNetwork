@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SimpleNeuralNetwork.AI.Interfaces;
+using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleNeuralNetwork.AI
+namespace SimpleNeuralNetwork.AI.Computations.Maths
 {
-    public static class Maths
+    public class Sigmoid : IMaths
     {
-        public static Double Sigmoid(double val)
+        public Double OutputMethod(double val)
         {
             if (val < -45.0)
             {
@@ -22,7 +22,7 @@ namespace SimpleNeuralNetwork.AI
 
         }
 
-        public static Double Derivative(double val)
+        public Double DerivativeMethod(double val)
         {
             return val * (1 - val);
         }

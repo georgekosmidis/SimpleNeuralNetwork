@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SimpleNeuralNetwork.AI;
+using SimpleNeuralNetwork.Factories;
 using SimpleNeuralNetwork.Helpers;
 using System;
 using System.Collections.Generic;
@@ -17,55 +18,35 @@ namespace SimpleNeuralNetwork
 
         static void Main(string[] args)
         {
-
+            var factory = new NeuralNetworkFactory(trainedNetworksPath);
+            factory.OnUpdateStatus += Factory_OnUpdateStatus;
             //TRAIN THE NUERAL NETWORK
-            var neuralNetwork = TrainAndReturn_Addition(true);
+            var neuralNetwork = factory.Get(NeuralNetworkFactory.NetworkFor.Addition, 
+                                            NeuralNetworkFactory.TrainType.LiveTraining, 
+                                            NeuralNetworkFactory.MathMethods.Sigmoid);
+            Console.WriteLine("");
+            Console.WriteLine("Computation with newly trained network:");
+            var result = neuralNetwork.Compute(new double[] { .3, .2 });
+            Console.WriteLine("f(.3, .2)=" + Math.Round(result[0], 1).ToString("0.0"));
+
+            //LOAD TRAINED NEURAL NETWORK
+            neuralNetwork = factory.Get(Factories.NeuralNetworkFactory.NetworkFor.Addition, 
+                                        Factories.NeuralNetworkFactory.TrainType.Trained,
+                                        NeuralNetworkFactory.MathMethods.Sigmoid);
 
             Console.WriteLine("");
-            Console.WriteLine("Computation to add unknown variables (.3, .2)");
-            Console.WriteLine("=============================================");
-            var result = neuralNetwork.Compute(new double[] { .3, .2 });
-            Console.WriteLine("Result of actual training: " + Math.Round(result[0], 1).ToString("0.0"));
-
-            //LOAD A TRAINED NEURAL NETWORK
-            neuralNetwork = LoadAndReturn_Addition();
+            Console.WriteLine("Computation with old trained network:");
             result = neuralNetwork.Compute(new double[] { .3, .2 });
-            Console.WriteLine("Result of saved training: " + Math.Round(result[0], 1).ToString("0.0"));
+            Console.WriteLine("f(.3, .2)=" + Math.Round(result[0], 1).ToString("0.0"));
 
-            Console.ReadKey();
-
-        }
-
-        private static NeuralNetwork TrainAndReturn_Addition(bool saveTrainData)
-        {
-            var neuralNetwork = new NeuralNetwork();
-            var trainer = new Trainers.AdditionTrainer(
-                              neuralNetwork,
-                              new JsonFileHandle(
-                                  trainedNetworksPath
-                              )
-                          );
-            trainer.OnUpdateStatus += Trainer_OnUpdateStatus;
-            trainer.Train(5, .001);
-            if (saveTrainData)
-                trainer.Save("AdditionTrainer.json");
-
-            return neuralNetwork;
-        }
-
-        private static NeuralNetwork LoadAndReturn_Addition()
-        {
-            return new Trainers.TrainDataLoader(
-                                    new JsonFileHandle(
-                                        trainedNetworksPath
-                                    )
-                                ).Load("AdditionTrainer.json");
+            Console.ReadKey(true);
 
         }
 
-        private static void Trainer_OnUpdateStatus(object sender, EventArgumens.ProgressEventArgs e)
+        private static void Factory_OnUpdateStatus(object sender, EventArgumens.ProgressEventArgs e)
         {
             Console.WriteLine(e.Status);
         }
+
     }
 }
