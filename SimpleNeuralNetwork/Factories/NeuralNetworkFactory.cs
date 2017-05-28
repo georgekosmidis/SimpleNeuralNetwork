@@ -20,7 +20,7 @@ namespace SimpleNeuralNetwork.Factories
         {
             _trainedNetworksPath = trainedNetworksPath;
         }
-        public enum NetworkFor { Addition, XOR }
+        public enum NetworkFor { Addition, XOR, Custom }
         public enum TrainType { LiveTraining, Trained }
         public enum MathMethods { Sigmoid, HyperTan }
 
@@ -65,6 +65,12 @@ namespace SimpleNeuralNetwork.Factories
                     break;
                 case NetworkFor.XOR:
                     trainer = new Trainers.XorTrainer(
+                             neuralNetworkCompute,
+                             dataHandle
+                         );
+                    break;
+                case NetworkFor.Custom:
+                    trainer = new Trainers.CustomTrainer(
                              neuralNetworkCompute,
                              dataHandle
                          );

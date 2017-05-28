@@ -69,6 +69,7 @@
     <Compile Include="Trainers\AbstactTrainer.cs" />
     <Compile Include="Trainers\AdditionTrainer.cs" />
     <Compile Include="Interfaces\ITrainer.cs" />
+    <Compile Include="Trainers\CustomTrainer.cs" />
     <Compile Include="Trainers\TrainDataLoader.cs" />
     <Compile Include="Trainers\XorTrainer.cs" />
   </ItemGroup>
