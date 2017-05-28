@@ -70,6 +70,7 @@
     <Compile Include="Trainers\AdditionTrainer.cs" />
     <Compile Include="Interfaces\ITrainer.cs" />
     <Compile Include="Trainers\TrainDataLoader.cs" />
+    <Compile Include="Trainers\XorTrainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -78,6 +79,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TrainedNetworks\AdditionTrainer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TrainedNetworks\XORTrainer.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

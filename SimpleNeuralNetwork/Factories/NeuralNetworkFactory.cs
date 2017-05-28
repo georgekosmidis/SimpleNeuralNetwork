@@ -3,6 +3,8 @@ using SimpleNeuralNetwork.AI.Computations;
 using SimpleNeuralNetwork.AI.Interfaces;
 using SimpleNeuralNetwork.EventArgumens;
 using SimpleNeuralNetwork.Helpers;
+using SimpleNeuralNetwork.Interfaces;
+using SimpleNeuralNetwork.Trainers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,59 +20,76 @@ namespace SimpleNeuralNetwork.Factories
         {
             _trainedNetworksPath = trainedNetworksPath;
         }
-        public enum NetworkFor { Addition }
+        public enum NetworkFor { Addition, XOR }
         public enum TrainType { LiveTraining, Trained }
         public enum MathMethods { Sigmoid, HyperTan }
 
         public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
         public event StatusUpdateHandler OnUpdateStatus;
 
-        public NeuralNetworkCompute Get(NetworkFor networkFor, TrainType trainType, MathMethods maths)
+        public NeuralNetworkCompute Get(NetworkFor networkFor, TrainType trainType, MathMethods mathMethods)
         {
-            IMaths math;
-            if (maths == MathMethods.Sigmoid)
-                math = new AI.Computations.Maths.Sigmoid();
+            IMaths _mathMethods;
+            if (mathMethods == MathMethods.Sigmoid)
+                _mathMethods = new AI.Computations.Maths.Sigmoid();
             else
-                math = new AI.Computations.Maths.HyperTan();
+                _mathMethods = new AI.Computations.Maths.HyperTan();
 
             var neuralNetworkCompute = new NeuralNetworkCompute(
-                                            new FeedForward(math),
-                                            new BackPropagate(math),
+                                            new FeedForward(_mathMethods),
+                                            new BackPropagate(_mathMethods),
                                             new NetworkLayers(
                                                 new NeuronCompute()
                                             )
                                         );
+
+            if (trainType == TrainType.LiveTraining)
+                return TrainAndReturn(networkFor, neuralNetworkCompute);
+            return GetTrained(networkFor, neuralNetworkCompute);
+
+        }
+        private NeuralNetworkCompute TrainAndReturn(NetworkFor networkFor, NeuralNetworkCompute neuralNetworkCompute)
+        {
+            var dataHandle = new JsonFileHandle(
+                                  _trainedNetworksPath
+                              );
+            ITrainer trainer;
+
             switch (networkFor)
             {
                 case NetworkFor.Addition:
-                    return trainType == TrainType.LiveTraining ? Addition_Train(neuralNetworkCompute) : Addition_Trained(neuralNetworkCompute);
+                    trainer = new Trainers.AdditionTrainer(
+                             neuralNetworkCompute,
+                             dataHandle
+                         );
+                    break;
+                case NetworkFor.XOR:
+                    trainer = new Trainers.XorTrainer(
+                             neuralNetworkCompute,
+                             dataHandle
+                         );
+                    break;
+                default:
+                    throw new NotImplementedException("Network " + networkFor + " not implemented!");
             }
-            return null;
-        }
-        private NeuralNetworkCompute Addition_Train(NeuralNetworkCompute neuralNetworkCompute)
-        {
-            var trainer = new Trainers.AdditionTrainer(
-                              neuralNetworkCompute,
-                              new JsonFileHandle(
-                                  _trainedNetworksPath
-                              )
-                          );
-            trainer.OnUpdateStatus += Factory_OnUpdateStatus;
+
+            (trainer as AbstactTrainer).OnUpdateStatus += Factory_OnUpdateStatus;
             trainer.Train(5, .001);
 
-            trainer.Save("AdditionTrainer.json");
+            trainer.Save(networkFor + "Trainer.json");
 
             return neuralNetworkCompute;
         }
 
-        private NeuralNetworkCompute Addition_Trained(NeuralNetworkCompute neuralNetworkCompute)
+        private NeuralNetworkCompute GetTrained(NetworkFor networkFor, NeuralNetworkCompute neuralNetworkCompute)
         {
+
             new Trainers.TrainDataLoader(
                 neuralNetworkCompute,
                 new JsonFileHandle(
                     _trainedNetworksPath
                 )
-            ).Load("AdditionTrainer.json");
+            ).Load(networkFor + "Trainer.json");
             return neuralNetworkCompute;
         }
 
