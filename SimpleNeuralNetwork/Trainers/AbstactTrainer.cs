@@ -52,7 +52,7 @@ namespace SimpleNeuralNetwork.Trainers
                     var status = GetMatrix(_nueralNetwork.OutputNeurons, resultsData[i]);
                     OnUpdateStatus?.Invoke(this, new ProgressEventArgs(status));
 
-                    innerLeastError = GetMaxError(_nueralNetwork.OutputNeurons);
+                    innerLeastError = Math.Max(innerLeastError, GetMaxError(_nueralNetwork.OutputNeurons));
                 }
                 leastError = Math.Min(leastError, innerLeastError);
 
