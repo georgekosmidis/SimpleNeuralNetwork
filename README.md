@@ -4,8 +4,10 @@ A multi-layer perceptron (one input, one hidden and output), forward feed neural
 ### Trainers
 Two trainers, for addition and XOR, with the ability to live train the neural network or load a trained data file into the network.
 ### Math Methods
-Two available methods, Sigmoid and HyperTan to try train the network and see the differences
+Two available methods, Sigmoid and HyperTan to try train the network and see the differences. 
+
 _Sigmoid as output method is in in the range of 0 to 1, so input/ouput data must me normalized  from 0 to 1_
+
 _HyperTan is in in the range of -1 to 1, so input/ouput data must me normalized from -1 to 1_
 ### Program.cs
 Working example of how to train the Nueral Network to add to decimals, or to load trained data.
