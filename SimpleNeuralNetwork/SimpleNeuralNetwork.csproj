@@ -66,6 +66,7 @@
     <Compile Include="DataHandlers\JsonFileHandle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Trainers\AbstactTrainer.cs" />
     <Compile Include="Trainers\AdditionTrainer.cs" />
     <Compile Include="Interfaces\ITrainer.cs" />
     <Compile Include="Trainers\TrainDataLoader.cs" />
