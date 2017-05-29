@@ -10,13 +10,19 @@ namespace SimpleNeuralNetwork.AI.Computations
 {
     public class FeedForward : IFeedForward
     {
-        IMaths _maths;
-        public FeedForward(IMaths maths)
+
+        public FeedForward()
         {
-            _maths = maths;
+
         }
+
         public void Compute(NeuralNetwork neuralNetwork, double[] inputData)
         {
+            IMaths _mathMethods;
+            if (neuralNetwork.MathFunctions == MathFunctions.Sigmoid)
+                _mathMethods = new AI.Computations.Maths.Sigmoid();
+            else
+                _mathMethods = new AI.Computations.Maths.HyperTan();
 
             for (var i = 0; i < neuralNetwork.InputNeurons.Count(); i++)
                 neuralNetwork.InputNeurons[i].Value = inputData[i];
@@ -24,13 +30,13 @@ namespace SimpleNeuralNetwork.AI.Computations
             foreach (var hiddenNeuron in neuralNetwork.HiddenNeurons)
             {
                 var total = hiddenNeuron.InputSynapses.Sum(x => x.FromNeuron.Value * x.Weight);
-                hiddenNeuron.Value = _maths.OutputMethod(total);
+                hiddenNeuron.Value = _mathMethods.OutputMethod(total);
             }
 
             foreach (var outputNeuron in neuralNetwork.OutputNeurons)
             {
                 var total = outputNeuron.InputSynapses.Sum(x => x.FromNeuron.Value * x.Weight);
-                outputNeuron.Value = _maths.OutputMethod(total);
+                outputNeuron.Value = _mathMethods.OutputMethod(total);
             }
         }
     }

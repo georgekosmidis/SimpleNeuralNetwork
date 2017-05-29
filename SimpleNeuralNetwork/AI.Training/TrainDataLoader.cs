@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleNeuralNetwork.Trainers
+namespace SimpleNeuralNetwork.AI.Training
 {
     public class TrainDataLoader
     {

@@ -10,19 +10,24 @@ namespace SimpleNeuralNetwork.AI.Computations
 {
     public class BackPropagate : IBackPropagate
     {
-        IMaths _maths;
-        public BackPropagate(IMaths maths)
+        public BackPropagate()
         {
-            _maths = maths;
+
         }
 
         public void Compute(NeuralNetwork neuralNetwork, double[] outputData)
         {
+            IMaths _mathMethods;
+            if (neuralNetwork.MathFunctions == MathFunctions.Sigmoid)
+                _mathMethods = new AI.Computations.Maths.Sigmoid();
+            else
+                _mathMethods = new AI.Computations.Maths.HyperTan();
+
             for (var i = 0; i < neuralNetwork.OutputNeurons.Count(); i++)
-                neuralNetwork.OutputNeurons[i].Error = _maths.DerivativeMethod(neuralNetwork.OutputNeurons[i].Value) * (outputData[i] - neuralNetwork.OutputNeurons[i].Value);
+                neuralNetwork.OutputNeurons[i].Error = _mathMethods.DerivativeMethod(neuralNetwork.OutputNeurons[i].Value) * (outputData[i] - neuralNetwork.OutputNeurons[i].Value);
 
             foreach (var hiddenNeuron in neuralNetwork.HiddenNeurons)
-                hiddenNeuron.Error = hiddenNeuron.OutputSynapses.Sum(x => x.ToNeuron.Error * x.Weight) * _maths.DerivativeMethod(hiddenNeuron.Value);
+                hiddenNeuron.Error = hiddenNeuron.OutputSynapses.Sum(x => x.ToNeuron.Error * x.Weight) * _mathMethods.DerivativeMethod(hiddenNeuron.Value);
 
             foreach (var outputNeuron in neuralNetwork.OutputNeurons)
             {

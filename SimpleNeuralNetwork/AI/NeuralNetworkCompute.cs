@@ -38,8 +38,6 @@ namespace SimpleNeuralNetwork.AI
             {
                 for (var j = 0; j < _neuralNetwork.InputNeurons[i].OutputSynapses.Count(); j++)
                 {
-                    //neuralNetwork.InputNeurons[i].OutputSynapses[j] = neuralNetwork.HiddenNeurons[j].InputSynapses[i];
-
                     _neuralNetwork.InputNeurons[i].OutputSynapses[j].FromNeuron = _neuralNetwork.InputNeurons[i];
                     _neuralNetwork.InputNeurons[i].OutputSynapses[j].ToNeuron = _neuralNetwork.HiddenNeurons[j];
 
@@ -52,8 +50,6 @@ namespace SimpleNeuralNetwork.AI
             {
                 for (var j = 0; j < _neuralNetwork.HiddenNeurons[i].OutputSynapses.Count(); j++)
                 {
-                    //neuralNetwork.HiddenNeurons[i].OutputSynapses[j] = neuralNetwork.OutputNeurons[j].InputSynapses[i];
-
                     _neuralNetwork.HiddenNeurons[i].OutputSynapses[j].FromNeuron = _neuralNetwork.HiddenNeurons[i];
                     _neuralNetwork.HiddenNeurons[i].OutputSynapses[j].ToNeuron = _neuralNetwork.OutputNeurons[j];
 
@@ -70,8 +66,10 @@ namespace SimpleNeuralNetwork.AI
             return this._neuralNetwork.OutputNeurons.Select(a => a.Value).ToArray();
         }
 
-        public NeuralNetwork Train(double[] inputData, double[] outputData)
+        public NeuralNetwork Train(double[] inputData, double[] outputData, MathFunctions mathFunctions)
         {
+            this._neuralNetwork.MathFunctions = mathFunctions;
+
             _feedForward.Compute(this._neuralNetwork, inputData);
             _backPropagate.Compute(this._neuralNetwork, outputData);
             return _neuralNetwork;

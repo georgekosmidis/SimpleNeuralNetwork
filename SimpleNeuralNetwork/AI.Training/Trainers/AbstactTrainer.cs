@@ -1,5 +1,6 @@
 ﻿using SimpleNeuralNetwork.AI;
 using SimpleNeuralNetwork.AI.Models;
+using SimpleNeuralNetwork.AI.Training.Models;
 using SimpleNeuralNetwork.EventArgumens;
 using SimpleNeuralNetwork.Interfaces;
 using System;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleNeuralNetwork.Trainers
+namespace SimpleNeuralNetwork.AI.Training.Trainers
 {
     public abstract class AbstactTrainer
     {
@@ -17,9 +18,7 @@ namespace SimpleNeuralNetwork.Trainers
         NeuralNetwork _nueralNetwork = new NeuralNetwork();
         IDataHandle _filehandle;
 
-        protected virtual double[][] inputData { get; } = new double[][] { new double[] { } };
-        protected virtual double[][] resultsData { get; } = new double[][] { new double[] { } };
-
+        protected virtual NeuralNetworkTrainModel NueralNetworkModel { get; } = new NeuralNetworkTrainModel();
 
         public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
         public event StatusUpdateHandler OnUpdateStatus;
@@ -33,32 +32,40 @@ namespace SimpleNeuralNetwork.Trainers
         {
             _filehandle.Save<NeuralNetwork>(filename, _nueralNetwork);
         }
-        public void Train(int hiddenLayerNeurons, double acceptedError)
+        public void Train()
         {
-            _neuralNetworkCompute.CreateLayers(inputData[0].Length, hiddenLayerNeurons, resultsData[0].Length);
+
+            _neuralNetworkCompute.CreateLayers(NueralNetworkModel.Count(x => x.Layer == NeuronLayer.Input),
+                                               NueralNetworkModel.HiddenNeuronsCount,
+                                               NueralNetworkModel.Count(x => x.Layer == NeuronLayer.Output));
+            
 
             var j = 0;
             var leastError = 1d;
             do
             {
-                var s = GetMatrixHeaders(j + 1);
-                OnUpdateStatus?.Invoke(this, new ProgressEventArgs(s));
+                var status = GetMatrixHeaders(j + 1);
+                OnUpdateStatus?.Invoke(this, new ProgressEventArgs(status));
 
                 var innerLeastError = 0d;
-                for (int i = 0; i < inputData.Length; i++)
-                {
-                    _nueralNetwork = _neuralNetworkCompute.Train(inputData[i], resultsData[i]);
 
-                    var status = GetMatrix(_nueralNetwork.OutputNeurons, resultsData[i]);
-                    OnUpdateStatus?.Invoke(this, new ProgressEventArgs(status));
+                for (int i = 0; i < NueralNetworkModel.ValuesCount; i++)
+                {
+                    _nueralNetwork = _neuralNetworkCompute.Train(NueralNetworkModel.GetValuesForLayer(NeuronLayer.Input, i),
+                                                                 NueralNetworkModel.GetValuesForLayer(NeuronLayer.Output, i),
+                                                                 NueralNetworkModel.MathFunctions);
 
                     innerLeastError = Math.Max(innerLeastError, GetMaxError(_nueralNetwork.OutputNeurons));
+
+                    status = GetMatrix(_nueralNetwork.OutputNeurons, NueralNetworkModel.GetValuesForLayer(NeuronLayer.Output, i));
+                    OnUpdateStatus?.Invoke(this, new ProgressEventArgs(status));
                 }
                 leastError = Math.Min(leastError, innerLeastError);
 
-            } while (leastError > acceptedError);
+            } while (leastError > NueralNetworkModel.AcceptedError);
 
         }
+
 
         private double GetMaxError(List<Neuron> neurons)
         {

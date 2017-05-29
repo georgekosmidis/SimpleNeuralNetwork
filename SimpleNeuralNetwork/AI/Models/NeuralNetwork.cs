@@ -12,5 +12,8 @@ namespace SimpleNeuralNetwork.AI.Models
         public List<Neuron> InputNeurons { get; } = new List<Neuron>();
         public List<Neuron> HiddenNeurons { get; } = new List<Neuron>();
         public List<Neuron> OutputNeurons { get; } = new List<Neuron>();
+
+        public int HiddenLayerNeurons { get; set; } = 5;
+        public MathFunctions MathFunctions { get; set; } = MathFunctions.Sigmoid;
     }
 }

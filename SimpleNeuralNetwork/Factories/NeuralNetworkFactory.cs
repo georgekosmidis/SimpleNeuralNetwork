@@ -4,12 +4,13 @@ using SimpleNeuralNetwork.AI.Interfaces;
 using SimpleNeuralNetwork.EventArgumens;
 using SimpleNeuralNetwork.Helpers;
 using SimpleNeuralNetwork.Interfaces;
-using SimpleNeuralNetwork.Trainers;
+using SimpleNeuralNetwork.AI.Training;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SimpleNeuralNetwork.AI.Training.Trainers;
 
 namespace SimpleNeuralNetwork.Factories
 {
@@ -27,17 +28,12 @@ namespace SimpleNeuralNetwork.Factories
         public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
         public event StatusUpdateHandler OnUpdateStatus;
 
-        public NeuralNetworkCompute Get(NetworkFor networkFor, TrainType trainType, MathMethods mathMethods)
+        public NeuralNetworkCompute Get(NetworkFor networkFor, TrainType trainType)
         {
-            IMaths _mathMethods;
-            if (mathMethods == MathMethods.Sigmoid)
-                _mathMethods = new AI.Computations.Maths.Sigmoid();
-            else
-                _mathMethods = new AI.Computations.Maths.HyperTan();
 
             var neuralNetworkCompute = new NeuralNetworkCompute(
-                                            new FeedForward(_mathMethods),
-                                            new BackPropagate(_mathMethods),
+                                            new FeedForward(),
+                                            new BackPropagate(),
                                             new NetworkLayers(
                                                 new NeuronCompute()
                                             )
@@ -50,37 +46,26 @@ namespace SimpleNeuralNetwork.Factories
         }
         private NeuralNetworkCompute TrainAndReturn(NetworkFor networkFor, NeuralNetworkCompute neuralNetworkCompute)
         {
-            var dataHandle = new JsonFileHandle(
-                                  _trainedNetworksPath
-                              );
+            var dataHandle = new JsonFileHandle(_trainedNetworksPath);
             ITrainer trainer;
 
             switch (networkFor)
             {
                 case NetworkFor.Addition:
-                    trainer = new Trainers.AdditionTrainer(
-                             neuralNetworkCompute,
-                             dataHandle
-                         );
+                    trainer = new AdditionTrainer(neuralNetworkCompute, dataHandle);
                     break;
                 case NetworkFor.XOR:
-                    trainer = new Trainers.XorTrainer(
-                             neuralNetworkCompute,
-                             dataHandle
-                         );
+                    trainer = new XorTrainer(neuralNetworkCompute, dataHandle);
                     break;
                 case NetworkFor.Custom:
-                    trainer = new Trainers.CustomTrainer(
-                             neuralNetworkCompute,
-                             dataHandle
-                         );
+                    trainer = new CustomTrainer(neuralNetworkCompute, dataHandle);
                     break;
                 default:
                     throw new NotImplementedException("Network " + networkFor + " not implemented!");
             }
 
             (trainer as AbstactTrainer).OnUpdateStatus += Factory_OnUpdateStatus;
-            trainer.Train(5, .001);
+            trainer.Train();
 
             trainer.Save(networkFor + "Trainer.json");
 
@@ -90,7 +75,7 @@ namespace SimpleNeuralNetwork.Factories
         private NeuralNetworkCompute GetTrained(NetworkFor networkFor, NeuralNetworkCompute neuralNetworkCompute)
         {
 
-            new Trainers.TrainDataLoader(
+            new AI.Training.TrainDataLoader(
                 neuralNetworkCompute,
                 new JsonFileHandle(
                     _trainedNetworksPath

@@ -19,36 +19,37 @@ namespace SimpleNeuralNetwork
 
         static void Main(string[] args)
         {
-            var factory = new NeuralNetworkFactory(trainedNetworksPath);
-            factory.OnUpdateStatus += Factory_OnUpdateStatus;
-
-            //TRAIN THE NUERAL NETWORK
-            var neuralNetwork = factory.Get(NeuralNetworkFactory.NetworkFor.Addition,
-                                            NeuralNetworkFactory.TrainType.LiveTraining,
-                                            NeuralNetworkFactory.MathMethods.Sigmoid);
-            Console.WriteLine("");
-            Console.WriteLine("Computation with newly trained network:");
-            var result = neuralNetwork.Compute(new double[] { .2, .2 });
-            WriteMatrix(result);
-
-            //LOAD TRAINED NEURAL NETWORK
-            neuralNetwork = factory.Get(Factories.NeuralNetworkFactory.NetworkFor.Addition,
-                                        Factories.NeuralNetworkFactory.TrainType.Trained,
-                                        NeuralNetworkFactory.MathMethods.Sigmoid);
-
-            Console.WriteLine("");
-            Console.WriteLine("Computation with old trained network:");
-            result = neuralNetwork.Compute(new double[] { .2, .2 });
-            WriteMatrix(result);
+            Run(NeuralNetworkFactory.NetworkFor.Custom, new double[] { .2, .1, .2 });
 
             Console.ReadKey(true);
 
         }
 
+        private static void Run(NeuralNetworkFactory.NetworkFor networkFor, double[] tests)
+        {
+            var factory = new NeuralNetworkFactory(trainedNetworksPath);
+            factory.OnUpdateStatus += Factory_OnUpdateStatus;
+
+            //TRAIN THE NUERAL NETWORK
+            var neuralNetwork = factory.Get(networkFor, NeuralNetworkFactory.TrainType.LiveTraining);
+            Console.WriteLine("");
+            Console.WriteLine("Computation with newly trained network:");
+            var result = neuralNetwork.Compute(tests);
+            WriteMatrix(result);
+
+            //LOAD TRAINED NEURAL NETWORK
+            neuralNetwork = factory.Get(networkFor, Factories.NeuralNetworkFactory.TrainType.Trained);
+
+            Console.WriteLine("");
+            Console.WriteLine("Computation with old trained network:");
+            result = neuralNetwork.Compute(tests);
+            WriteMatrix(result);
+        }
+
         private static void WriteMatrix(double[] result)
         {
             for (var i = 0; i < result.Length; i++)
-                Console.WriteLine("Output Neuron " + (i + 1) + ": " + result[i].ToString("0.0000", CultureInfo.InvariantCulture));
+                Console.WriteLine("Output Neuron " + (i + 1) + ": " + Math.Round(result[i], 1).ToString("0.0", CultureInfo.InvariantCulture));
 
         }
 

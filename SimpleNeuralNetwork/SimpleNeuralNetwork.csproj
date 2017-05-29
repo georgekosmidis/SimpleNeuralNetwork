@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI.Training\Models\eNeuronLayer.cs" />
     <Compile Include="AI\Computations\BackPropagate.cs" />
     <Compile Include="AI\Computations\FeedForward.cs" />
     <Compile Include="AI\Computations\Maths\HyperTan.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="AI\Computations\NetworkLayers.cs" />
     <Compile Include="AI\Interfaces\IBackPropagate.cs" />
     <Compile Include="AI\Interfaces\IFeedForward.cs" />
+    <Compile Include="AI\Models\eMathFunctions.cs" />
     <Compile Include="AI\Models\NeuralNetwork.cs" />
     <Compile Include="AI\Models\Neuron.cs" />
     <Compile Include="Factories\NeuralNetworkFactory.cs" />
@@ -66,12 +68,15 @@
     <Compile Include="DataHandlers\JsonFileHandle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Trainers\AbstactTrainer.cs" />
-    <Compile Include="Trainers\AdditionTrainer.cs" />
+    <Compile Include="AI.Training\Trainers\AbstactTrainer.cs" />
+    <Compile Include="AI.Training\Trainers\AdditionTrainer.cs" />
     <Compile Include="Interfaces\ITrainer.cs" />
-    <Compile Include="Trainers\CustomTrainer.cs" />
-    <Compile Include="Trainers\TrainDataLoader.cs" />
-    <Compile Include="Trainers\XorTrainer.cs" />
+    <Compile Include="AI.Training\Trainers\CustomTrainer.cs" />
+    <Compile Include="AI.Training\NeuralNetworkModeling.cs" />
+    <Compile Include="AI.Training\Models\NeuronTrainModel.cs" />
+    <Compile Include="AI.Training\Models\NeuralNetworkTrainModel.cs" />
+    <Compile Include="AI.Training\TrainDataLoader.cs" />
+    <Compile Include="AI.Training\Trainers\XorTrainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -86,6 +91,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="AI.Training\Interfaces\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
