@@ -31,16 +31,12 @@ namespace SimpleNeuralNetwork.AI.Computations
 
             foreach (var outputNeuron in neuralNetwork.OutputNeurons)
             {
-                outputNeuron.Bias += neuralNetwork.LearningRate * outputNeuron.Error;
-
                 foreach (var synapse in outputNeuron.InputSynapses)
                     synapse.Weight += neuralNetwork.LearningRate * outputNeuron.Error * synapse.FromNeuron.Value;
             }
 
             foreach (var hiddenNeuron in neuralNetwork.HiddenNeurons)
             {
-                hiddenNeuron.Bias += neuralNetwork.LearningRate * hiddenNeuron.Error;
-
                 foreach (var synapse in hiddenNeuron.InputSynapses)
                     synapse.Weight += neuralNetwork.LearningRate * hiddenNeuron.Error * synapse.FromNeuron.Value;
             }

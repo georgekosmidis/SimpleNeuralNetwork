@@ -13,12 +13,11 @@ namespace SimpleNeuralNetwork.AI
         public List<Synapse> OutputSynapses { get; private set; } = new List<Synapse>();
 
         public Double Value { get; set; }
-        public Double Bias { get; set; }
         public Double Error { get; set; } = 1;
 
         public Neuron()
         {
-            Bias = new Random(Guid.NewGuid().GetHashCode()).NextDouble();
+
         }
 
     }

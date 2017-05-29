@@ -32,7 +32,7 @@ namespace SimpleNeuralNetwork.AI.Training.Trainers
             //Neural Network will try to replicate procedure f for every unknown input. That's what NN do :)
             NeuralNetworkModel = new NeuralNetworkModeling()
                                         .SetHiddenNeurons(5)                                //Set the number of hidden neurons
-                                        .SetMathFunctions(MathFunctions.HyperTan)             //Set the algorithms to be used 
+                                        .SetMathFunctions(MathFunctions.HyperTan)           //Set the algorithms to be used 
                                         .SetAcceptedError(.001)                             //Set accepted error for the train session to complete
 
                                         .AddInputNeuron()                                   //Add Input Neuron 1
