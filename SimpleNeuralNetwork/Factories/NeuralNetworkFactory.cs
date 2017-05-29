@@ -1,9 +1,6 @@
 ﻿using SimpleNeuralNetwork.AI;
 using SimpleNeuralNetwork.AI.Computations;
 using SimpleNeuralNetwork.AI.Interfaces;
-using SimpleNeuralNetwork.EventArgumens;
-using SimpleNeuralNetwork.Helpers;
-using SimpleNeuralNetwork.Interfaces;
 using SimpleNeuralNetwork.AI.Training;
 using System;
 using System.Collections.Generic;
@@ -11,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SimpleNeuralNetwork.AI.Training.Trainers;
+using SimpleNeuralNetwork.AI.Training.DataHandlers;
+using SimpleNeuralNetwork.AI.Training.Interfaces;
+using SimpleNeuralNetwork.AI.Training.EventArguments;
 
 namespace SimpleNeuralNetwork.Factories
 {
@@ -23,7 +23,6 @@ namespace SimpleNeuralNetwork.Factories
         }
         public enum NetworkFor { Addition, XOR, Custom }
         public enum TrainType { LiveTraining, Trained }
-        public enum MathMethods { Sigmoid, HyperTan }
 
         public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
         public event StatusUpdateHandler OnUpdateStatus;
@@ -75,7 +74,7 @@ namespace SimpleNeuralNetwork.Factories
         private NeuralNetworkCompute GetTrained(NetworkFor networkFor, NeuralNetworkCompute neuralNetworkCompute)
         {
 
-            new AI.Training.TrainDataLoader(
+            new TrainedNetworksLoader(
                 neuralNetworkCompute,
                 new JsonFileHandle(
                     _trainedNetworksPath
@@ -84,7 +83,7 @@ namespace SimpleNeuralNetwork.Factories
             return neuralNetworkCompute;
         }
 
-        private void Factory_OnUpdateStatus(object sender, EventArgumens.ProgressEventArgs e)
+        private void Factory_OnUpdateStatus(object sender, ProgressEventArgs e)
         {
             OnUpdateStatus?.Invoke(sender, e);
         }

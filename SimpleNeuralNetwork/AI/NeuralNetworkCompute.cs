@@ -1,6 +1,5 @@
 ﻿using SimpleNeuralNetwork.AI.Interfaces;
 using SimpleNeuralNetwork.AI.Models;
-using SimpleNeuralNetwork.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

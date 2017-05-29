@@ -1,7 +1,8 @@
 ﻿using SimpleNeuralNetwork.AI;
 using SimpleNeuralNetwork.AI.Models;
+using SimpleNeuralNetwork.AI.Training.Interfaces;
 using SimpleNeuralNetwork.AI.Training.Models;
-using SimpleNeuralNetwork.Interfaces;
+using SimpleNeuralNetwork.AI.Training.Trainers.ModelingHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,4 @@
-﻿namespace SimpleNeuralNetwork.Interfaces
+﻿namespace SimpleNeuralNetwork.AI.Training.Interfaces
 {
     public interface IDataHandle
     {

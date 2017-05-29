@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleNeuralNetwork.EventArgumens
+namespace SimpleNeuralNetwork.AI.Training.EventArguments
 {
     public class ProgressEventArgs : EventArgs
     {

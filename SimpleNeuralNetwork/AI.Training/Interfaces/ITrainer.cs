@@ -1,6 +1,4 @@
-﻿using SimpleNeuralNetwork.AI.Models;
-
-namespace SimpleNeuralNetwork.Interfaces
+﻿namespace SimpleNeuralNetwork.AI.Training.Interfaces
 {
     public interface ITrainer
     {

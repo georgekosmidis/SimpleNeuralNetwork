@@ -63,36 +63,34 @@
     <Compile Include="AI\NeuralNetworkCompute.cs" />
     <Compile Include="AI\Computations\NeuronCompute.cs" />
     <Compile Include="AI\Models\Synapse.cs" />
-    <Compile Include="EventArgumens\ProgressEventArgs.cs" />
-    <Compile Include="Interfaces\IFileHandle.cs" />
-    <Compile Include="DataHandlers\JsonFileHandle.cs" />
+    <Compile Include="AI.Training\EventArguments\ProgressEventArgs.cs" />
+    <Compile Include="AI.Training\Interfaces\IFileHandle.cs" />
+    <Compile Include="AI.Training\DataHandlers\JsonFileHandle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AI.Training\Trainers\AbstactTrainer.cs" />
     <Compile Include="AI.Training\Trainers\AdditionTrainer.cs" />
-    <Compile Include="Interfaces\ITrainer.cs" />
+    <Compile Include="AI.Training\Interfaces\ITrainer.cs" />
     <Compile Include="AI.Training\Trainers\CustomTrainer.cs" />
-    <Compile Include="AI.Training\NeuralNetworkModeling.cs" />
+    <Compile Include="AI.Training\Trainers\ModelingHelpers\NeuralNetworkModeling.cs" />
     <Compile Include="AI.Training\Models\NeuronTrainModel.cs" />
     <Compile Include="AI.Training\Models\NeuralNetworkTrainModel.cs" />
-    <Compile Include="AI.Training\TrainDataLoader.cs" />
+    <Compile Include="AI.Training\Trainers\TrainedNetworksLoader.cs" />
     <Compile Include="AI.Training\Trainers\XorTrainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="TrainedNetworks\.gitkeep">
+    <None Include="AI.Training\Trainers\TrainedNetworks\.gitkeep">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TrainedNetworks\AdditionTrainer.json">
+    <None Include="AI.Training\Trainers\TrainedNetworks\AdditionTrainer.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TrainedNetworks\XORTrainer.json">
+    <None Include="AI.Training\Trainers\TrainedNetworks\XORTrainer.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AI.Training\Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

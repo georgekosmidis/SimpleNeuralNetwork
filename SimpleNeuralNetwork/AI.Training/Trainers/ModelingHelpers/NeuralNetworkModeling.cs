@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleNeuralNetwork.AI.Training
+namespace SimpleNeuralNetwork.AI.Training.Trainers.ModelingHelpers
 {
     public class NeuralNetworkModeling
     {

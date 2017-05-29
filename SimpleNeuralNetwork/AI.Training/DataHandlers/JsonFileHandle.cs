@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SimpleNeuralNetwork.Interfaces;
+using SimpleNeuralNetwork.AI.Training.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleNeuralNetwork.Helpers
+namespace SimpleNeuralNetwork.AI.Training.DataHandlers
 {
     public class JsonFileHandle : IDataHandle
     {

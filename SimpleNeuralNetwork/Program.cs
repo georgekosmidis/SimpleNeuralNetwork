@@ -1,7 +1,5 @@
-﻿using Newtonsoft.Json;
-using SimpleNeuralNetwork.AI;
+﻿using SimpleNeuralNetwork.AI.Training.EventArguments;
 using SimpleNeuralNetwork.Factories;
-using SimpleNeuralNetwork.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -19,7 +17,7 @@ namespace SimpleNeuralNetwork
 
         static void Main(string[] args)
         {
-            Run(NeuralNetworkFactory.NetworkFor.Custom, new double[] { .2, .1, .1 });
+            Run(NeuralNetworkFactory.NetworkFor.Addition, new double[] { .2, .1 });
 
             Console.ReadKey(true);
 
@@ -53,7 +51,7 @@ namespace SimpleNeuralNetwork
 
         }
 
-        private static void Factory_OnUpdateStatus(object sender, EventArgumens.ProgressEventArgs e)
+        private static void Factory_OnUpdateStatus(object sender, ProgressEventArgs e)
         {
             Console.WriteLine(e.Status);
         }

@@ -1,8 +1,8 @@
 ﻿using SimpleNeuralNetwork.AI;
 using SimpleNeuralNetwork.AI.Models;
+using SimpleNeuralNetwork.AI.Training.EventArguments;
+using SimpleNeuralNetwork.AI.Training.Interfaces;
 using SimpleNeuralNetwork.AI.Training.Models;
-using SimpleNeuralNetwork.EventArgumens;
-using SimpleNeuralNetwork.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

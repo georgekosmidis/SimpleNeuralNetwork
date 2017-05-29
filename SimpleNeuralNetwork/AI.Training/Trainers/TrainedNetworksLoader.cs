@@ -1,20 +1,20 @@
 ﻿using SimpleNeuralNetwork.AI;
 using SimpleNeuralNetwork.AI.Models;
-using SimpleNeuralNetwork.Interfaces;
+using SimpleNeuralNetwork.AI.Training.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleNeuralNetwork.AI.Training
+namespace SimpleNeuralNetwork.AI.Training.Trainers
 {
-    public class TrainDataLoader
+    public class TrainedNetworksLoader
     {
         NeuralNetworkCompute _neuralNetworkCompute;
         IDataHandle _filehandle;
 
-        public TrainDataLoader(NeuralNetworkCompute neuralNetworkCompute, IDataHandle filehandle)
+        public TrainedNetworksLoader(NeuralNetworkCompute neuralNetworkCompute, IDataHandle filehandle)
         {
             _neuralNetworkCompute = neuralNetworkCompute;
             _filehandle = filehandle;
