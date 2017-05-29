@@ -12,7 +12,7 @@ namespace SimpleNeuralNetwork.AI.Training.Trainers
 {
     public class CustomTrainer : AbstactTrainer, ITrainer
     {
-        protected override NeuralNetworkTrainModel NueralNetworkModel { get; } = new NeuralNetworkTrainModel();
+        protected override NeuralNetworkTrainModel NeuralNetworkModel { get; } = new NeuralNetworkTrainModel();
 
         //*****************************************************************************
         //REMEMBER TO NORMALIZE YOUR DATA, 
@@ -30,7 +30,7 @@ namespace SimpleNeuralNetwork.AI.Training.Trainers
             //For example, Input neuron 1 will have as input '.2', neuron 2 will have '.1', and neuron 3 will have '.1'
             //Expected value for Output neuron 1 is '0' and for Output Neuron 2 is '.4'
             //Neural Network will try to replicate procedure f for every unknown input. That's what NN do :)
-            NueralNetworkModel = new NeuralNetworkModeling()
+            NeuralNetworkModel = new NeuralNetworkModeling()
                                         .SetHiddenNeurons(5)                                //Set the number of hidden neurons
                                         .SetMathFunctions(MathFunctions.HyperTan)             //Set the algorithms to be used 
                                         .SetAcceptedError(.001)                             //Set accepted error for the train session to complete

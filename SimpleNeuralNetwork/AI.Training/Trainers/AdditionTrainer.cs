@@ -14,11 +14,11 @@ namespace SimpleNeuralNetwork.AI.Training.Trainers
     public class AdditionTrainer : AbstactTrainer, ITrainer
     {
 
-        protected override NeuralNetworkTrainModel NueralNetworkModel { get; } = new NeuralNetworkTrainModel();
+        protected override NeuralNetworkTrainModel NeuralNetworkModel { get; } = new NeuralNetworkTrainModel();
 
         public AdditionTrainer(NeuralNetworkCompute neuralNetworkCompute, IDataHandle filehandle) : base(neuralNetworkCompute, filehandle)
         {
-            NueralNetworkModel = new NeuralNetworkModeling()
+            NeuralNetworkModel = new NeuralNetworkModeling()
                                         .SetHiddenNeurons(5)
                                         .SetMathFunctions(MathFunctions.Sigmoid)
                                         .SetAcceptedError(.001)
