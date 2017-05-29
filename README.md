@@ -25,10 +25,10 @@ Use Custom Trainer in AI.Training/Trainers/CustomTrainer.cs to model your own pr
 ```csharp
 //Values of Input neurons define variables inserted into the system
 //Values of Output neurons define the expected result of the neural network
-//By reading the values vertically: f( .2, .1, .1 ) = [  0, .4 ] 
-//                                  f( .3, .2, .1 ) = [  0, .6 ]
-//                                  f( .2, .1, .2 ) = [-.1, .5 ]
-//                                  f( .1, .1, .1 ) = [-.1, .3 ]
+//Read the values of the model vertically to have the functions: f( .2, .1, .1 ) = [  0, .4 ] 
+//                                                               f( .3, .2, .1 ) = [  0, .6 ]
+//                                                               f( .2, .1, .2 ) = [-.1, .5 ]
+//                                                               f( .1, .1, .1 ) = [-.1, .3 ]
 //For example, Input neuron 1 will have as input '.2', neuron 2 will have '.1', and neuron 3 will have '.1'
 //Expected value for Output neuron 1 is '0' and for Output Neuron 2 is '.4'
 //Neural Network will try to replicate procedure f for every unknown input. That's what NN do :)
