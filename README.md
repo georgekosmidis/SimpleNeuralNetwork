@@ -10,9 +10,9 @@ _Sigmoid as output method is in in the range of 0 to 1, so input/ouput data must
 _HyperTan is in in the range of -1 to 1, so input/ouput data must me normalized from -1 to 1_
 
 ### Program.cs
-Working example of how to train the Nueral Network to add to decimals, or to load trained data.
+Working example of how to train the Neural Network to add to decimals, or to load trained data.
 ### How to
-Use NeuralNetworkFactory to get a new nueral network:
+Use NeuralNetworkFactory to get a new neural network:
 ```csharp
 var neuralNetwork = factory.Get( [NeuralNetworkFactory.NetworkFor.Addition | NeuralNetworkFactory.NetworkFor.XOR | NeuralNetworkFactory.NetworkFor.Custom], 
                                  [NeuralNetworkFactory.TrainType.LiveTraining | NeuralNetworkFactory.NetworkFor.Trained] );
@@ -32,7 +32,7 @@ Use Custom Trainer in AI.Training/Trainers/CustomTrainer.cs to model your own pr
 //For example, Input neuron 1 will have as input '.2', neuron 2 will have '.1', and neuron 3 will have '.1'
 //Expected value for Output neuron 1 is '0' and for Output Neuron 2 is '.4'
 //Neural Network will try to replicate procedure f for every unknown input. That's what NN do :)
-NueralNetworkModel = new NeuralNetworkModeling()
+NeuralNetworkModel = new NeuralNetworkModeling()
 						.SetHiddenNeurons(5)                                //Set the number of hidden neurons
 						.SetMathFunctions(MathFunctions.HyperTan)           //Set the algorithms to be used 
 						.SetAcceptedError(.001)                             //Set accepted error for the train session to complete
