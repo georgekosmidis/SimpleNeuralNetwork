@@ -33,23 +33,23 @@ Use Custom Trainer in AI.Training/Trainers/CustomTrainer.cs to model your own pr
 //Expected value for Output neuron 1 is '0' and for Output Neuron 2 is '.4'
 //Neural Network will try to replicate procedure f for every unknown input. That's what NN do :)
 NeuralNetworkModel = new NeuralNetworkModeling()
-						.SetHiddenNeurons(5)                                //Set the number of hidden neurons
-						.SetMathFunctions(MathFunctions.HyperTan)           //Set the algorithms to be used 
-						.SetAcceptedError(.001)                             //Set accepted error for the train session to complete
+				.SetHiddenNeurons(5)                                //Set the number of hidden neurons
+				.SetMathFunctions(MathFunctions.HyperTan)           //Set the algorithms to be used 
+				.SetAcceptedError(.001)                             //Set accepted error for the train session to complete
 
-						.AddInputNeuron()                                   //Add Input Neuron 1
-						.AddValue(.2).AddValue(.3).AddValue(.2).AddValue(.1)//Add values for the Input Neuron 1
-						.AddInputNeuron()                                   //Add Input Neuron 2
-						.AddValue(.1).AddValue(.2).AddValue(.1).AddValue(.1)//Add values for the Input Neuron 2
-						.AddInputNeuron()                                   //Add an Input Neuron 3
-						.AddValue(.1).AddValue(.1).AddValue(.2).AddValue(.1)//Add values for the Input Neuron 3
+				.AddInputNeuron()                                   //Add Input Neuron 1
+				.AddValue(.2).AddValue(.3).AddValue(.2).AddValue(.1)//Add values for the Input Neuron 1
+				.AddInputNeuron()                                   //Add Input Neuron 2
+				.AddValue(.1).AddValue(.2).AddValue(.1).AddValue(.1)//Add values for the Input Neuron 2
+				.AddInputNeuron()                                   //Add an Input Neuron 3
+				.AddValue(.1).AddValue(.1).AddValue(.2).AddValue(.1)//Add values for the Input Neuron 3
 
-						.AddOutputNeuron()                                  //Add Output Neuron 1
-						.AddValue(0).AddValue(0).AddValue(-.1).AddValue(-.1)//Add Expected values for the Output Neuron 1
-						.AddOutputNeuron()                                  //Add Output Neuron 2
-						.AddValue(.4).AddValue(.6).AddValue(.5).AddValue(.3)//Add Expected values for the Output Neuron 2
+				.AddOutputNeuron()                                  //Add Output Neuron 1
+				.AddValue(0).AddValue(0).AddValue(-.1).AddValue(-.1)//Add Expected values for the Output Neuron 1
+				.AddOutputNeuron()                                  //Add Output Neuron 2
+				.AddValue(.4).AddValue(.6).AddValue(.5).AddValue(.3)//Add Expected values for the Output Neuron 2
 
-						.Get();                                             //Get the model
+				.Get();                                             //Get the model
 ```
 
 ## Output after training
