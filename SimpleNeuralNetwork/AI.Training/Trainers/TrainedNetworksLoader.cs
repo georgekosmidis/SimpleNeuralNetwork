@@ -22,7 +22,7 @@ namespace SimpleNeuralNetwork.AI.Training.Trainers
 
         public void Load(string filename)
         {
-            var neuralNetworkModel = _filehandle.Load<NeuralNetwork>(filename);
+            var neuralNetworkModel = _filehandle.Load(filename);
             _neuralNetworkCompute.LoadModel(neuralNetworkModel);
         }
 

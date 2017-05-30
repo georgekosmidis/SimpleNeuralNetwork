@@ -45,7 +45,7 @@ namespace SimpleNeuralNetwork.Factories
         }
         private NeuralNetworkCompute TrainAndReturn(NetworkFor networkFor, NeuralNetworkCompute neuralNetworkCompute)
         {
-            var dataHandle = new JsonFileHandle(_trainedNetworksPath);
+            var dataHandle = new JsonFile(_trainedNetworksPath);
             ITrainer trainer;
 
             switch (networkFor)
@@ -76,7 +76,7 @@ namespace SimpleNeuralNetwork.Factories
 
             new TrainedNetworksLoader(
                 neuralNetworkCompute,
-                new JsonFileHandle(
+                new JsonFile(
                     _trainedNetworksPath
                 )
             ).Load(networkFor + "Trainer.json");

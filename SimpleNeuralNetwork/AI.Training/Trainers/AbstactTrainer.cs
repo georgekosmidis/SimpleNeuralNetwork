@@ -16,21 +16,21 @@ namespace SimpleNeuralNetwork.AI.Training.Trainers
     {
         NeuralNetworkCompute _neuralNetworkCompute;
         NeuralNetwork _nueralNetwork = new NeuralNetwork();
-        IDataRepository _filehandle;
+        IDataRepository _dataRepository;
 
         protected virtual NeuralNetworkTrainModel NeuralNetworkModel { get; } = new NeuralNetworkTrainModel();
 
         public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
         public event StatusUpdateHandler OnUpdateStatus;
 
-        public AbstactTrainer(NeuralNetworkCompute neuralNetworkCompute, IDataRepository filehandle)
+        public AbstactTrainer(NeuralNetworkCompute neuralNetworkCompute, IDataRepository dataRepository)
         {
             _neuralNetworkCompute = neuralNetworkCompute;
-            _filehandle = filehandle;
+            _dataRepository = dataRepository;
         }
         public void Save(string filename)
         {
-            _filehandle.Save<NeuralNetwork>(filename, _nueralNetwork);
+            _dataRepository.Save(filename, _nueralNetwork);
         }
         public void Train()
         {

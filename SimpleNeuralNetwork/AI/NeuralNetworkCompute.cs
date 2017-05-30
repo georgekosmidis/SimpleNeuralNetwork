@@ -25,40 +25,15 @@ namespace SimpleNeuralNetwork.AI
 
         }
 
+        public void LoadModel(NeuralNetwork neuralNetwork)
+        {
+            _neuralNetwork = neuralNetwork;
+        }
+
         public void CreateLayers(int inputNeuronsCount, int hiddenNeuronsCount, int outputNeuronsCount)
         {
             _networkLayers.Create(_neuralNetwork, inputNeuronsCount, hiddenNeuronsCount, outputNeuronsCount);
         }
-
-        public void LoadModel(NeuralNetwork neuralNetwork)
-        {
-            _neuralNetwork = neuralNetwork;
-
-            for (var i = 0; i < _neuralNetwork.InputNeurons.Count(); i++)
-            {
-                for (var j = 0; j < _neuralNetwork.InputNeurons[i].OutputSynapses.Count(); j++)
-                {
-                    _neuralNetwork.InputNeurons[i].OutputSynapses[j].FromNeuron = _neuralNetwork.InputNeurons[i];
-                    _neuralNetwork.InputNeurons[i].OutputSynapses[j].ToNeuron = _neuralNetwork.HiddenNeurons[j];
-
-                    _neuralNetwork.HiddenNeurons[j].InputSynapses[i].FromNeuron = _neuralNetwork.InputNeurons[i];
-                    _neuralNetwork.HiddenNeurons[j].InputSynapses[i].ToNeuron = _neuralNetwork.HiddenNeurons[j];
-                }
-            }
-
-            for (var i = 0; i < _neuralNetwork.HiddenNeurons.Count(); i++)
-            {
-                for (var j = 0; j < _neuralNetwork.HiddenNeurons[i].OutputSynapses.Count(); j++)
-                {
-                    _neuralNetwork.HiddenNeurons[i].OutputSynapses[j].FromNeuron = _neuralNetwork.HiddenNeurons[i];
-                    _neuralNetwork.HiddenNeurons[i].OutputSynapses[j].ToNeuron = _neuralNetwork.OutputNeurons[j];
-
-                    _neuralNetwork.OutputNeurons[j].InputSynapses[i].FromNeuron = _neuralNetwork.HiddenNeurons[i];
-                    _neuralNetwork.OutputNeurons[j].InputSynapses[i].ToNeuron = _neuralNetwork.OutputNeurons[j];
-                }
-            }
-        }
-
 
         public double[] Compute(double[] inputData)
         {

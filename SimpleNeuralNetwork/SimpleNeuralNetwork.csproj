@@ -64,8 +64,8 @@
     <Compile Include="AI\Computations\NeuronSynapsis.cs" />
     <Compile Include="AI\Models\Synapse.cs" />
     <Compile Include="AI.Training\EventArguments\ProgressEventArgs.cs" />
-    <Compile Include="AI.Training\Interfaces\IFileHandle.cs" />
-    <Compile Include="AI.Training\DataRepositories\JsonFileHandle.cs" />
+    <Compile Include="AI.Training\Interfaces\IDataRepository.cs" />
+    <Compile Include="AI.Training\DataRepositories\JsonFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AI.Training\Trainers\AbstactTrainer.cs" />
