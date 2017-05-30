@@ -11,13 +11,9 @@ namespace SimpleNeuralNetwork.AI.Computations.Maths
         public Double OutputMethod(double val)
         {
             if (val < -45.0)
-            {
                 return 0.0;
-            }
             else if (val > 45.0)
-            {
                 return 1.0;
-            }
             return 1.0 / (1.0 + Math.Exp(-val));
 
         }
