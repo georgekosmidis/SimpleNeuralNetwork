@@ -15,5 +15,6 @@ namespace SimpleNeuralNetwork.AI.Models
 
         public int HiddenLayerNeurons { get; set; } = 5;
         public MathFunctions MathFunctions { get; set; } = MathFunctions.Sigmoid;
+        public string Name { get; set; } = "NueralNetwork";
     }
 }

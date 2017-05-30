@@ -1,8 +1,8 @@
 ﻿using SimpleNeuralNetwork.AI.Models;
 
-namespace SimpleNeuralNetwork.AI.Training.Interfaces
+namespace SimpleNeuralNetwork.AI.Modeling.Interfaces
 {
-    public interface IDataRepository
+    public interface IBrainRepository
     {
         NeuralNetwork Load(string fileName);
         void Save(string filePath, NeuralNetwork neuralNetwork);

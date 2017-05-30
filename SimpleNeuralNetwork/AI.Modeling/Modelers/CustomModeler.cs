@@ -1,26 +1,26 @@
 ﻿using SimpleNeuralNetwork.AI;
 using SimpleNeuralNetwork.AI.Models;
-using SimpleNeuralNetwork.AI.Training.Interfaces;
-using SimpleNeuralNetwork.AI.Training.Models;
-using SimpleNeuralNetwork.AI.Training.Trainers.ModelingHelpers;
+using SimpleNeuralNetwork.AI.Modeling.Interfaces;
+using SimpleNeuralNetwork.AI.Modeling.Models;
+using SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleNeuralNetwork.AI.Training.Trainers
+namespace SimpleNeuralNetwork.AI.Modeling.Modelers
 {
-    public class CustomTrainer : AbstactTrainer, ITrainer
+    public class CustomModeler : IModeler
     {
-        protected override NeuralNetworkTrainModel NeuralNetworkModel { get; } = new NeuralNetworkTrainModel();
+        public NeuralNetworkTrainModel NeuralNetworkModel { get; } = new NeuralNetworkTrainModel();
 
         //*****************************************************************************
         //REMEMBER TO NORMALIZE YOUR DATA, 
         // VALUES MUST BE FROM -1 to +1 FOR HYPERTAN AND 0 TO 1 FOR SIGMOID
         //*****************************************************************************        
 
-        public CustomTrainer(NeuralNetworkCompute neuralNetworkCompute, IDataRepository filehandle) : base(neuralNetworkCompute, filehandle)
+        public CustomModeler()
         {
             //Values of Input neurons define variables inserted into the system
             //Values of Output neurons define the expected result of the neural network
@@ -35,6 +35,7 @@ namespace SimpleNeuralNetwork.AI.Training.Trainers
                                         .SetHiddenNeurons(5)                                //Set the number of hidden neurons
                                         .SetMathFunctions(MathFunctions.HyperTan)           //Set the algorithms to be used 
                                         .SetAcceptedError(.001)                             //Set accepted error for the train session to complete
+                                        .SetNeuralNetworkName("Custom")                     //Set Network Name
 
                                         .AddInputNeuron()                                   //Add Input Neuron 1
                                         .AddValue(.2).AddValue(.3).AddValue(.2).AddValue(.1)//Add values for the Input Neuron 1

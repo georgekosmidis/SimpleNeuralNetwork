@@ -45,10 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI.Training\Models\eNeuronLayer.cs" />
+    <Compile Include="AI.Modeling\Models\eNeuronLayer.cs" />
+    <Compile Include="AI.Modeling\Interfaces\IModeler.cs" />
     <Compile Include="AI\Computations\BackPropagate.cs" />
     <Compile Include="AI\Computations\FeedForward.cs" />
     <Compile Include="AI\Computations\Maths\HyperTan.cs" />
+    <Compile Include="AI\EventArguments\IterationEventArgs.cs" />
     <Compile Include="AI\Interfaces\INeuronSynapsis.cs" />
     <Compile Include="AI\Interfaces\INetworkLayers.cs" />
     <Compile Include="AI\Computations\NetworkLayers.cs" />
@@ -57,37 +59,38 @@
     <Compile Include="AI\Models\eMathFunctions.cs" />
     <Compile Include="AI\Models\NeuralNetwork.cs" />
     <Compile Include="AI\Models\Neuron.cs" />
-    <Compile Include="Factories\NeuralNetworkFactory.cs" />
+    <Compile Include="AI\NeuralNetworkFactory.cs" />
+    <Compile Include="AI\NeuralNetworkRepository.cs" />
+    <Compile Include="AI\NeuralNetworkRunner.cs" />
+    <Compile Include="EventArguments\ProgressEventArgs.cs" />
+    <Compile Include="Helpers\NeuralNetworkFactoryHelper.cs" />
     <Compile Include="AI\Interfaces\IMaths.cs" />
     <Compile Include="AI\Computations\Maths\Sigmoid.cs" />
-    <Compile Include="AI\NeuralNetworkCompute.cs" />
+    <Compile Include="AI\NeuralNetworkTrainer.cs" />
     <Compile Include="AI\Computations\NeuronSynapsis.cs" />
     <Compile Include="AI\Models\Synapse.cs" />
-    <Compile Include="AI.Training\EventArguments\ProgressEventArgs.cs" />
-    <Compile Include="AI.Training\Interfaces\IDataRepository.cs" />
-    <Compile Include="AI.Training\DataRepositories\JsonFile.cs" />
+    <Compile Include="AI\EventArguments\SampleEventArgs.cs" />
+    <Compile Include="AI\Interfaces\IBrainRepository.cs" />
+    <Compile Include="AI\BrainRepositories\JsonFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AI.Training\Trainers\AbstactTrainer.cs" />
-    <Compile Include="AI.Training\Trainers\AdditionTrainer.cs" />
-    <Compile Include="AI.Training\Interfaces\ITrainer.cs" />
-    <Compile Include="AI.Training\Trainers\CustomTrainer.cs" />
-    <Compile Include="AI.Training\Trainers\ModelingHelpers\NeuralNetworkModeling.cs" />
-    <Compile Include="AI.Training\Models\NeuronTrainModel.cs" />
-    <Compile Include="AI.Training\Models\NeuralNetworkTrainModel.cs" />
-    <Compile Include="AI.Training\Trainers\TrainedNetworksLoader.cs" />
-    <Compile Include="AI.Training\Trainers\XorTrainer.cs" />
+    <Compile Include="AI.Modeling\Modelers\AdditionModeler.cs" />
+    <Compile Include="AI.Modeling\Modelers\CustomModeler.cs" />
+    <Compile Include="AI.Modeling\Modelers\ModelingHelpers\NeuralNetworkModeling.cs" />
+    <Compile Include="AI.Modeling\Models\NeuronTrainModel.cs" />
+    <Compile Include="AI.Modeling\Models\NeuralNetworkTrainModel.cs" />
+    <Compile Include="AI.Modeling\Modelers\XorModeler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="AI.Training\Trainers\TrainedNetworks\.gitkeep">
+    <None Include="AI\TrainedNetworks\.gitkeep">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="AI.Training\Trainers\TrainedNetworks\AdditionTrainer.json">
+    <None Include="AI\TrainedNetworks\Addition.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="AI.Training\Trainers\TrainedNetworks\XORTrainer.json">
+    <None Include="AI\TrainedNetworks\XOR.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -1,5 +1,5 @@
-﻿using SimpleNeuralNetwork.AI.Training.EventArguments;
-using SimpleNeuralNetwork.Factories;
+﻿using SimpleNeuralNetwork.EventArguments;
+using SimpleNeuralNetwork.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -13,34 +13,33 @@ namespace SimpleNeuralNetwork
 {
     class Program
     {
-        private static string trainedNetworksPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + Path.DirectorySeparatorChar + "TrainedNetworks";
+        private static string trainedNetworksPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + Path.DirectorySeparatorChar;
 
         static void Main(string[] args)
         {
-            Run(NeuralNetworkFactory.NetworkFor.Addition, new double[] { .2, .1 });
+            Run(NeuralNetworkFactoryHelper.NetworkFor.Addition, new double[] { .2, .1 });
 
             Console.ReadKey(true);
 
         }
 
-        private static void Run(NeuralNetworkFactory.NetworkFor networkFor, double[] tests)
+        private static void Run(NeuralNetworkFactoryHelper.NetworkFor networkFor, double[] tests)
         {
-            var factory = new NeuralNetworkFactory(trainedNetworksPath);
+            var factory = new NeuralNetworkFactoryHelper(trainedNetworksPath);
             factory.OnUpdateStatus += Factory_OnUpdateStatus;
 
             //TRAIN THE NUERAL NETWORK
-            var neuralNetwork = factory.Get(networkFor, NeuralNetworkFactory.TrainType.LiveTraining);
+            var neuralNetwork = factory.Train(networkFor);
             Console.WriteLine("");
             Console.WriteLine("Computation with newly trained network:");
-            var result = neuralNetwork.Compute(tests);
+            var result = neuralNetwork.Run(tests);
             WriteMatrix(result);
 
             //LOAD TRAINED NEURAL NETWORK
-            neuralNetwork = factory.Get(networkFor, Factories.NeuralNetworkFactory.TrainType.Trained);
-
+            neuralNetwork = factory.Load(networkFor);
             Console.WriteLine("");
             Console.WriteLine("Computation with old trained network:");
-            result = neuralNetwork.Compute(tests);
+            result = neuralNetwork.Run(tests);
             WriteMatrix(result);
         }
 

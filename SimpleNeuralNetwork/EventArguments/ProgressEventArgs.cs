@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleNeuralNetwork.AI.Training.EventArguments
+namespace SimpleNeuralNetwork.EventArguments
 {
     public class ProgressEventArgs : EventArgs
     {
-        public string Status { get; private set; }
+        public string Status { get; }
 
         public ProgressEventArgs(string status)
         {

@@ -5,10 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleNeuralNetwork.AI.Training.Models
+namespace SimpleNeuralNetwork.AI.Modeling.Models
 {
     public class NeuralNetworkTrainModel : List<Models.NeuronTrainModel>
     {
+        public string NeuronNetworkName { get; set; }
+
+        public int HiddenNeuronsCount { get; set; } = 5;
+
+        public MathFunctions MathFunctions { get; set; } = MathFunctions.Sigmoid;
+
+        public double AcceptedError { get; set; } = .001;
 
         public int ValuesCount
         {
@@ -24,10 +31,5 @@ namespace SimpleNeuralNetwork.AI.Training.Models
             return this.Where(x => x.Layer == layer).Select(x => x.Values[cycle]).ToArray();
         }
 
-        public int HiddenNeuronsCount { get; set; } = 5;
-
-        public MathFunctions MathFunctions { get; set; } = MathFunctions.Sigmoid;
-
-        public double AcceptedError { get; set; } = .001;
     }
 }

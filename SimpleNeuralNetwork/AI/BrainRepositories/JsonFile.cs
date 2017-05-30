@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SimpleNeuralNetwork.AI.Models;
-using SimpleNeuralNetwork.AI.Training.Interfaces;
+using SimpleNeuralNetwork.AI.Modeling.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,18 +8,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleNeuralNetwork.AI.Training.Repositories
+namespace SimpleNeuralNetwork.AI.BrainRepositories
 {
-    public class JsonFile : IDataRepository
+    public class JsonFile : IBrainRepository
     {
         private string _folder;
 
         public JsonFile(string folder)
         {
-            _folder = folder;
+            _folder = folder  + Path.DirectorySeparatorChar + "AI"+ Path.DirectorySeparatorChar + "TrainedNetworks" + Path.DirectorySeparatorChar;
         }
 
-        public void Save(string fileName, NeuralNetwork neuralNetwork)
+        public void Save(string name, NeuralNetwork neuralNetwork)
         {
             TextWriter writer = null;
 
@@ -28,15 +28,15 @@ namespace SimpleNeuralNetwork.AI.Training.Repositories
                                                         {
                                                             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                                                         });
-            writer = new StreamWriter(_folder + Path.DirectorySeparatorChar + fileName, false);
+            writer = new StreamWriter(_folder + Path.DirectorySeparatorChar + name + ".json", false);
             writer.Write(json);
 
             writer.Close();
 
         }
-        public NeuralNetwork Load(string fileName)
+        public NeuralNetwork Load(string name)
         {
-            var reader = new StreamReader(_folder + Path.DirectorySeparatorChar + fileName);
+            var reader = new StreamReader(_folder + Path.DirectorySeparatorChar + name + ".json");
             var json = reader.ReadToEnd();
             reader.Close();
             var neuralNetwork = JsonConvert.DeserializeObject<NeuralNetwork>(json);
