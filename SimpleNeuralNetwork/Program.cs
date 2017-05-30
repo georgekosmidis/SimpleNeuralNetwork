@@ -25,18 +25,18 @@ namespace SimpleNeuralNetwork
 
         private static void Run(NeuralNetworkFactoryHelper.NetworkFor networkFor, double[] tests)
         {
-            var factory = new NeuralNetworkFactoryHelper(trainedNetworksPath);
-            factory.OnUpdateStatus += Factory_OnUpdateStatus;
+            var factoryHelper = new NeuralNetworkFactoryHelper(trainedNetworksPath);
+            factoryHelper.OnUpdateStatus += Factory_OnUpdateStatus;
 
             //TRAIN THE NUERAL NETWORK
-            var neuralNetwork = factory.Train(networkFor);
+            var neuralNetwork = factoryHelper.Train(networkFor);
             Console.WriteLine("");
             Console.WriteLine("Computation with newly trained network:");
             var result = neuralNetwork.Run(tests);
             WriteMatrix(result);
 
             //LOAD TRAINED NEURAL NETWORK
-            neuralNetwork = factory.Load(networkFor);
+            neuralNetwork = factoryHelper.Load(networkFor);
             Console.WriteLine("");
             Console.WriteLine("Computation with old trained network:");
             result = neuralNetwork.Run(tests);
