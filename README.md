@@ -14,10 +14,10 @@ Working example of how to train the Neural Network to add to decimals, or to loa
 ### How to
 Use NeuralNetworkFactoryHelper to train a neural network or to load a pre-trained one:
 ```csharp
-var factoryHelper = new NeuralNetworkFactoryHelper(trainedNetworksPath);
+var factoryHelper = new NeuralNetworkFactoryHelper( [PATH_TO_SAVE_OR_LOAD_TRAINED_NETWORKS] );
 var neuralNetwork = factoryHelper.Train( [NeuralNetworkFactory.NetworkFor.Addition | NeuralNetworkFactory.NetworkFor.XOR | NeuralNetworkFactory.NetworkFor.Custom] );
 //OR
-var  neuralNetwork = factoryHelper.Load( [NeuralNetworkFactory.NetworkFor.Addition | NeuralNetworkFactory.NetworkFor.XOR | NeuralNetworkFactory.NetworkFor.Custom] );
+var neuralNetwork = factoryHelper.Load( [NeuralNetworkFactory.NetworkFor.Addition | NeuralNetworkFactory.NetworkFor.XOR | NeuralNetworkFactory.NetworkFor.Custom] );
 ```
 Test NN efficiency by trying unknown numbers as variabes with Compute:
 ```csharp
