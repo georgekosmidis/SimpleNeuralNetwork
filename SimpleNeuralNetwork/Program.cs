@@ -17,7 +17,7 @@ namespace SimpleNeuralNetwork
 
         static void Main(string[] args)
         {
-            Run(NeuralNetworkFactoryHelper.NetworkFor.Addition, new double[] { .2, .1 });
+            Run(NeuralNetworkFactoryHelper.NetworkFor.Addition, new double[] { .2, .1, .6 });
 
             Console.ReadKey(true);
 
@@ -52,7 +52,7 @@ namespace SimpleNeuralNetwork
 
         private static void Factory_OnUpdateStatus(object sender, ProgressEventArgs e)
         {
-            Console.WriteLine(e.Status);
+            Console.Write("\r{0}", e.Status);
         }
 
     }

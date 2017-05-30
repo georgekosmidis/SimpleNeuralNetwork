@@ -51,7 +51,8 @@
     <Compile Include="AI\Computations\BackPropagate.cs" />
     <Compile Include="AI\Computations\FeedForward.cs" />
     <Compile Include="AI\Computations\Maths\HyperTan.cs" />
-    <Compile Include="AI\EventArguments\IterationEventArgs.cs" />
+    <Compile Include="AI\EventArguments\LearningCycleCompleteEventArgs.cs" />
+    <Compile Include="AI\EventArguments\LearningCycleStartEventArgs.cs" />
     <Compile Include="AI\Interfaces\INeuronSynapsis.cs" />
     <Compile Include="AI\Interfaces\INetworkLayers.cs" />
     <Compile Include="AI\Computations\NetworkLayers.cs" />

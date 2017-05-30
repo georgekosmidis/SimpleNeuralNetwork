@@ -16,10 +16,12 @@ namespace SimpleNeuralNetwork.AI
         NeuralNetworkRunner _neuralNetworkRunner;
         NeuralNetworkTrainer _neuralNetworkTrainer;
 
-        public delegate void IterationUpdateHandler(object sender, IterationEventArgs e);
-        public event IterationUpdateHandler OnNewIteration;
+        public delegate void LearningCycleStartHandler(object sender, LearningCycleStartEventArgs e);
+        public event LearningCycleStartHandler OnLearningCycleStart;
         public delegate void SampleLearnedHandler(object sender, SampleEventArgs e);
         public event SampleLearnedHandler OnSampleLearned;
+        public delegate void LearningCycleCompleteHandler(object sender, LearningCycleCompleteEventArgs e);
+        public event LearningCycleCompleteHandler OnLearningCycleComplete;
 
         public NeuralNetworkFactory(NeuralNetworkRepository neuralNetworkRepository, NeuralNetworkRunner neuralNetworkRunner, NeuralNetworkTrainer neuralNetworkTrainer)
         {
@@ -28,8 +30,19 @@ namespace SimpleNeuralNetwork.AI
             _neuralNetworkRunner = neuralNetworkRunner;
             _neuralNetworkTrainer = neuralNetworkTrainer;
 
-            _neuralNetworkTrainer.OnNewIteration += _neuralNetworkTrainer_OnNewIteration;
+            _neuralNetworkTrainer.OnLearningCycleStart += _neuralNetworkTrainer_OnLearningCycleStart;
+            _neuralNetworkTrainer.OnLearningCycleComplete += _neuralNetworkTrainer_OnLearningCycleComplete;
             _neuralNetworkTrainer.OnSampleLearned += _neuralNetworkTrainer_OnSampleLearned;
+        }
+
+        private void _neuralNetworkTrainer_OnLearningCycleComplete(object sender, LearningCycleCompleteEventArgs e)
+        {
+            OnLearningCycleComplete?.Invoke(sender, e);
+        }
+
+        private void _neuralNetworkTrainer_OnLearningCycleStart(object sender, LearningCycleStartEventArgs e)
+        {
+            OnLearningCycleStart?.Invoke(sender, e);
         }
 
         private void _neuralNetworkTrainer_OnSampleLearned(object sender, SampleEventArgs e)
@@ -37,10 +50,6 @@ namespace SimpleNeuralNetwork.AI
             OnSampleLearned?.Invoke(sender, e);
         }
 
-        private void _neuralNetworkTrainer_OnNewIteration(object sender, IterationEventArgs e)
-        {
-            OnNewIteration?.Invoke(sender, e);
-        }
 
         //public double[] Run(double[] inputSample)
         //{

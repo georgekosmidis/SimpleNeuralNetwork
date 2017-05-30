@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SimpleNeuralNetwork.AI.EventArguments
 {
-    public class IterationEventArgs : EventArgs
+    public class LearningCycleStartEventArgs : EventArgs
     {
         public int Iteration { get; }
-        public IterationEventArgs(int iteration)
+        public LearningCycleStartEventArgs(int iteration)
         {
             Iteration = iteration;
         }

@@ -16,10 +16,12 @@ namespace SimpleNeuralNetwork.AI
         private IBackPropagate _backPropagate;
         private INetworkLayers _networkLayers;
 
-        public delegate void IterationUpdateHandler(object sender, IterationEventArgs e);
-        public event IterationUpdateHandler OnNewIteration;
+        public delegate void LearningCycleStartHandler(object sender, LearningCycleStartEventArgs e);
+        public event LearningCycleStartHandler OnLearningCycleStart;
         public delegate void SampleLearnedHandler(object sender, SampleEventArgs e);
         public event SampleLearnedHandler OnSampleLearned;
+        public delegate void LearningCycleCompleteHandler(object sender, LearningCycleCompleteEventArgs e);
+        public event LearningCycleCompleteHandler OnLearningCycleComplete;
 
         public NeuralNetworkTrainer(IFeedForward feedForward, IBackPropagate backPropagate, INetworkLayers networkLayers)
         {
@@ -43,7 +45,7 @@ namespace SimpleNeuralNetwork.AI
             var leastError = 1d;
             do
             {
-                OnNewIteration?.Invoke(this, new IterationEventArgs(j + 1));
+                OnLearningCycleStart?.Invoke(this, new LearningCycleStartEventArgs(++j));
 
                 var innerLeastError = 0d;
 
@@ -54,14 +56,19 @@ namespace SimpleNeuralNetwork.AI
                     _backPropagate.Compute(neuralNetwork, expectedValues);
                     innerLeastError = Math.Max(innerLeastError, GetMaxError(neuralNetwork.OutputNeurons));
 
-                    OnSampleLearned?.Invoke(this, new SampleEventArgs(i, 
+                    OnSampleLearned?.Invoke(this, new SampleEventArgs(i,
                                                                       expectedValues,
-                                                                      neuralNetwork.OutputNeurons.Select( x=> x.Value).ToArray(),
+                                                                      neuralNetwork.OutputNeurons.Select(x => x.Value).ToArray(),
                                                                       neuralNetwork.OutputNeurons.Select(x => x.Error).ToArray()
                                                                       )
                                            );
                 }
+
+                //TODO: This calculation of leastError is totally wrong, calculation should use Cross-Validation with 20% of input data...
+                //      If we can't reach the goal, parameters should change (e.g. number of hidden layers and neurons...)
                 leastError = Math.Min(leastError, innerLeastError);
+
+                OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(j, leastError));
 
             } while (leastError > neuralNetworkTrainModel.AcceptedError);
 
