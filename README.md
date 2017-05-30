@@ -40,19 +40,19 @@ Use Custom Model in AI.Modeling/Modelers/CustomModeler.cs to model your own prob
 //Expected value for Output neuron 1 is '0' and for Output Neuron 2 is '.4'
 //Neural Network will try to replicate procedure f for every unknown input. That's what NN do :)
 NeuralNetworkModel = new NeuralNetworkModeling()
-							.SetHiddenNeurons(5)                                //Set the number of hidden neurons
-							.SetMathFunctions(MathFunctions.HyperTan)           //Set the algorithms to be used 
-							.SetAcceptedError(.001)                             //Set accepted error for the train session to complete
-							.SetNeuralNetworkName("Custom")                     //Set Network Name
+				.SetHiddenNeurons(5)                                //Set the number of hidden neurons
+				.SetMathFunctions(MathFunctions.HyperTan)           //Set the algorithms to be used 
+				.SetAcceptedError(.001)                             //Set accepted error for the train session to complete
+				.SetNeuralNetworkName("Custom")                     //Set Network Name
 
-							.AddInputNeuron(x => x.AddValues(2, 3, 2, 1))       //Add Input Neuron 1
-							.AddInputNeuron(x => x.AddValues(1, 2, 1, 1))       //Add Input Neuron 2
-							.AddInputNeuron(x => x.AddValues(1, 1, 2, 1))       //Add an Input Neuron 3
+				.AddInputNeuron(x => x.AddValues(2, 3, 2, 1))       //Add Input Neuron 1
+				.AddInputNeuron(x => x.AddValues(1, 2, 1, 1))       //Add Input Neuron 2
+				.AddInputNeuron(x => x.AddValues(1, 1, 2, 1))       //Add an Input Neuron 3
 
-							.AddOutputNeuron(x => x.AddValues(0, 0, -1, -1))    //Add Output Neuron 1
-							.AddOutputNeuron(x => x.AddValues(4, 6, 5, 3))      //Add Output Neuron 2
+				.AddOutputNeuron(x => x.AddValues(0, 0, -1, -1))    //Add Output Neuron 1
+				.AddOutputNeuron(x => x.AddValues(4, 6, 5, 3))      //Add Output Neuron 2
 
-							.Get();                                             //Get the model
+				.Get();                                             //Get the model
 ```
 
 ## Output after training
