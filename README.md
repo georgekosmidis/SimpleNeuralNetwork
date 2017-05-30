@@ -1,16 +1,15 @@
 # Simple Neural Network in C#
 ### AI
 A multi-layer perceptron (one input, one hidden and output), forward feed neural network with backward propagation and x number of neurons for each layer.
-### Trainers
-Two trainers, for addition and XOR, with the ability to live train the neural network or load a trained data file into the network.
+### Models
+Two models, for addition and XOR, with the ability to live-train the neural network or load a data file with a trained network.
 ### Math Methods
-Two available methods, Sigmoid and HyperTan to try train the network and see the differences.
-
+Two available methods, Sigmoid and HyperTan, depending on the model.<br />
 _Sigmoid as output method is in in the range of 0 to 1, so input/ouput data must me normalized  from 0 to 1_<br />
 _HyperTan is in in the range of -1 to 1, so input/ouput data must me normalized from -1 to 1_
 
 ### Program.cs
-Working example of how to train the Neural Network to add to decimals, or to load trained data.
+Working example of how to train the Neural Network to add two decimals, or to load trained data.
 ### How to
 Use NeuralNetworkFactoryHelper to train a neural network or to load a pre-trained one:
 ```csharp
@@ -19,11 +18,11 @@ var neuralNetwork = factoryHelper.Train( [NeuralNetworkFactory.NetworkFor.Additi
 //OR
 var neuralNetwork = factoryHelper.Load( [NeuralNetworkFactory.NetworkFor.Addition | NeuralNetworkFactory.NetworkFor.XOR | NeuralNetworkFactory.NetworkFor.Custom] );
 ```
-Test NN efficiency by trying unknown numbers as variabes with Compute:
+Test NN efficiency by trying unknown numbers as variabes with Run:
 ```csharp
 var result = neuralNetwork.Run(new double[] { .3, .2 });
 ```
-Use Custom Trainer in AI.Training/Trainers/CustomTrainer.cs to model your own problem.
+Use Custom Model in AI.Modeling/Modelers/CustomModeler.cs to model your own problem.
 ```csharp
 //Values of Input neurons define variables inserted into the system
 //Values of Output neurons define the expected result of the neural network
@@ -31,9 +30,9 @@ Use Custom Trainer in AI.Training/Trainers/CustomTrainer.cs to model your own pr
 //                                                               f( .3, .2, .1 ) = [  0, .6 ]
 //                                                               f( .2, .1, .2 ) = [-.1, .5 ]
 //                                                               f( .1, .1, .1 ) = [-.1, .3 ]
-//For example, Input neuron 1 will have as input '.2', neuron 2 will have '.1', and neuron 3 will have '.1'
-//Expected value for Output neuron 1 is '0' and for Output Neuron 2 is '.4'
-//Neural Network will try to replicate procedure f for every unknown input. That's what NN do :)
+//For example, Input Neuron 1 will have as input '.2', Input Neuron 2 will have '.1', and input Neuron 3 will have '.1'
+//Expected value for Output Neuron 1 is '0' and for Output Neuron 2 is '.4'
+//Neural Network will try to replicate procedure f for every unknown input. That's what NNs do :)
 NeuralNetworkModel = new NeuralNetworkModeling()
 				.SetHiddenNeurons(5)                                //Set the number of hidden neurons
 				.SetMathFunctions(MathFunctions.HyperTan)           //Set the algorithms to be used 
