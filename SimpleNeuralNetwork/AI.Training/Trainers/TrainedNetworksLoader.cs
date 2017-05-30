@@ -12,9 +12,9 @@ namespace SimpleNeuralNetwork.AI.Training.Trainers
     public class TrainedNetworksLoader
     {
         NeuralNetworkCompute _neuralNetworkCompute;
-        IDataHandle _filehandle;
+        IDataRepository _filehandle;
 
-        public TrainedNetworksLoader(NeuralNetworkCompute neuralNetworkCompute, IDataHandle filehandle)
+        public TrainedNetworksLoader(NeuralNetworkCompute neuralNetworkCompute, IDataRepository filehandle)
         {
             _neuralNetworkCompute = neuralNetworkCompute;
             _filehandle = filehandle;

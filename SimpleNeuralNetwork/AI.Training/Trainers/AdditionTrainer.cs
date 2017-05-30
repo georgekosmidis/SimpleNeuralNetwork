@@ -16,7 +16,7 @@ namespace SimpleNeuralNetwork.AI.Training.Trainers
 
         protected override NeuralNetworkTrainModel NeuralNetworkModel { get; } = new NeuralNetworkTrainModel();
 
-        public AdditionTrainer(NeuralNetworkCompute neuralNetworkCompute, IDataHandle filehandle) : base(neuralNetworkCompute, filehandle)
+        public AdditionTrainer(NeuralNetworkCompute neuralNetworkCompute, IDataRepository filehandle) : base(neuralNetworkCompute, filehandle)
         {
             NeuralNetworkModel = new NeuralNetworkModeling()
                                         .SetHiddenNeurons(5)

@@ -20,7 +20,7 @@ namespace SimpleNeuralNetwork.AI.Training.Trainers
         // VALUES MUST BE FROM -1 to +1 FOR HYPERTAN AND 0 TO 1 FOR SIGMOID
         //*****************************************************************************        
 
-        public CustomTrainer(NeuralNetworkCompute neuralNetworkCompute, IDataHandle filehandle) : base(neuralNetworkCompute, filehandle)
+        public CustomTrainer(NeuralNetworkCompute neuralNetworkCompute, IDataRepository filehandle) : base(neuralNetworkCompute, filehandle)
         {
             //Values of Input neurons define variables inserted into the system
             //Values of Output neurons define the expected result of the neural network

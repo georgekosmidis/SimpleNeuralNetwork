@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleNeuralNetwork.AI.Training.DataHandlers
+namespace SimpleNeuralNetwork.AI.Training.Repositories
 {
-    public class JsonFileHandle : IDataHandle
+    public class JsonFileHandle : IDataRepository
     {
         private string _folder;
 

@@ -29,6 +29,7 @@ namespace SimpleNeuralNetwork.AI
         {
             _networkLayers.Create(_neuralNetwork, inputNeuronsCount, hiddenNeuronsCount, outputNeuronsCount);
         }
+
         public void LoadModel(NeuralNetwork neuralNetwork)
         {
             _neuralNetwork = neuralNetwork;

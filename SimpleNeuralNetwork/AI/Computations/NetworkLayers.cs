@@ -10,9 +10,9 @@ namespace SimpleNeuralNetwork.AI.Computations
 {
     public class NetworkLayers : INetworkLayers
     {
-        INeuronCompute _neuronCompute;
+        INeuronSynapsis _neuronCompute;
 
-        public NetworkLayers(INeuronCompute neuronCompute)
+        public NetworkLayers(INeuronSynapsis neuronCompute)
         {
             _neuronCompute = neuronCompute;
         }
@@ -26,14 +26,14 @@ namespace SimpleNeuralNetwork.AI.Computations
             for (var j = 0; j < hiddenNeuronsCount; j++)
             {
                 var neuron = new Neuron();
-                _neuronCompute.SetSynapsis(neuron, neuralNetwork.InputNeurons);
+                _neuronCompute.Set(neuron, neuralNetwork.InputNeurons);
                 neuralNetwork.HiddenNeurons.Add(neuron);
             }
 
             for (int k = 0; k < outputNeuronsCount; k++)
             {
                 var neuron = new Neuron();
-                _neuronCompute.SetSynapsis(neuron, neuralNetwork.HiddenNeurons);
+                _neuronCompute.Set(neuron, neuralNetwork.HiddenNeurons);
                 neuralNetwork.OutputNeurons.Add(neuron);
             }
         }

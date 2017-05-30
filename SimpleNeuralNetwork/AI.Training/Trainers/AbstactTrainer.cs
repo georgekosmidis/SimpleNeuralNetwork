@@ -16,14 +16,14 @@ namespace SimpleNeuralNetwork.AI.Training.Trainers
     {
         NeuralNetworkCompute _neuralNetworkCompute;
         NeuralNetwork _nueralNetwork = new NeuralNetwork();
-        IDataHandle _filehandle;
+        IDataRepository _filehandle;
 
         protected virtual NeuralNetworkTrainModel NeuralNetworkModel { get; } = new NeuralNetworkTrainModel();
 
         public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
         public event StatusUpdateHandler OnUpdateStatus;
 
-        public AbstactTrainer(NeuralNetworkCompute neuralNetworkCompute, IDataHandle filehandle)
+        public AbstactTrainer(NeuralNetworkCompute neuralNetworkCompute, IDataRepository filehandle)
         {
             _neuralNetworkCompute = neuralNetworkCompute;
             _filehandle = filehandle;

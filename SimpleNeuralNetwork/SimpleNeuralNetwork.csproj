@@ -49,7 +49,7 @@
     <Compile Include="AI\Computations\BackPropagate.cs" />
     <Compile Include="AI\Computations\FeedForward.cs" />
     <Compile Include="AI\Computations\Maths\HyperTan.cs" />
-    <Compile Include="AI\Interfaces\INeuronCompute.cs" />
+    <Compile Include="AI\Interfaces\INeuronSynapsis.cs" />
     <Compile Include="AI\Interfaces\INetworkLayers.cs" />
     <Compile Include="AI\Computations\NetworkLayers.cs" />
     <Compile Include="AI\Interfaces\IBackPropagate.cs" />
@@ -61,11 +61,11 @@
     <Compile Include="AI\Interfaces\IMaths.cs" />
     <Compile Include="AI\Computations\Maths\Sigmoid.cs" />
     <Compile Include="AI\NeuralNetworkCompute.cs" />
-    <Compile Include="AI\Computations\NeuronCompute.cs" />
+    <Compile Include="AI\Computations\NeuronSynapsis.cs" />
     <Compile Include="AI\Models\Synapse.cs" />
     <Compile Include="AI.Training\EventArguments\ProgressEventArgs.cs" />
     <Compile Include="AI.Training\Interfaces\IFileHandle.cs" />
-    <Compile Include="AI.Training\DataHandlers\JsonFileHandle.cs" />
+    <Compile Include="AI.Training\DataRepositories\JsonFileHandle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AI.Training\Trainers\AbstactTrainer.cs" />

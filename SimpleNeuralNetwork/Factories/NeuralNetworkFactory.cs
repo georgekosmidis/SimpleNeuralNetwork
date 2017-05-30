@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SimpleNeuralNetwork.AI.Training.Trainers;
-using SimpleNeuralNetwork.AI.Training.DataHandlers;
 using SimpleNeuralNetwork.AI.Training.Interfaces;
 using SimpleNeuralNetwork.AI.Training.EventArguments;
+using SimpleNeuralNetwork.AI.Training.Repositories;
 
 namespace SimpleNeuralNetwork.Factories
 {
@@ -34,7 +34,7 @@ namespace SimpleNeuralNetwork.Factories
                                             new FeedForward(),
                                             new BackPropagate(),
                                             new NetworkLayers(
-                                                new NeuronCompute()
+                                                new NeuronSynapsis()
                                             )
                                         );
 

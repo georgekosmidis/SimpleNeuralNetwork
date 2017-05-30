@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace SimpleNeuralNetwork.AI.Computations
 {
-    public class NeuronCompute : INeuronCompute
+    public class NeuronSynapsis : INeuronSynapsis
     {
-        public NeuronCompute()
+        public NeuronSynapsis()
         {
         }
 
-        public void SetSynapsis(Neuron neuron, List<Neuron> inputNeurons)
+        public void Set(Neuron neuron, List<Neuron> inputNeurons)
         {
             foreach (var inputNeuron in inputNeurons)
             {
