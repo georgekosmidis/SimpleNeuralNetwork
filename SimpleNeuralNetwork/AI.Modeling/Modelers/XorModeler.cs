@@ -24,13 +24,9 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers
                                         .SetAcceptedError(.001)
                                         .SetNeuralNetworkName("XOR")
 
-                                        .AddInputNeuron()
-                                        .AddValue(0).AddValue(1).AddValue(0).AddValue(1)
-                                        .AddInputNeuron()
-                                        .AddValue(0).AddValue(0).AddValue(1).AddValue(1)
-
-                                        .AddOutputNeuron()
-                                        .AddValue(0).AddValue(1).AddValue(1).AddValue(0)
+                                        .AddInputNeuron(x => x.AddValues(0, 1, 0, 1))
+                                        .AddInputNeuron(x => x.AddValues(0, 0, 1, 1))
+                                        .AddOutputNeuron(x => x.AddValues(0, 1, 1, 0))
 
                                         .Get();
         }

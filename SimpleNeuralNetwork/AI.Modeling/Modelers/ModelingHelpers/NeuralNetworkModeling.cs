@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SimpleNeuralNetwork.AI.Modeling.Interfaces;
+using System.ComponentModel;
 
 namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
 {
@@ -15,24 +17,27 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
 
         public NeuralNetworkModeling() { }
 
-
-        public NeuralNetworkModeling AddInputNeuron()
+        public NeuralNetworkModeling AddInputNeuron(Action<NeuronValue> addValuesExpression)
         {
-            neuralNetworkTrainModel.Add(new Models.NeuronTrainModel() { Layer = NeuronLayer.Input });
+            var neuronTrainModel =  new Models.NeuronTrainModel() { Layer = NeuronLayer.Input };
+            var neronValue = new NeuronValue(neuronTrainModel);
+            addValuesExpression(neronValue);
+
+            neuralNetworkTrainModel.Add(neuronTrainModel);
+                       
             return this;
         }
-
-        public NeuralNetworkModeling AddOutputNeuron()
+        public NeuralNetworkModeling AddOutputNeuron(Action<NeuronValue> addValuesExpression)
         {
-            neuralNetworkTrainModel.Add(new Models.NeuronTrainModel() { Layer = NeuronLayer.Output });
+            var neuronTrainModel = new Models.NeuronTrainModel() { Layer = NeuronLayer.Output };
+            var neronValue = new NeuronValue(neuronTrainModel);
+            addValuesExpression(neronValue);
+
+            neuralNetworkTrainModel.Add(neuronTrainModel);
             return this;
         }
+        
 
-        public NeuralNetworkModeling AddValue(double value)
-        {
-            neuralNetworkTrainModel.Last().Values.Add(value);
-            return this;
-        }
         public NeuralNetworkModeling SetHiddenNeurons(int hiddenNeurons)
         {
             neuralNetworkTrainModel.HiddenNeuronsCount = hiddenNeurons;

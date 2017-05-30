@@ -24,13 +24,10 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers
                                         .SetAcceptedError(.001)
                                         .SetNeuralNetworkName("Addition")
 
-                                        .AddInputNeuron()
-                                        .AddValue(.1).AddValue(.3).AddValue(.1).AddValue(.1)
-                                        .AddInputNeuron()
-                                        .AddValue(.2).AddValue(.1).AddValue(.4).AddValue(.1)
+                                        .AddInputNeuron(x => x.AddValues(.1, .3, .1, .1))
+                                        .AddInputNeuron(x => x.AddValues(.2, .1, .4, .1))
 
-                                        .AddOutputNeuron()
-                                        .AddValue(.3).AddValue(.4).AddValue(.5).AddValue(.2)
+                                        .AddOutputNeuron(x => x.AddValues(.3, .4, .5, .2))
 
                                         .Get();
         }

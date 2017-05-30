@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI.Modeling\Modelers\ModelingHelpers\NeuronValue.cs" />
     <Compile Include="AI.Modeling\Models\eNeuronLayer.cs" />
     <Compile Include="AI.Modeling\Interfaces\IModeler.cs" />
     <Compile Include="AI\Computations\BackPropagate.cs" />

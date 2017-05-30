@@ -11,8 +11,10 @@ namespace SimpleNeuralNetwork.AI.Computations.Maths
     {
         public double OutputMethod(double val)
         {
-            if (val < -20.0) return -1.0; // approximation is correct to 30 decimals
-            else if (val > 20.0) return 1.0;
+            if (val < -20.0)
+                return -1.0; // approximation is correct to 30 decimals
+            else if (val > 20.0)
+                return 1.0;
             else return Math.Tanh(val);
         }
 
