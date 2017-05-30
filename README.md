@@ -12,14 +12,16 @@ _HyperTan is in in the range of -1 to 1, so input/ouput data must me normalized 
 ### Program.cs
 Working example of how to train the Neural Network to add to decimals, or to load trained data.
 ### How to
-Use NeuralNetworkFactory to get a new neural network:
+Use NeuralNetworkFactoryHelper to train a neural network or to load a pre-trained one:
 ```csharp
-var neuralNetwork = factory.Get( [NeuralNetworkFactory.NetworkFor.Addition | NeuralNetworkFactory.NetworkFor.XOR | NeuralNetworkFactory.NetworkFor.Custom], 
-                                 [NeuralNetworkFactory.TrainType.LiveTraining | NeuralNetworkFactory.NetworkFor.Trained] );
+var factoryHelper = new NeuralNetworkFactoryHelper(trainedNetworksPath);
+var neuralNetwork = factoryHelper.Train( [NeuralNetworkFactory.NetworkFor.Addition | NeuralNetworkFactory.NetworkFor.XOR | NeuralNetworkFactory.NetworkFor.Custom] );
+//OR
+var  neuralNetwork = factoryHelper.Load( [NeuralNetworkFactory.NetworkFor.Addition | NeuralNetworkFactory.NetworkFor.XOR | NeuralNetworkFactory.NetworkFor.Custom] );
 ```
 Test NN efficiency by trying unknown numbers as variabes with Compute:
 ```csharp
-var result = neuralNetwork.Compute(new double[] { .3, .2 });
+var result = neuralNetwork.Run(new double[] { .3, .2 });
 ```
 Use Custom Trainer in AI.Training/Trainers/CustomTrainer.cs to model your own problem.
 ```csharp
@@ -36,6 +38,7 @@ NeuralNetworkModel = new NeuralNetworkModeling()
 				.SetHiddenNeurons(5)                                //Set the number of hidden neurons
 				.SetMathFunctions(MathFunctions.HyperTan)           //Set the algorithms to be used 
 				.SetAcceptedError(.001)                             //Set accepted error for the train session to complete
+				.SetNeuralNetworkName("Custom")                     //Set Network Name
 
 				.AddInputNeuron()                                   //Add Input Neuron 1
 				.AddValue(.2).AddValue(.3).AddValue(.2).AddValue(.1)//Add values for the Input Neuron 1
