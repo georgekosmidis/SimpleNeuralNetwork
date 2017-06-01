@@ -43,13 +43,14 @@ namespace SimpleNeuralNetwork.Helpers
                                               new BackPropagate(),
                                               new NetworkLayers(
                                                   new NeuronSynapsis()
-                                              )
+                                              ),
+                                              new OuputDeviation()
                                           )
                                       );
 
             //neuralNetworkFactory.OnSampleLearned += NeuralNetworkFactory_OnSampleLearned;
             neuralNetworkFactory.OnLearningCycleComplete += NeuralNetworkFactory_OnLearningCycleComplete;
-
+            neuralNetworkFactory.OnNetworkReconfigured += NeuralNetworkFactory_OnNetworkReconfigured;
             IModeler modeler;
             switch (networkFor)
             {
@@ -67,10 +68,13 @@ namespace SimpleNeuralNetwork.Helpers
             }
 
             var runner = neuralNetworkFactory.Train(modeler.NeuralNetworkModel);
+            OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + Environment.NewLine + "Neural Network trained with error: " + runner.NueralNetworkError));
+
             neuralNetworkFactory.Save();
 
             return runner;
         }
+
 
         public AI.NeuralNetworkFactory.Runner Load(NetworkFor networkFor)
         {
@@ -86,17 +90,22 @@ namespace SimpleNeuralNetwork.Helpers
                                 new BackPropagate(),
                                 new NetworkLayers(
                                     new NeuronSynapsis()
-                                )
+                                ),
+                                new OuputDeviation()
                             )
                         ).Load(networkFor.ToString());
 
         }
 
+        private void NeuralNetworkFactory_OnNetworkReconfigured(object sender, NetworkReconfiguredEventArgs e)
+        {
+            var status = Environment.NewLine + Environment.NewLine + "Training configuration with " + e.HiddenNeuronsCount + " hidden layer neurons" + Environment.NewLine;
+            OnUpdateStatus?.Invoke(sender, new ProgressEventArgs(status));
+        }
+
         private void NeuralNetworkFactory_OnLearningCycleComplete(object sender, LearningCycleCompleteEventArgs e)
         {
-           // if (e.Iteration != 0)
-           //     return;//speed up things
-            var status = "Error on iteration " + e.Iteration + ": " + e.Error.ToString();
+            var status = "\rError on iteration " + e.Iteration + ": " + e.Error.ToString();
             OnUpdateStatus?.Invoke(sender, new ProgressEventArgs(status));
         }
 

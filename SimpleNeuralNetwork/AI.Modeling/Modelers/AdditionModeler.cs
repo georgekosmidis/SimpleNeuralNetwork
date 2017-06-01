@@ -37,9 +37,10 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers
                 output2[i] = input1[i] - input2[i] - input3[i];
             }
             NeuralNetworkModel = new NeuralNetworkModeling()
-                                        .SetHiddenNeurons(5)
+                                        //.SetHiddenNeurons(3)
+                                        .AutoAdjustHiddenLayer()
                                         .SetMathFunctions(MathFunctions.HyperTan)
-                                        .SetAcceptedError(.001)
+                                        .SetAcceptedError(.03)
                                         .SetNeuralNetworkName("Addition")
 
                                         .AddInputNeuron(x => x.AddValues(input1))

@@ -31,6 +31,7 @@ namespace SimpleNeuralNetwork
             //TRAIN THE NUERAL NETWORK
             var neuralNetwork = factoryHelper.Train(networkFor);
             Console.WriteLine("");
+            Console.WriteLine("");
             Console.WriteLine("Computation with newly trained network:");
             var result = neuralNetwork.Run(tests);
             WriteMatrix(result);
@@ -52,7 +53,7 @@ namespace SimpleNeuralNetwork
 
         private static void Factory_OnUpdateStatus(object sender, ProgressEventArgs e)
         {
-            Console.Write("\r{0}", e.Status);
+            Console.Write(e.Status);
         }
 
     }

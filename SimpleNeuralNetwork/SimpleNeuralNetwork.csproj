@@ -50,9 +50,11 @@
     <Compile Include="AI.Modeling\Interfaces\IModeler.cs" />
     <Compile Include="AI\Computations\BackPropagate.cs" />
     <Compile Include="AI\Computations\FeedForward.cs" />
+    <Compile Include="AI\Interfaces\IOuputDeviation.cs" />
     <Compile Include="AI\Computations\Maths\HyperTan.cs" />
+    <Compile Include="AI\Computations\OuputDeviation.cs" />
     <Compile Include="AI\EventArguments\LearningCycleCompleteEventArgs.cs" />
-    <Compile Include="AI\EventArguments\LearningCycleStartEventArgs.cs" />
+    <Compile Include="AI\EventArguments\NetworkReconfiguredEventArgs.cs" />
     <Compile Include="AI\Interfaces\INeuronSynapsis.cs" />
     <Compile Include="AI\Interfaces\INetworkLayers.cs" />
     <Compile Include="AI\Computations\NetworkLayers.cs" />
@@ -71,7 +73,6 @@
     <Compile Include="AI\NeuralNetworkTrainer.cs" />
     <Compile Include="AI\Computations\NeuronSynapsis.cs" />
     <Compile Include="AI\Models\Synapse.cs" />
-    <Compile Include="AI\EventArguments\SampleEventArgs.cs" />
     <Compile Include="AI\Interfaces\IBrainRepository.cs" />
     <Compile Include="AI\BrainRepositories\JsonFile.cs" />
     <Compile Include="Program.cs" />

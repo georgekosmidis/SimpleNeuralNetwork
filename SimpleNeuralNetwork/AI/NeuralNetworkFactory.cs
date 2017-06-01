@@ -16,10 +16,8 @@ namespace SimpleNeuralNetwork.AI
         NeuralNetworkRunner _neuralNetworkRunner;
         NeuralNetworkTrainer _neuralNetworkTrainer;
 
-        public delegate void LearningCycleStartHandler(object sender, LearningCycleStartEventArgs e);
-        public event LearningCycleStartHandler OnLearningCycleStart;
-        public delegate void SampleLearnedHandler(object sender, SampleEventArgs e);
-        public event SampleLearnedHandler OnSampleLearned;
+        public delegate void NetworkReconfiguredHandler(object sender, NetworkReconfiguredEventArgs e);
+        public event NetworkReconfiguredHandler OnNetworkReconfigured;
         public delegate void LearningCycleCompleteHandler(object sender, LearningCycleCompleteEventArgs e);
         public event LearningCycleCompleteHandler OnLearningCycleComplete;
 
@@ -30,9 +28,13 @@ namespace SimpleNeuralNetwork.AI
             _neuralNetworkRunner = neuralNetworkRunner;
             _neuralNetworkTrainer = neuralNetworkTrainer;
 
-            _neuralNetworkTrainer.OnLearningCycleStart += _neuralNetworkTrainer_OnLearningCycleStart;
+            _neuralNetworkTrainer.OnNetworkReconfigured += _neuralNetworkTrainer_OnNetworkReconfigured;
             _neuralNetworkTrainer.OnLearningCycleComplete += _neuralNetworkTrainer_OnLearningCycleComplete;
-            _neuralNetworkTrainer.OnSampleLearned += _neuralNetworkTrainer_OnSampleLearned;
+        }
+
+        private void _neuralNetworkTrainer_OnNetworkReconfigured(object sender, NetworkReconfiguredEventArgs e)
+        {
+            OnNetworkReconfigured?.Invoke(sender, e);
         }
 
         private void _neuralNetworkTrainer_OnLearningCycleComplete(object sender, LearningCycleCompleteEventArgs e)
@@ -40,15 +42,6 @@ namespace SimpleNeuralNetwork.AI
             OnLearningCycleComplete?.Invoke(sender, e);
         }
 
-        private void _neuralNetworkTrainer_OnLearningCycleStart(object sender, LearningCycleStartEventArgs e)
-        {
-            OnLearningCycleStart?.Invoke(sender, e);
-        }
-
-        private void _neuralNetworkTrainer_OnSampleLearned(object sender, SampleEventArgs e)
-        {
-            OnSampleLearned?.Invoke(sender, e);
-        }
 
 
         //public double[] Run(double[] inputSample)
@@ -58,7 +51,7 @@ namespace SimpleNeuralNetwork.AI
 
         public Runner Train(NeuralNetworkTrainModel neuralNetworkTrainModel)
         {
-            _neuralNetworkTrainer.Train(_neuralNetwork, neuralNetworkTrainModel);
+            _neuralNetwork = _neuralNetworkTrainer.Train(neuralNetworkTrainModel);
             return new Runner(_neuralNetwork, _neuralNetworkRunner);
         }
 
@@ -77,6 +70,13 @@ namespace SimpleNeuralNetwork.AI
         {
             NeuralNetworkRunner _neuralNetworkRunner;
             NeuralNetwork _neuralNetwork;
+            public double NueralNetworkError
+            {
+                get
+                {
+                    return _neuralNetwork.NueralNetworkError;
+                }
+            }
 
             public Runner(NeuralNetwork neuralNetwork, NeuralNetworkRunner neuralNetworkRunner)
             {
