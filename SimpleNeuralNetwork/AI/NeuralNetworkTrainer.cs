@@ -41,20 +41,22 @@ namespace SimpleNeuralNetwork.AI
             neuralNetwork.MathFunctions = neuralNetworkTrainModel.MathFunctions;
             neuralNetwork.Name = neuralNetworkTrainModel.NeuronNetworkName;
 
+            var trainSetCount = Convert.ToInt32(Math.Floor(neuralNetworkTrainModel.ValuesCount * .7));
+            var validationSetCount = Convert.ToInt32(Math.Floor((neuralNetworkTrainModel.ValuesCount - trainSetCount) * .7));
+            var testSet = Convert.ToInt32(neuralNetworkTrainModel.ValuesCount - trainSetCount - validationSetCount);
+
             var j = 0;
-            var leastError = 1d;
+            var lastError = double.MaxValue;
             do
             {
                 OnLearningCycleStart?.Invoke(this, new LearningCycleStartEventArgs(++j));
 
-                var innerLeastError = 0d;
-
-                for (int i = 0; i < neuralNetworkTrainModel.ValuesCount; i++)
+                //train
+                for (var i = 0; i < trainSetCount; i++)
                 {
                     _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Input, i));
-                    var expectedValues = neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Output, i);                    
+                    var expectedValues = neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Output, i);
                     _backPropagate.Compute(neuralNetwork, expectedValues);
-                    innerLeastError = Math.Max(innerLeastError, GetMaxError(neuralNetwork.OutputNeurons));
 
                     OnSampleLearned?.Invoke(this, new SampleEventArgs(i,
                                                                       expectedValues,
@@ -64,13 +66,27 @@ namespace SimpleNeuralNetwork.AI
                                            );
                 }
 
+                OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(j, lastError));
+                //test, should training stop?
+                var innerLastError = 0d;
+                for (var i = trainSetCount ; i < trainSetCount + validationSetCount; i++)
+                {
+                    _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Input, i));
+                    var expectedValues = neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Output, i);
+                    innerLastError += neuralNetwork.OutputNeurons.Sum(x => x.Value) - expectedValues.Sum(x => x);
+                }
+                if (lastError <= innerLastError)
+                    break;
+                lastError = innerLastError;
+
                 //TODO: This calculation of leastError is totally wrong, calculation should use Cross-Validation with 20% of input data...
                 //      If we can't reach the goal, parameters should change (e.g. number of hidden layers and neurons...)
-                leastError = Math.Min(leastError, innerLeastError);
+                //leastError = Math.Min(leastError, innerLeastError);
 
-                OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(j, leastError));
 
-            } while (leastError > neuralNetworkTrainModel.AcceptedError);
+                OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(j, lastError));
+
+            } while (true);
 
         }
 

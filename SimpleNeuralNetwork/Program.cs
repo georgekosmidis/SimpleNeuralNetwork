@@ -17,7 +17,7 @@ namespace SimpleNeuralNetwork
 
         static void Main(string[] args)
         {
-            Run(NeuralNetworkFactoryHelper.NetworkFor.Addition, new double[] { .2, .1, .6 });
+            Run(NeuralNetworkFactoryHelper.NetworkFor.Addition, new double[] { .2, .1, .3 });
 
             Console.ReadKey(true);
 
@@ -46,7 +46,7 @@ namespace SimpleNeuralNetwork
         private static void WriteMatrix(double[] result)
         {
             for (var i = 0; i < result.Length; i++)
-                Console.WriteLine("Output Neuron " + (i + 1) + ": " + Math.Round(result[i], 1).ToString("0.0", CultureInfo.InvariantCulture));
+                Console.WriteLine("Output Neuron " + (i + 1) + ": " + result[i].ToString("0.000", CultureInfo.InvariantCulture));
 
         }
 

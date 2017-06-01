@@ -94,8 +94,8 @@ namespace SimpleNeuralNetwork.Helpers
 
         private void NeuralNetworkFactory_OnLearningCycleComplete(object sender, LearningCycleCompleteEventArgs e)
         {
-            if (e.Iteration % 10 != 0)
-                return;//speed up things
+           // if (e.Iteration != 0)
+           //     return;//speed up things
             var status = "Error on iteration " + e.Iteration + ": " + e.Error.ToString();
             OnUpdateStatus?.Invoke(sender, new ProgressEventArgs(status));
         }
