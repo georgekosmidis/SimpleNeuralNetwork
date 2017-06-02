@@ -16,7 +16,7 @@ namespace SimpleNeuralNetwork.AI.Modeling.Models
 
         public MathFunctions MathFunctions { get; set; } = MathFunctions.Sigmoid;
 
-        public double AcceptedError { get; set; } = .001;
+        public double AcceptedError { get; set; } = .02;
 
         public int ValuesCount
         {

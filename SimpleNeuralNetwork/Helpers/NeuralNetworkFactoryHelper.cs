@@ -13,6 +13,7 @@ using SimpleNeuralNetwork.EventArguments;
 using SimpleNeuralNetwork.AI.BrainRepositories;
 using System.Globalization;
 using SimpleNeuralNetwork.AI.EventArguments;
+using SimpleNeuralNetwork.AI.Training;
 
 namespace SimpleNeuralNetwork.Helpers
 {
@@ -39,12 +40,21 @@ namespace SimpleNeuralNetwork.Helpers
                                                new FeedForward()
                                           ),
                                           new NeuralNetworkTrainer(
-                                              new FeedForward(),
-                                              new BackPropagate(),
                                               new NetworkLayers(
                                                   new NeuronSynapsis()
                                               ),
-                                              new OuputDeviation()
+                                              new TrainSet(
+                                                new FeedForward(),
+                                                new BackPropagate()
+                                              ),
+                                              new ValidationSet(
+                                                  new FeedForward(),
+                                                  new OuputDeviation()
+                                              ),
+                                              new TestSet(
+                                                  new FeedForward(),
+                                                  new OuputDeviation()
+                                              )
                                           )
                                       );
 
@@ -89,12 +99,21 @@ namespace SimpleNeuralNetwork.Helpers
                                 new FeedForward()
                             ),
                             new NeuralNetworkTrainer(
-                                new FeedForward(),
-                                new BackPropagate(),
                                 new NetworkLayers(
                                     new NeuronSynapsis()
                                 ),
-                                new OuputDeviation()
+                                new TrainSet(
+                                new FeedForward(),
+                                new BackPropagate()
+                                ),
+                                new ValidationSet(
+                                    new FeedForward(),
+                                    new OuputDeviation()
+                                ),
+                                new TestSet(
+                                    new FeedForward(),
+                                    new OuputDeviation()
+                                )
                             )
                         ).Load(networkFor.ToString());
 

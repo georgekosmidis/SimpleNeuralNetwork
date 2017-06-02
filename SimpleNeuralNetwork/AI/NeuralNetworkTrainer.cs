@@ -12,10 +12,11 @@ namespace SimpleNeuralNetwork.AI
 {
     public class NeuralNetworkTrainer
     {
-        private IFeedForward _feedForward;
-        private IBackPropagate _backPropagate;
+        private ITrainSet _trainSet;
         private INetworkLayers _networkLayers;
-        private IOuputDeviation _ouputDeviation;
+        private IValidationSet _validationSet;
+        private ITestSet _testSet;
+
 
         private List<NeuralNetwork> _neuralNetworkSetup = new List<NeuralNetwork>();
 
@@ -24,12 +25,12 @@ namespace SimpleNeuralNetwork.AI
         public delegate void NetworkReconfiguredHandler(object sender, NetworkReconfiguredEventArgs e);
         public event NetworkReconfiguredHandler OnNetworkReconfigured;
 
-        public NeuralNetworkTrainer(IFeedForward feedForward, IBackPropagate backPropagate, INetworkLayers networkLayers, IOuputDeviation ouputDeviation)
+        public NeuralNetworkTrainer(INetworkLayers networkLayers, ITrainSet trainSet, IValidationSet validationSet, ITestSet testSet)
         {
-            _feedForward = feedForward;
-            _backPropagate = backPropagate;
             _networkLayers = networkLayers;
-            _ouputDeviation = ouputDeviation;
+            _trainSet = trainSet;
+            _validationSet = validationSet;
+            _testSet = testSet;
         }
 
         public NeuralNetwork Train(NeuralNetworkTrainModel neuralNetworkTrainModel)
@@ -44,70 +45,32 @@ namespace SimpleNeuralNetwork.AI
             neuralNetwork.MathFunctions = neuralNetworkTrainModel.MathFunctions;
             neuralNetwork.Name = neuralNetworkTrainModel.NeuronNetworkName;
 
-            var trainSetCount = Convert.ToInt32(Math.Floor(neuralNetworkTrainModel.ValuesCount * .7));
-            var validationSetCount = Convert.ToInt32(Math.Floor((neuralNetworkTrainModel.ValuesCount - trainSetCount) * .7));
-            var testSet = Convert.ToInt32(neuralNetworkTrainModel.ValuesCount - trainSetCount - validationSetCount);
 
             var iteration = 0;
-            var lastOutputDeviation = double.MaxValue;
             while (++iteration < int.MaxValue)
             {
                 //train
-                for (var i = 0; i < trainSetCount; i++)
-                {
-                    _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Input, i));
-                    var expectedValues = neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Output, i);
-                    _backPropagate.Compute(neuralNetwork, expectedValues);
-                }
+                _trainSet.Train(neuralNetwork, neuralNetworkTrainModel);
 
-                //validate, should training stop?
-                var innerLastOutputDeviation = 0d;
-                for (var i = trainSetCount; i < trainSetCount + validationSetCount; i++)
-                {
-                    _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Input, i));
-                    innerLastOutputDeviation += _ouputDeviation.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Output, i));
-                }
-
-                //check deviation to break training
-                innerLastOutputDeviation /= validationSetCount;
-                if (lastOutputDeviation <= innerLastOutputDeviation ||                      //if new outputDeviation is bigger, stop training
-                    innerLastOutputDeviation < neuralNetworkTrainModel.AcceptedError ||     //if we are in the accepted error range, stop training
-                    lastOutputDeviation - innerLastOutputDeviation < .00001)                //if the correction is too small stop training
-                {
-                    lastOutputDeviation = innerLastOutputDeviation;
+                //can NN train any more?
+                if (_validationSet.StopIterations(neuralNetwork, neuralNetworkTrainModel))
                     break;
-                }
-                lastOutputDeviation = innerLastOutputDeviation;
 
-
-                OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(iteration, lastOutputDeviation));
+                OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(iteration, neuralNetwork.NeuralNetworkError));
             }
 
             //store NN
-            neuralNetwork.NeuralNetworkError = lastOutputDeviation;
             _neuralNetworkSetup.Add(neuralNetwork);
 
             //check if we have to reconfigure or retrain NN
-            if (iteration < neuralNetwork.HiddenNeurons.Count() || (neuralNetworkTrainModel.AutoAdjuctHiddenLayer && lastOutputDeviation > neuralNetworkTrainModel.AcceptedError))
-            {
-                //reconfigure for up to ten times the sum of input/output neurons
-                if (neuralNetwork.HiddenNeurons.Count() < (neuralNetwork.InputNeurons.Count() + neuralNetwork.OutputNeurons.Count()) * 10)
-                {
-                    neuralNetwork = Train(neuralNetworkTrainModel);
-                }
-            }
-
+            if (!_validationSet.StopTraining(neuralNetwork, neuralNetworkTrainModel))
+                neuralNetwork = Train(neuralNetworkTrainModel);
+                        
             //choose best NN Setup
             neuralNetwork = _neuralNetworkSetup.OrderBy(x => x.NeuralNetworkError).First();
 
             //test, find real life error
-            var testError = 0d;
-            for (var i = trainSetCount + validationSetCount; i < trainSetCount + validationSetCount + testSet; i++)
-            {
-                _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Input, i));
-                testError += _ouputDeviation.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Output, i));
-            }
-            neuralNetwork.NeuralNetworkError = testError / testSet;//update with test error
+            _testSet.Test(neuralNetwork, neuralNetworkTrainModel);
 
             return neuralNetwork;
         }

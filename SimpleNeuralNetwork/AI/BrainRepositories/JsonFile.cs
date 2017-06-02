@@ -79,7 +79,7 @@ namespace SimpleNeuralNetwork.AI.BrainRepositories
 
 
             TextWriter writer = null;
-            var json = JsonConvert.SerializeObject(savedNeuralNetwork, Formatting.Indented,
+            var json = JsonConvert.SerializeObject(savedNeuralNetwork, Formatting.None,
                                                         new JsonSerializerSettings
                                                         {
                                                             ReferenceLoopHandling = ReferenceLoopHandling.Serialize

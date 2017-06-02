@@ -69,6 +69,12 @@
     <Compile Include="AI\NeuralNetworkFactory.cs" />
     <Compile Include="AI\NeuralNetworkRepository.cs" />
     <Compile Include="AI\NeuralNetworkRunner.cs" />
+    <Compile Include="AI\Interfaces\IValidationSet.cs" />
+    <Compile Include="AI\Interfaces\ITestSet.cs" />
+    <Compile Include="AI\Training\ITrainSet.cs" />
+    <Compile Include="AI\Training\TestSet.cs" />
+    <Compile Include="AI\Training\TrainSet.cs" />
+    <Compile Include="AI\Training\ValidationSet.cs" />
     <Compile Include="EventArguments\ProgressEventArgs.cs" />
     <Compile Include="Helpers\NeuralNetworkFactoryHelper.cs" />
     <Compile Include="AI\Interfaces\IMaths.cs" />
