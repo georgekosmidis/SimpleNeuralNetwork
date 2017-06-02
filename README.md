@@ -16,9 +16,9 @@ A multi-layer perceptron (one input, one hidden and output), forward feed neural
 * One model with low accuracy to calculate XOR (_AI.Modeling/Modelers/XORModeler.cs_)
 
 ### Math Methods
-Two available methods, Sigmoid and HyperTan, depending on the model.<br />
-_Sigmoid as output method is in in the range of 0 to 1, so input/ouput data must me normalized  from 0 to 1_<br />
-_HyperTan is in in the range of -1 to 1, so input/ouput data must me normalized from -1 to 1_
+Two available methods depending on the model.<br />
+* _Sigmoid_ as output method is in in the range of 0 to 1, so input/ouput data must me normalized  from 0 to 1
+* _HyperTan_ is in in the range of -1 to 1, so input/ouput data must me normalized from -1 to 1
 
 ### Program.cs
 Working example of how to train the Neural Network to add and substract three decimals
