@@ -21,7 +21,10 @@ namespace SimpleNeuralNetwork.AI.Computations
             var outputSum = 0d;
             for (var i = 0; i < neuralNetwork.OutputNeurons.Count(); i++)
             {
-                outputSum += Math.Abs((outputData[i] - neuralNetwork.OutputNeurons[i].Value) / outputData[i]);
+                if (outputData[i] == 0)
+                    outputSum += Math.Abs(outputData[i] - neuralNetwork.OutputNeurons.ElementAt(i).Value);
+                else
+                    outputSum += Math.Abs((outputData[i] - neuralNetwork.OutputNeurons.ElementAt(i).Value) / outputData[i]);
             }
             return outputSum / neuralNetwork.OutputNeurons.Count();
         }

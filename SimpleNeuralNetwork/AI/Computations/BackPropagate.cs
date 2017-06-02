@@ -24,7 +24,7 @@ namespace SimpleNeuralNetwork.AI.Computations
                 _mathMethods = new AI.Computations.Maths.HyperTan();
 
             for (var i = 0; i < neuralNetwork.OutputNeurons.Count(); i++)
-                neuralNetwork.OutputNeurons[i].Error = _mathMethods.DerivativeMethod(neuralNetwork.OutputNeurons[i].Value) * (outputData[i] - neuralNetwork.OutputNeurons[i].Value);
+                neuralNetwork.OutputNeurons.ElementAt(i).Error = _mathMethods.DerivativeMethod(neuralNetwork.OutputNeurons.ElementAt(i).Value) * (outputData[i] - neuralNetwork.OutputNeurons.ElementAt(i).Value);
 
             foreach (var hiddenNeuron in neuralNetwork.HiddenNeurons)
                 hiddenNeuron.Error = hiddenNeuron.OutputSynapses.Sum(x => x.ToNeuron.Error * x.Weight) * _mathMethods.DerivativeMethod(hiddenNeuron.Value);

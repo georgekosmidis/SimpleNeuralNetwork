@@ -24,7 +24,7 @@ namespace SimpleNeuralNetwork.Helpers
             _trainedNetworksPath = trainedNetworksPath;
         }
 
-        public enum NetworkFor { Addition, XOR, Custom }
+        public enum NetworkFor { AddSubtract, XOR, Custom }
 
         public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
         public event StatusUpdateHandler OnUpdateStatus;
@@ -54,8 +54,8 @@ namespace SimpleNeuralNetwork.Helpers
             IModeler modeler;
             switch (networkFor)
             {
-                case NetworkFor.Addition:
-                    modeler = new AdditionModeler();
+                case NetworkFor.AddSubtract:
+                    modeler = new AddSubtractModeler();
                     break;
                 case NetworkFor.XOR:
                     modeler = new XorModeler();
@@ -68,7 +68,7 @@ namespace SimpleNeuralNetwork.Helpers
             }
 
             var runner = neuralNetworkFactory.Train(modeler.NeuralNetworkModel);
-            OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + Environment.NewLine + "Neural Network trained with error: " + runner.NueralNetworkError));
+            OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + Environment.NewLine + "Neural Network trained with error: " + (runner.NueralNetworkError * 100) + "%"));
 
             neuralNetworkFactory.Save();
 

@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace SimpleNeuralNetwork.AI.Modeling.Modelers
 {
-    public class AdditionModeler : IModeler
+    public class AddSubtractModeler : IModeler
     {
 
         public NeuralNetworkTrainModel NeuralNetworkModel { get; } = new NeuralNetworkTrainModel();
 
-        public AdditionModeler()
+        public AddSubtractModeler()
         {
             //Create samples
             // 3 Input neurons, 2 output neurons
@@ -40,8 +40,8 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers
                                         //.SetHiddenNeurons(3)
                                         .AutoAdjustHiddenLayer()
                                         .SetMathFunctions(MathFunctions.HyperTan)
-                                        .SetAcceptedError(.03)
-                                        .SetNeuralNetworkName("Addition")
+                                        .SetAcceptedError(.02)
+                                        .SetNeuralNetworkName("AddSubtract")
 
                                         .AddInputNeuron(x => x.AddValues(input1))
                                         .AddInputNeuron(x => x.AddValues(input2))

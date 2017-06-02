@@ -17,7 +17,7 @@ namespace SimpleNeuralNetwork
 
         static void Main(string[] args)
         {
-            Run(NeuralNetworkFactoryHelper.NetworkFor.Addition, new double[] { .2, .1, .3 });
+            Run(NeuralNetworkFactoryHelper.NetworkFor.XOR, new double[] { 1, 1 });
 
             Console.ReadKey(true);
 

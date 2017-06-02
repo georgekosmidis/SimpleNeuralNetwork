@@ -10,13 +10,13 @@ namespace SimpleNeuralNetwork.AI.Computations
 {
     public class NetworkLayers : INetworkLayers
     {
-        INeuronSynapsis _neuronCompute;
+        INeuronSynapsis _neuronSynapsis;
         NeuralNetwork neuralNetwork = new NeuralNetwork();
         int hiddenNeuronsTestCount = 0;
 
-        public NetworkLayers(INeuronSynapsis neuronCompute)
+        public NetworkLayers(INeuronSynapsis neuronSynapsis)
         {
-            _neuronCompute = neuronCompute;
+            _neuronSynapsis = neuronSynapsis;
         }
 
         public NeuralNetwork Create(int inputNeuronsCount, int hiddenNeuronsCount, int outputNeuronsCount, bool autoAdjustHiddenLayer)
@@ -38,25 +38,27 @@ namespace SimpleNeuralNetwork.AI.Computations
                 }
                 neuralNetwork = new NeuralNetwork();
             }
+            else
+                neuralNetwork = new NeuralNetwork();
 
 
             for (var i = 0; i < inputNeuronsCount; i++)
-                neuralNetwork.InputNeurons.Add(new Neuron());
+                neuralNetwork.InputNeurons.Add(new Neuron() { Index = i });
 
             if (hiddenNeuronsCount == -1)
                 hiddenNeuronsCount = Convert.ToInt32(Math.Ceiling((inputNeuronsCount + outputNeuronsCount) / 2d));
 
             for (var j = 0; j < hiddenNeuronsCount; j++)
             {
-                var neuron = new Neuron();
-                _neuronCompute.Set(neuron, neuralNetwork.InputNeurons);
+                var neuron = new Neuron() { Index = j };
+                _neuronSynapsis.Set(neuron, neuralNetwork.InputNeurons);
                 neuralNetwork.HiddenNeurons.Add(neuron);
             }
 
             for (int k = 0; k < outputNeuronsCount; k++)
             {
-                var neuron = new Neuron();
-                _neuronCompute.Set(neuron, neuralNetwork.HiddenNeurons);
+                var neuron = new Neuron() { Index = k };
+                _neuronSynapsis.Set(neuron, neuralNetwork.HiddenNeurons);
                 neuralNetwork.OutputNeurons.Add(neuron);
             }
 

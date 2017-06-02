@@ -70,7 +70,9 @@ namespace SimpleNeuralNetwork.AI
 
                 //check deviation to break training
                 innerLastOutputDeviation /= validationSetCount;
-                if (lastOutputDeviation <= innerLastOutputDeviation || innerLastOutputDeviation < neuralNetworkTrainModel.AcceptedError)
+                if (lastOutputDeviation <= innerLastOutputDeviation ||                      //if new outputDeviation is bigger, stop training
+                    innerLastOutputDeviation < neuralNetworkTrainModel.AcceptedError ||     //if we are in the accepted error range, stop training
+                    lastOutputDeviation - innerLastOutputDeviation < .00001)                //if the correction is too small stop training
                 {
                     lastOutputDeviation = innerLastOutputDeviation;
                     break;
@@ -80,14 +82,15 @@ namespace SimpleNeuralNetwork.AI
 
                 OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(iteration, lastOutputDeviation));
             }
-            
-            //store neural network
+
+            //store NN
             neuralNetwork.NueralNetworkError = lastOutputDeviation;
             _neuralNetworkSetup.Add(neuralNetwork);
 
-            //check if we have to reconfigure NN
+            //check if we have to reconfigure or retrain NN
             if (iteration < neuralNetwork.HiddenNeurons.Count() || (neuralNetworkTrainModel.AutoAdjuctHiddenLayer && lastOutputDeviation > neuralNetworkTrainModel.AcceptedError))
             {
+                //reconfigure up to ten times the sum of input/output neurons
                 if (neuralNetwork.HiddenNeurons.Count() < (neuralNetwork.InputNeurons.Count() + neuralNetwork.OutputNeurons.Count()) * 10)
                 {
                     neuralNetwork = Train(neuralNetworkTrainModel);
