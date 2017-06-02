@@ -10,7 +10,9 @@ A multi-layer perceptron (one input, one hidden and output), forward feed neural
 * Samples are devided in Train data, Verification data and Test data 
 * Save / Load model from disk
 * Custom Modeler with instuctions (AI.Modeling/Modelers/CustomModeler.cs)
-* One complete model with 3 input neurons and 2 output neurons: Output Neuron 1 substracts the three input values, Output Neuron 2 adds them (AI.Modeling/Modelers/AddSubtractModeler.cs)
+* One complete model with 3 input neurons and 2 output neurons: 
+	* Output Neuron 1 substracts the three input values, 
+	* Output Neuron 2 adds them (AI.Modeling/Modelers/AddSubtractModeler.cs)
 * One model with low accuracy to calculate XOR(AI.Modeling/Modelers/XORModeler.cs)
 
 ### Math Methods
