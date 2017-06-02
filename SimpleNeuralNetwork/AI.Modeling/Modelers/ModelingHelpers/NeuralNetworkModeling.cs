@@ -36,8 +36,13 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
             neuralNetworkTrainModel.Add(neuronTrainModel);
             return this;
         }
-        
 
+        public NeuralNetworkModeling AutoAdjustHiddenLayer()
+        {
+            neuralNetworkTrainModel.AutoAdjuctHiddenLayer = true;
+            neuralNetworkTrainModel.HiddenNeuronsCount = -1;
+            return this;
+        }
         public NeuralNetworkModeling SetHiddenNeurons(int hiddenNeurons)
         {
             neuralNetworkTrainModel.HiddenNeuronsCount = hiddenNeurons;
@@ -69,8 +74,14 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
             if (neuralNetworkTrainModel.NeuronNetworkName == null || neuralNetworkTrainModel.NeuronNetworkName?.Trim() == "")
                 throw new InvalidOperationException("Neural Network must have a name!");
 
+            if (neuralNetworkTrainModel.AutoAdjuctHiddenLayer && neuralNetworkTrainModel.HiddenNeuronsCount > -1)
+                throw new InvalidOperationException("You cannot auto-adjuct the hidden layer AND add hidden neurons!");
+
             if (neuralNetworkTrainModel.Count(x => x.Layer == NeuronLayer.Input) == 0)
                 throw new InvalidOperationException("You need at least one input neuron in your model!");
+
+            if (!neuralNetworkTrainModel.AutoAdjuctHiddenLayer && neuralNetworkTrainModel.HiddenNeuronsCount < 1)
+                throw new InvalidOperationException("You have to set either auto-adjuct or hidden neurons!");
 
             if (neuralNetworkTrainModel.Count(x => x.Layer == NeuronLayer.Output) == 0)
                 throw new InvalidOperationException("You need at least one output neuron in your model!");

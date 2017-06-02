@@ -11,7 +11,8 @@ namespace SimpleNeuralNetwork.AI.Modeling.Models
     {
         public string NeuronNetworkName { get; set; }
 
-        public int HiddenNeuronsCount { get; set; } = 5;
+        public int HiddenNeuronsCount { get; set; } = -1;
+        public bool AutoAdjuctHiddenLayer { get; set; } = false;
 
         public MathFunctions MathFunctions { get; set; } = MathFunctions.Sigmoid;
 

@@ -17,7 +17,8 @@ namespace SimpleNeuralNetwork
 
         static void Main(string[] args)
         {
-            Run(NeuralNetworkFactoryHelper.NetworkFor.Addition, new double[] { .2, .1 });
+            //Choose NN, and remember to change the values for the Input Neurons
+            Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, new double[] { .2, .2, .1 });
 
             Console.ReadKey(true);
 
@@ -31,14 +32,15 @@ namespace SimpleNeuralNetwork
             //TRAIN THE NUERAL NETWORK
             var neuralNetwork = factoryHelper.Train(networkFor);
             Console.WriteLine("");
-            Console.WriteLine("Computation with newly trained network:");
+            Console.WriteLine("");
+            Console.WriteLine("Computation with the newly trained network:");
             var result = neuralNetwork.Run(tests);
             WriteMatrix(result);
 
             //LOAD TRAINED NEURAL NETWORK
             neuralNetwork = factoryHelper.Load(networkFor);
             Console.WriteLine("");
-            Console.WriteLine("Computation with old trained network:");
+            Console.WriteLine("Computation with the saved trained network:");
             result = neuralNetwork.Run(tests);
             WriteMatrix(result);
         }
@@ -46,13 +48,13 @@ namespace SimpleNeuralNetwork
         private static void WriteMatrix(double[] result)
         {
             for (var i = 0; i < result.Length; i++)
-                Console.WriteLine("Output Neuron " + (i + 1) + ": " + Math.Round(result[i], 1).ToString("0.0", CultureInfo.InvariantCulture));
+                Console.WriteLine("Output Neuron " + (i + 1) + ": " + result[i].ToString("0.000", CultureInfo.InvariantCulture));
 
         }
 
         private static void Factory_OnUpdateStatus(object sender, ProgressEventArgs e)
         {
-            Console.WriteLine(e.Status);
+            Console.Write(e.Status);
         }
 
     }

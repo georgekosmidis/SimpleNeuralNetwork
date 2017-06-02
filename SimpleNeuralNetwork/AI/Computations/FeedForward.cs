@@ -24,8 +24,9 @@ namespace SimpleNeuralNetwork.AI.Computations
             else
                 _mathMethods = new AI.Computations.Maths.HyperTan();
 
-            for (var i = 0; i < neuralNetwork.InputNeurons.Count(); i++)
-                neuralNetwork.InputNeurons[i].Value = inputData[i];
+            var i = 0;
+            foreach (var inputNeuron in neuralNetwork.InputNeurons)
+                inputNeuron.Value = inputData[i++];
 
             foreach (var hiddenNeuron in neuralNetwork.HiddenNeurons)
             {

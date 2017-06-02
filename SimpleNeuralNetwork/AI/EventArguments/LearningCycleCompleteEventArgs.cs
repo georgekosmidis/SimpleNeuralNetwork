@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace SimpleNeuralNetwork.AI.EventArguments
 {
-    public class IterationEventArgs : EventArgs
+    public class LearningCycleCompleteEventArgs : EventArgs
     {
         public int Iteration { get; }
-        public IterationEventArgs(int iteration)
+        public double Error { get; }
+        public LearningCycleCompleteEventArgs(int iteration, double error)
         {
             Iteration = iteration;
+            Error = error;
         }
     }
 }

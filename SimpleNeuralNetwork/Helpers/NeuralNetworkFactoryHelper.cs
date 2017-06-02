@@ -12,6 +12,7 @@ using SimpleNeuralNetwork.AI.Modeling.Interfaces;
 using SimpleNeuralNetwork.EventArguments;
 using SimpleNeuralNetwork.AI.BrainRepositories;
 using System.Globalization;
+using SimpleNeuralNetwork.AI.EventArguments;
 
 namespace SimpleNeuralNetwork.Helpers
 {
@@ -23,7 +24,7 @@ namespace SimpleNeuralNetwork.Helpers
             _trainedNetworksPath = trainedNetworksPath;
         }
 
-        public enum NetworkFor { Addition, XOR, Custom }
+        public enum NetworkFor { AddSubtract, XOR, Custom }
 
         public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
         public event StatusUpdateHandler OnUpdateStatus;
@@ -42,18 +43,19 @@ namespace SimpleNeuralNetwork.Helpers
                                               new BackPropagate(),
                                               new NetworkLayers(
                                                   new NeuronSynapsis()
-                                              )
+                                              ),
+                                              new OuputDeviation()
                                           )
                                       );
 
-            neuralNetworkFactory.OnNewIteration += NeuralNetworkFactory_OnNewIteration;
-            neuralNetworkFactory.OnSampleLearned += NeuralNetworkFactory_OnSampleLearned;
-
+            //neuralNetworkFactory.OnSampleLearned += NeuralNetworkFactory_OnSampleLearned;
+            neuralNetworkFactory.OnLearningCycleComplete += NeuralNetworkFactory_OnLearningCycleComplete;
+            neuralNetworkFactory.OnNetworkReconfigured += NeuralNetworkFactory_OnNetworkReconfigured;
             IModeler modeler;
             switch (networkFor)
             {
-                case NetworkFor.Addition:
-                    modeler = new AdditionModeler();
+                case NetworkFor.AddSubtract:
+                    modeler = new AddSubtractModeler();
                     break;
                 case NetworkFor.XOR:
                     modeler = new XorModeler();
@@ -66,10 +68,16 @@ namespace SimpleNeuralNetwork.Helpers
             }
 
             var runner = neuralNetworkFactory.Train(modeler.NeuralNetworkModel);
+            OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + Environment.NewLine + new String('=', 50)));
+            OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + "Training Completed!"));
+            OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + "Hidden Neurons: " + runner.NeuralNetwork.HiddenNeurons.Count()));
+            OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + "Neural Network Accuracy: " + (100 - (Math.Round(runner.NeuralNetwork.NeuralNetworkError, 4) * 100)).ToString(CultureInfo.InvariantCulture) + "%"));
+
             neuralNetworkFactory.Save();
 
             return runner;
         }
+
 
         public AI.NeuralNetworkFactory.Runner Load(NetworkFor networkFor)
         {
@@ -85,40 +93,53 @@ namespace SimpleNeuralNetwork.Helpers
                                 new BackPropagate(),
                                 new NetworkLayers(
                                     new NeuronSynapsis()
-                                )
+                                ),
+                                new OuputDeviation()
                             )
                         ).Load(networkFor.ToString());
 
         }
 
-        private void NeuralNetworkFactory_OnSampleLearned(object sender, AI.EventArguments.SampleEventArgs e)
+        private void NeuralNetworkFactory_OnNetworkReconfigured(object sender, NetworkReconfiguredEventArgs e)
         {
-            var s = new StringBuilder();
-            for (var i = 0; i < e.Expected.Length; i++)
-            {
-                s.Append(
-                String.Format("{0,10} |{1,10} |{2,10} |{3,10}",
-                               (i + 1),
-                               e.Expected[i].ToString("0.0000", CultureInfo.InvariantCulture),
-                               e.Actual[i].ToString("0.0000", CultureInfo.InvariantCulture),
-                               e.Error[i].ToString("0.0000", CultureInfo.InvariantCulture)
-                            )
-                );
-                s.Append(Environment.NewLine);
-            }
-
-            OnUpdateStatus?.Invoke(sender, new ProgressEventArgs(s.ToString()));
+            var status = Environment.NewLine + Environment.NewLine + "Hidden Neurons: " + e.HiddenNeuronsCount + Environment.NewLine;
+            OnUpdateStatus?.Invoke(sender, new ProgressEventArgs(status));
         }
 
-        private void NeuralNetworkFactory_OnNewIteration(object sender, AI.EventArguments.IterationEventArgs e)
+        private void NeuralNetworkFactory_OnLearningCycleComplete(object sender, LearningCycleCompleteEventArgs e)
         {
-            var s = new StringBuilder();
-            s.AppendLine(new String('*', 50));
-            s.AppendLine("Starting Iteration " + e.Iteration);
-            s.AppendLine(new String('-', 50));
-            s.AppendLine(String.Format("{0,10} |{1,10} |{2,10} |{3,10}", "Neuron", "Expected", "Actual", "Error"));
-
-            OnUpdateStatus?.Invoke(sender, new ProgressEventArgs(s.ToString()));
+            var status = "\rOutput Error: " + e.Error.ToString("00.00000000000000000", CultureInfo.InvariantCulture) + " (After " + e.Iteration.ToString("00000") + " iterations...)";
+            OnUpdateStatus?.Invoke(sender, new ProgressEventArgs(status));
         }
+
+        //private void NeuralNetworkFactory_OnSampleLearned(object sender, AI.EventArguments.SampleEventArgs e)
+        //{
+        //    var s = new StringBuilder();
+        //    for (var i = 0; i < e.Expected.Length; i++)
+        //    {
+        //        s.Append(
+        //        String.Format("{0,10} |{1,10} |{2,10} |{3,10}",
+        //                       (i + 1),
+        //                       e.Expected[i].ToString("0.0000", CultureInfo.InvariantCulture),
+        //                       e.Actual[i].ToString("0.0000", CultureInfo.InvariantCulture),
+        //                       e.Error[i].ToString("0.0000", CultureInfo.InvariantCulture)
+        //                    )
+        //        );
+        //        s.Append(Environment.NewLine);
+        //    }
+
+        //    OnUpdateStatus?.Invoke(sender, new ProgressEventArgs(s.ToString()));
+        //}
+
+        //private void NeuralNetworkFactory_OnNewIteration(object sender, AI.EventArguments.IterationEventArgs e)
+        //{
+        //    var s = new StringBuilder();
+        //    s.AppendLine(new String('*', 50));
+        //    s.AppendLine("Starting Iteration " + e.Iteration);
+        //    s.AppendLine(new String('-', 50));
+        //    s.AppendLine(String.Format("{0,10} |{1,10} |{2,10} |{3,10}", "Neuron", "Expected", "Actual", "Error"));
+
+        //    OnUpdateStatus?.Invoke(sender, new ProgressEventArgs(s.ToString()));
+        //}
     }
 }
