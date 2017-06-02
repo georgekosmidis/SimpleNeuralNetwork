@@ -68,7 +68,10 @@ namespace SimpleNeuralNetwork.Helpers
             }
 
             var runner = neuralNetworkFactory.Train(modeler.NeuralNetworkModel);
-            OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + Environment.NewLine + "Neural Network trained with error: " + (runner.NueralNetworkError * 100) + "%"));
+            OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + Environment.NewLine + new String('=', 50)));
+            OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + "Training Completed!"));
+            OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + "Hidden Neurons: " + runner.NeuralNetwork.HiddenNeurons.Count()));
+            OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + "Neural Network Accuracy: " + (100 - (Math.Round(runner.NeuralNetwork.NeuralNetworkError, 4) * 100)).ToString(CultureInfo.InvariantCulture) + "%"));
 
             neuralNetworkFactory.Save();
 
@@ -99,13 +102,13 @@ namespace SimpleNeuralNetwork.Helpers
 
         private void NeuralNetworkFactory_OnNetworkReconfigured(object sender, NetworkReconfiguredEventArgs e)
         {
-            var status = Environment.NewLine + Environment.NewLine + "Training configuration with " + e.HiddenNeuronsCount + " hidden layer neurons" + Environment.NewLine;
+            var status = Environment.NewLine + Environment.NewLine + "Hidden Neurons: " + e.HiddenNeuronsCount + Environment.NewLine;
             OnUpdateStatus?.Invoke(sender, new ProgressEventArgs(status));
         }
 
         private void NeuralNetworkFactory_OnLearningCycleComplete(object sender, LearningCycleCompleteEventArgs e)
         {
-            var status = "\rError on iteration " + e.Iteration + ": " + e.Error.ToString();
+            var status = "\rOutput Error: " + e.Error.ToString("00.00000000000000000", CultureInfo.InvariantCulture) + " (After " + e.Iteration.ToString("00000") + " iterations...)";
             OnUpdateStatus?.Invoke(sender, new ProgressEventArgs(status));
         }
 

@@ -1,0 +1,1683 @@
+{
+  "InputNeurons": [
+    {
+      "Value": 0.116,
+      "Error": 0.60199717367160932,
+      "Index": 0
+    },
+    {
+      "Value": 0.227,
+      "Error": 0.60199717367160932,
+      "Index": 1
+    },
+    {
+      "Value": 0.223,
+      "Error": 0.60199717367160932,
+      "Index": 2
+    }
+  ],
+  "HiddenNeurons": [
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 0
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 1
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 2
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 3
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 4
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 5
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 6
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 7
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 8
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 9
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 10
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 11
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 12
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 13
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 14
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 15
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 16
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 17
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 18
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 19
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 20
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 21
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 22
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 23
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 24
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 25
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 26
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 27
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 28
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 29
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 30
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 31
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 32
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 33
+    },
+    {
+      "Value": 0.25600492646903888,
+      "Error": -0.0006036687698637123,
+      "Index": 34
+    },
+    {
+      "Value": -0.00053053383757635129,
+      "Error": -0.00095428684539034967,
+      "Index": 35
+    },
+    {
+      "Value": -0.00053053383757635129,
+      "Error": -0.00095428684539034967,
+      "Index": 36
+    },
+    {
+      "Value": -0.00053053383757635129,
+      "Error": -0.00095428684539034967,
+      "Index": 37
+    },
+    {
+      "Value": -0.00053053383757635129,
+      "Error": -0.00095428684539034967,
+      "Index": 38
+    },
+    {
+      "Value": -0.00053053383757635129,
+      "Error": -0.00095428684539034967,
+      "Index": 39
+    },
+    {
+      "Value": -0.00053053383757635129,
+      "Error": -0.00095428684539034967,
+      "Index": 40
+    },
+    {
+      "Value": -0.00053053383757635129,
+      "Error": -0.00095428684539034967,
+      "Index": 41
+    },
+    {
+      "Value": -0.00053053383757635129,
+      "Error": -0.00095428684539034967,
+      "Index": 42
+    },
+    {
+      "Value": -0.00053053383757635129,
+      "Error": -0.00095428684539034967,
+      "Index": 43
+    },
+    {
+      "Value": -0.00053053383757635129,
+      "Error": -0.00095428684539034967,
+      "Index": 44
+    },
+    {
+      "Value": -0.00053053383757635129,
+      "Error": -0.00095428684539034967,
+      "Index": 45
+    },
+    {
+      "Value": -0.00053053383757635129,
+      "Error": -0.00095428684539034967,
+      "Index": 46
+    }
+  ],
+  "OutputNeurons": [
+    {
+      "Value": 0.55549055842613526,
+      "Error": -0.0096460133927904219,
+      "Index": 0
+    },
+    {
+      "Value": -0.32904450333948077,
+      "Error": -0.0013942981382495624,
+      "Index": 1
+    }
+  ],
+  "InputHiddenSynapsis": [
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 2
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 3
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 4
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 5
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 6
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 7
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 8
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 9
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 10
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 11
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 12
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 13
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 14
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 15
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 16
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 17
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 18
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 19
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 20
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 21
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 22
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 23
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 24
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 25
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 26
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 27
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 28
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 29
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 30
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 31
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 32
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 33
+    },
+    {
+      "Weight": 0.39380838805065616,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 34
+    },
+    {
+      "Weight": 0.35610974775709836,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 35
+    },
+    {
+      "Weight": 0.35610974775709836,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 36
+    },
+    {
+      "Weight": 0.35610974775709836,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 37
+    },
+    {
+      "Weight": 0.35610974775709836,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 38
+    },
+    {
+      "Weight": 0.35610974775709836,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 39
+    },
+    {
+      "Weight": 0.35610974775709836,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 40
+    },
+    {
+      "Weight": 0.35610974775709836,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 41
+    },
+    {
+      "Weight": 0.35610974775709836,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 42
+    },
+    {
+      "Weight": 0.35610974775709836,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 43
+    },
+    {
+      "Weight": 0.35610974775709836,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 44
+    },
+    {
+      "Weight": 0.35610974775709836,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 45
+    },
+    {
+      "Weight": 0.35610974775709836,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 46
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 2
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 3
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 4
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 5
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 6
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 7
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 8
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 9
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 10
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 11
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 12
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 13
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 14
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 15
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 16
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 17
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 18
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 19
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 20
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 21
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 22
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 23
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 24
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 25
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 26
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 27
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 28
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 29
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 30
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 31
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 32
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 33
+    },
+    {
+      "Weight": 0.48291749722388994,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 34
+    },
+    {
+      "Weight": -0.0914558710474773,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 35
+    },
+    {
+      "Weight": -0.0914558710474773,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 36
+    },
+    {
+      "Weight": -0.0914558710474773,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 37
+    },
+    {
+      "Weight": -0.0914558710474773,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 38
+    },
+    {
+      "Weight": -0.0914558710474773,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 39
+    },
+    {
+      "Weight": -0.0914558710474773,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 40
+    },
+    {
+      "Weight": -0.0914558710474773,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 41
+    },
+    {
+      "Weight": -0.0914558710474773,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 42
+    },
+    {
+      "Weight": -0.0914558710474773,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 43
+    },
+    {
+      "Weight": -0.0914558710474773,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 44
+    },
+    {
+      "Weight": -0.0914558710474773,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 45
+    },
+    {
+      "Weight": -0.0914558710474773,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 46
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 2
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 3
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 4
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 5
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 6
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 7
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 8
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 9
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 10
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 11
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 12
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 13
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 14
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 15
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 16
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 17
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 18
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 19
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 20
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 21
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 22
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 23
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 24
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 25
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 26
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 27
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 28
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 29
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 30
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 31
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 32
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 33
+    },
+    {
+      "Weight": 0.47768781701348817,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 34
+    },
+    {
+      "Weight": -0.094523685647525557,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 35
+    },
+    {
+      "Weight": -0.094523685647525557,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 36
+    },
+    {
+      "Weight": -0.094523685647525557,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 37
+    },
+    {
+      "Weight": -0.094523685647525557,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 38
+    },
+    {
+      "Weight": -0.094523685647525557,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 39
+    },
+    {
+      "Weight": -0.094523685647525557,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 40
+    },
+    {
+      "Weight": -0.094523685647525557,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 41
+    },
+    {
+      "Weight": -0.094523685647525557,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 42
+    },
+    {
+      "Weight": -0.094523685647525557,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 43
+    },
+    {
+      "Weight": -0.094523685647525557,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 44
+    },
+    {
+      "Weight": -0.094523685647525557,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 45
+    },
+    {
+      "Weight": -0.094523685647525557,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 46
+    }
+  ],
+  "HiddenOutputSynapsis": [
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 0,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 1,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 2,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 3,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 3,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 4,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 4,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 5,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 5,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 6,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 6,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 7,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 7,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 8,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 8,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 9,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 9,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 10,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 10,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 11,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 11,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 12,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 12,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 13,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 13,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 14,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 14,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 15,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 15,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 16,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 16,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 17,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 17,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 18,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 18,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 19,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 19,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 20,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 20,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 21,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 21,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 22,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 22,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 23,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 23,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 24,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 24,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 25,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 25,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 26,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 26,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 27,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 27,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 28,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 28,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 29,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 29,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 30,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 30,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 31,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 31,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 32,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 32,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 33,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 33,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.069929736727015912,
+      "Index": 0,
+      "FromNeuronIndex": 34,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": -0.037883343642824661,
+      "Index": 0,
+      "FromNeuronIndex": 34,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.04634064387154227,
+      "Index": 0,
+      "FromNeuronIndex": 35,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.36363933785136754,
+      "Index": 0,
+      "FromNeuronIndex": 35,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.04634064387154227,
+      "Index": 0,
+      "FromNeuronIndex": 36,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.36363933785136754,
+      "Index": 0,
+      "FromNeuronIndex": 36,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.04634064387154227,
+      "Index": 0,
+      "FromNeuronIndex": 37,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.36363933785136754,
+      "Index": 0,
+      "FromNeuronIndex": 37,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.04634064387154227,
+      "Index": 0,
+      "FromNeuronIndex": 38,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.36363933785136754,
+      "Index": 0,
+      "FromNeuronIndex": 38,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.04634064387154227,
+      "Index": 0,
+      "FromNeuronIndex": 39,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.36363933785136754,
+      "Index": 0,
+      "FromNeuronIndex": 39,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.04634064387154227,
+      "Index": 0,
+      "FromNeuronIndex": 40,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.36363933785136754,
+      "Index": 0,
+      "FromNeuronIndex": 40,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.04634064387154227,
+      "Index": 0,
+      "FromNeuronIndex": 41,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.36363933785136754,
+      "Index": 0,
+      "FromNeuronIndex": 41,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.04634064387154227,
+      "Index": 0,
+      "FromNeuronIndex": 42,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.36363933785136754,
+      "Index": 0,
+      "FromNeuronIndex": 42,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.04634064387154227,
+      "Index": 0,
+      "FromNeuronIndex": 43,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.36363933785136754,
+      "Index": 0,
+      "FromNeuronIndex": 43,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.04634064387154227,
+      "Index": 0,
+      "FromNeuronIndex": 44,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.36363933785136754,
+      "Index": 0,
+      "FromNeuronIndex": 44,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.04634064387154227,
+      "Index": 0,
+      "FromNeuronIndex": 45,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.36363933785136754,
+      "Index": 0,
+      "FromNeuronIndex": 45,
+      "ToNeuronIndex": 1
+    },
+    {
+      "Weight": 0.04634064387154227,
+      "Index": 0,
+      "FromNeuronIndex": 46,
+      "ToNeuronIndex": 0
+    },
+    {
+      "Weight": 0.36363933785136754,
+      "Index": 0,
+      "FromNeuronIndex": 46,
+      "ToNeuronIndex": 1
+    }
+  ],
+  "MathFunctions": 1
+}

@@ -13,7 +13,7 @@ namespace SimpleNeuralNetwork.AI.Models
         public List<Neuron> HiddenNeurons { get; } = new List<Neuron>();
         public List<Neuron> OutputNeurons { get; } = new List<Neuron>();
 
-        public double NueralNetworkError { get; set; } = 1;
+        public double NeuralNetworkError { get; set; } = 1;
 
         public MathFunctions MathFunctions { get; set; } = MathFunctions.Sigmoid;
         public string Name { get; set; } = "NueralNetwork";

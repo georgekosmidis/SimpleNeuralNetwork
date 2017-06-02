@@ -88,12 +88,12 @@
     <Compile Include="AI.Modeling\Modelers\XorModeler.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AI\TrainedNetworks\AddSubtract.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="AI\TrainedNetworks\.gitkeep">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="AI\TrainedNetworks\Addition.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="AI\TrainedNetworks\XOR.json">

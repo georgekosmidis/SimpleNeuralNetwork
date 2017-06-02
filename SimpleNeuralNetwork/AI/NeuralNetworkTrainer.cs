@@ -84,13 +84,13 @@ namespace SimpleNeuralNetwork.AI
             }
 
             //store NN
-            neuralNetwork.NueralNetworkError = lastOutputDeviation;
+            neuralNetwork.NeuralNetworkError = lastOutputDeviation;
             _neuralNetworkSetup.Add(neuralNetwork);
 
             //check if we have to reconfigure or retrain NN
             if (iteration < neuralNetwork.HiddenNeurons.Count() || (neuralNetworkTrainModel.AutoAdjuctHiddenLayer && lastOutputDeviation > neuralNetworkTrainModel.AcceptedError))
             {
-                //reconfigure up to ten times the sum of input/output neurons
+                //reconfigure for up to ten times the sum of input/output neurons
                 if (neuralNetwork.HiddenNeurons.Count() < (neuralNetwork.InputNeurons.Count() + neuralNetwork.OutputNeurons.Count()) * 10)
                 {
                     neuralNetwork = Train(neuralNetworkTrainModel);
@@ -98,7 +98,7 @@ namespace SimpleNeuralNetwork.AI
             }
 
             //choose best NN Setup
-            neuralNetwork = _neuralNetworkSetup.OrderBy(x => x.NueralNetworkError).First();
+            neuralNetwork = _neuralNetworkSetup.OrderBy(x => x.NeuralNetworkError).First();
 
             //test, find real life error
             var testError = 0d;
@@ -107,7 +107,7 @@ namespace SimpleNeuralNetwork.AI
                 _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Input, i));
                 testError += _ouputDeviation.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Output, i));
             }
-            neuralNetwork.NueralNetworkError = testError / testSet;//update with test error
+            neuralNetwork.NeuralNetworkError = testError / testSet;//update with test error
 
             return neuralNetwork;
         }

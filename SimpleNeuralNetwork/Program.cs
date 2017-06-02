@@ -17,7 +17,8 @@ namespace SimpleNeuralNetwork
 
         static void Main(string[] args)
         {
-            Run(NeuralNetworkFactoryHelper.NetworkFor.XOR, new double[] { 1, 1 });
+            //Choose NN, and remember to change the values for the Input Neurons
+            Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, new double[] { .2, .2, .1 });
 
             Console.ReadKey(true);
 
@@ -32,14 +33,14 @@ namespace SimpleNeuralNetwork
             var neuralNetwork = factoryHelper.Train(networkFor);
             Console.WriteLine("");
             Console.WriteLine("");
-            Console.WriteLine("Computation with newly trained network:");
+            Console.WriteLine("Computation with the newly trained network:");
             var result = neuralNetwork.Run(tests);
             WriteMatrix(result);
 
             //LOAD TRAINED NEURAL NETWORK
             neuralNetwork = factoryHelper.Load(networkFor);
             Console.WriteLine("");
-            Console.WriteLine("Computation with old trained network:");
+            Console.WriteLine("Computation with the saved trained network:");
             result = neuralNetwork.Run(tests);
             WriteMatrix(result);
         }

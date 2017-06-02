@@ -69,23 +69,16 @@ namespace SimpleNeuralNetwork.AI
         public class Runner
         {
             NeuralNetworkRunner _neuralNetworkRunner;
-            NeuralNetwork _neuralNetwork;
-            public double NueralNetworkError
-            {
-                get
-                {
-                    return _neuralNetwork.NueralNetworkError;
-                }
-            }
+            public NeuralNetwork NeuralNetwork { get; private set; }
 
             public Runner(NeuralNetwork neuralNetwork, NeuralNetworkRunner neuralNetworkRunner)
             {
                 _neuralNetworkRunner = neuralNetworkRunner;
-                _neuralNetwork = neuralNetwork;
+                NeuralNetwork = neuralNetwork;
             }
             public double[] Run(double[] inputSample)
             {
-                return _neuralNetworkRunner.Run(_neuralNetwork, inputSample);
+                return _neuralNetworkRunner.Run(NeuralNetwork, inputSample);
             }
 
         }
