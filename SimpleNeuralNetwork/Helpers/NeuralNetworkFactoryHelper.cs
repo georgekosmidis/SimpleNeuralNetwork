@@ -44,8 +44,8 @@ namespace SimpleNeuralNetwork.Helpers
                                                   new NeuronSynapsis()
                                               ),
                                               new TrainSet(
-                                                new FeedForward(),
-                                                new BackPropagate()
+                                                  new FeedForward(),
+                                                  new BackPropagate()
                                               ),
                                               new ValidationSet(
                                                   new FeedForward(),
@@ -103,8 +103,8 @@ namespace SimpleNeuralNetwork.Helpers
                                     new NeuronSynapsis()
                                 ),
                                 new TrainSet(
-                                new FeedForward(),
-                                new BackPropagate()
+                                    new FeedForward(),
+                                    new BackPropagate()
                                 ),
                                 new ValidationSet(
                                     new FeedForward(),

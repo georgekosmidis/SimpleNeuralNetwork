@@ -13,7 +13,8 @@ namespace SimpleNeuralNetwork.AI.Training
     {
         private IOuputDeviation _ouputDeviation;
         private IFeedForward _feedForward;
-        double lastOutputDeviation = double.MaxValue;
+        double stopIterations_lastOutputDeviation = double.MaxValue;
+        double stopTraining_lastOutputDeviation = double.MaxValue;
 
         public ValidationSet(IFeedForward feedForward, IOuputDeviation ouputDeviation)
         {
@@ -35,15 +36,16 @@ namespace SimpleNeuralNetwork.AI.Training
 
             //check deviation to break training
             innerLastOutputDeviation /= validationSetCount;
-            if (lastOutputDeviation <= innerLastOutputDeviation ||                      //if new outputDeviation is bigger, stop training
-                innerLastOutputDeviation < neuralNetworkTrainModel.AcceptedError ||     //if we are in the accepted error range, stop training
-                lastOutputDeviation - innerLastOutputDeviation < .00001)                //if the correction is too small stop training
+            stopTraining_lastOutputDeviation = innerLastOutputDeviation;
+            if (stopIterations_lastOutputDeviation <= innerLastOutputDeviation ||                      //if new outputDeviation is bigger, stop training
+                innerLastOutputDeviation < neuralNetworkTrainModel.AcceptedError ||                    //if we are in the accepted error range, stop training
+                stopIterations_lastOutputDeviation - innerLastOutputDeviation < .00001)                //if the correction is too small stop training
             {
-                lastOutputDeviation = double.MaxValue;
+                stopIterations_lastOutputDeviation = double.MaxValue;
                 neuralNetwork.NeuralNetworkError = innerLastOutputDeviation;
                 return true;
             }
-            lastOutputDeviation = innerLastOutputDeviation;
+            stopIterations_lastOutputDeviation = innerLastOutputDeviation;
             neuralNetwork.NeuralNetworkError = innerLastOutputDeviation;
             return false;
         }
@@ -51,7 +53,7 @@ namespace SimpleNeuralNetwork.AI.Training
         public bool StopTraining(NeuralNetwork neuralNetwork, NeuralNetworkTrainModel neuralNetworkTrainModel)
         {
             //iteration < neuralNetwork.HiddenNeurons.Count() ||
-            if (neuralNetworkTrainModel.AutoAdjuctHiddenLayer && lastOutputDeviation > neuralNetworkTrainModel.AcceptedError)
+            if (neuralNetworkTrainModel.AutoAdjuctHiddenLayer && stopTraining_lastOutputDeviation > neuralNetworkTrainModel.AcceptedError)
             {
                 //reconfigure for up to ten times the sum of input/output neurons
                 if (neuralNetwork.HiddenNeurons.Count() < (neuralNetwork.InputNeurons.Count() + neuralNetwork.OutputNeurons.Count()) * 10)

@@ -12,7 +12,6 @@ namespace SimpleNeuralNetwork.AI.Computations
     {
         public BackPropagate()
         {
-
         }
 
         public void Compute(NeuralNetwork neuralNetwork, double[] outputData)
@@ -23,23 +22,31 @@ namespace SimpleNeuralNetwork.AI.Computations
             else
                 _mathMethods = new AI.Computations.Maths.HyperTan();
 
+            //calculate ouput error
             for (var i = 0; i < neuralNetwork.OutputNeurons.Count(); i++)
                 neuralNetwork.OutputNeurons.ElementAt(i).Error = _mathMethods.DerivativeMethod(neuralNetwork.OutputNeurons.ElementAt(i).Value) * (outputData[i] - neuralNetwork.OutputNeurons.ElementAt(i).Value);
 
+            //propagate error to hidden neurons
             foreach (var hiddenNeuron in neuralNetwork.HiddenNeurons)
                 hiddenNeuron.Error = hiddenNeuron.OutputSynapses.Sum(x => x.ToNeuron.Error * x.Weight) * _mathMethods.DerivativeMethod(hiddenNeuron.Value);
 
+
+            //calculate weight of hidden->output synapsis
             foreach (var outputNeuron in neuralNetwork.OutputNeurons)
             {
                 foreach (var synapse in outputNeuron.InputSynapses)
                     synapse.Weight += neuralNetwork.LearningRate * outputNeuron.Error * synapse.FromNeuron.Value;
             }
 
+
+            //caclulcate weight of input->hidden synapsis
             foreach (var hiddenNeuron in neuralNetwork.HiddenNeurons)
             {
                 foreach (var synapse in hiddenNeuron.InputSynapses)
                     synapse.Weight += neuralNetwork.LearningRate * hiddenNeuron.Error * synapse.FromNeuron.Value;
             }
+
+
         }
     }
 }

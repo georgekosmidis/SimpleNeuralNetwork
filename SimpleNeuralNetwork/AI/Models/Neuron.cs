@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SimpleNeuralNetwork.AI
 {
-    public class Neuron 
+    public class Neuron
     {
-        public List<Synapse> InputSynapses { get; private set; } = new List< Synapse >();
+        public List<Synapse> InputSynapses { get; private set; } = new List<Synapse>();
         public List<Synapse> OutputSynapses { get; private set; } = new List<Synapse>();
 
         public Double Value { get; set; }
@@ -19,18 +19,9 @@ namespace SimpleNeuralNetwork.AI
 
         public Neuron()
         {
-                Error = new Random(DateTime.Now.Ticks.GetHashCode()).NextDouble();
+            var rnd = new Random(DateTime.Now.Ticks.GetHashCode());
+            Error = rnd.NextDouble();
         }
 
-        //int IComparable<Neuron>.CompareTo(Neuron n)
-        //{
-        //    if (this.Index > n.Index)
-        //        return 1;
-        //    else if (this.Index == n.Index)
-        //        return 0;
-        //    else
-        //        return -1;
-
-        //}
     }
 }
