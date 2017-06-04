@@ -9,6 +9,8 @@ namespace SimpleNeuralNetwork.AI.Computations.Maths
 {
     public class HyperTan : IMaths
     {
+        Random rnd = new Random(DateTime.Now.Ticks.GetHashCode());
+
         public double OutputMethod(double val)
         {
             if (val < -20.0)
@@ -21,6 +23,11 @@ namespace SimpleNeuralNetwork.AI.Computations.Maths
         public double DerivativeMethod(double val)
         {
             return (1 + val) * (1 - val);
+        }
+
+        public double Random()
+        {
+            return rnd.NextDouble() * 2 - 1;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using SimpleNeuralNetwork.AI.Models;
 
-namespace SimpleNeuralNetwork.AI.Modeling.Interfaces
+namespace SimpleNeuralNetwork.AI.Interfaces
 {
     public interface IBrainRepository
     {

@@ -1,7 +1,5 @@
 ﻿using SimpleNeuralNetwork.AI;
 using SimpleNeuralNetwork.AI.Computations;
-using SimpleNeuralNetwork.AI.Interfaces;
-using SimpleNeuralNetwork.AI.Modeling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +11,8 @@ using SimpleNeuralNetwork.EventArguments;
 using SimpleNeuralNetwork.AI.BrainRepositories;
 using System.Globalization;
 using SimpleNeuralNetwork.AI.EventArguments;
-using SimpleNeuralNetwork.AI.Training;
+using SimpleNeuralNetwork.AI.NeuralNetworkTrainerHelpers;
+using SimpleNeuralNetwork.AI.Computations.Maths;
 
 namespace SimpleNeuralNetwork.Helpers
 {
@@ -37,22 +36,33 @@ namespace SimpleNeuralNetwork.Helpers
                                               new JsonFile(_trainedNetworksPath)
                                           ),
                                           new NeuralNetworkRunner(
-                                               new FeedForward()
+                                               new FeedForward(
+                                                   new MathFactory()
+                                               )
                                           ),
                                           new NeuralNetworkTrainer(
                                               new NetworkLayers(
-                                                  new NeuronSynapsis()
+                                                  new NeuronSynapsis(),
+                                                  new MathFactory()
                                               ),
                                               new TrainSet(
-                                                  new FeedForward(),
-                                                  new BackPropagate()
+                                                  new FeedForward(
+                                                      new MathFactory()
+                                                  ),
+                                                  new BackPropagate(
+                                                      new MathFactory()
+                                                  )
                                               ),
                                               new ValidationSet(
-                                                  new FeedForward(),
+                                                  new FeedForward(
+                                                      new MathFactory()
+                                                  ),
                                                   new OuputDeviation()
                                               ),
                                               new TestSet(
-                                                  new FeedForward(),
+                                                  new FeedForward(
+                                                      new MathFactory()
+                                                  ),
                                                   new OuputDeviation()
                                               )
                                           )
@@ -76,7 +86,7 @@ namespace SimpleNeuralNetwork.Helpers
                 default:
                     throw new NotImplementedException("Network " + networkFor + " not implemented!");
             }
-
+            
             var runner = neuralNetworkFactory.Train(modeler.NeuralNetworkModel);
             OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + Environment.NewLine + new String('=', 50)));
             OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + "Training Completed!"));
@@ -91,31 +101,42 @@ namespace SimpleNeuralNetwork.Helpers
 
         public AI.NeuralNetworkFactory.Runner Load(NetworkFor networkFor)
         {
-            return new AI.NeuralNetworkFactory(
-                            new NeuralNetworkRepository(
-                                new JsonFile(_trainedNetworksPath)
-                            ),
-                            new NeuralNetworkRunner(
-                                new FeedForward()
-                            ),
-                            new NeuralNetworkTrainer(
-                                new NetworkLayers(
-                                    new NeuronSynapsis()
-                                ),
-                                new TrainSet(
-                                    new FeedForward(),
-                                    new BackPropagate()
-                                ),
-                                new ValidationSet(
-                                    new FeedForward(),
-                                    new OuputDeviation()
-                                ),
-                                new TestSet(
-                                    new FeedForward(),
-                                    new OuputDeviation()
-                                )
+            return  new AI.NeuralNetworkFactory(
+                        new NeuralNetworkRepository(
+                            new JsonFile(_trainedNetworksPath)
+                        ),
+                        new NeuralNetworkRunner(
+                            new FeedForward(
+                                new MathFactory()
                             )
-                        ).Load(networkFor.ToString());
+                        ),
+                        new NeuralNetworkTrainer(
+                            new NetworkLayers(
+                                new NeuronSynapsis(),
+                                new MathFactory()
+                            ),
+                            new TrainSet(
+                                new FeedForward(
+                                    new MathFactory()
+                                ),
+                                new BackPropagate(
+                                    new MathFactory()
+                                )
+                            ),
+                            new ValidationSet(
+                                new FeedForward(
+                                    new MathFactory()
+                                ),
+                                new OuputDeviation()
+                            ),
+                            new TestSet(
+                                new FeedForward(
+                                    new MathFactory()
+                                ),
+                                new OuputDeviation()
+                            )
+                        )
+                    ).Load(networkFor.ToString());
 
         }
 

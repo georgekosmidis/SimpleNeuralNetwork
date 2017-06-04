@@ -18,7 +18,7 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers
 
         public XorModeler()
         {
-            NeuralNetworkModel = new NeuralNetworkModeling()
+            NeuralNetworkModel = new NeuralNetworkTrainModelCreate()
                                         .AutoAdjustHiddenLayer() //.SetHiddenNeurons(5)
                                         .SetMathFunctions(MathFunctions.Sigmoid)
                                         .SetAcceptedError(.02)

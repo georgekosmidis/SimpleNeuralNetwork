@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimpleNeuralNetwork.AI.Modeling.Models
 {
-    public class NeuronTrainModel
+    public class NeuronModel
     { 
         public NeuronLayer Layer { get; set; }
         public List<double> Values { get; } = new List<double>();

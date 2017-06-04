@@ -1,4 +1,5 @@
-﻿using SimpleNeuralNetwork.AI.Models;
+﻿using SimpleNeuralNetwork.AI.Interfaces;
+using SimpleNeuralNetwork.AI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,7 @@ namespace SimpleNeuralNetwork.AI
 
         public Neuron()
         {
-            var rnd = new Random(DateTime.Now.Ticks.GetHashCode());
-            Error = rnd.NextDouble();
+          
         }
 
     }

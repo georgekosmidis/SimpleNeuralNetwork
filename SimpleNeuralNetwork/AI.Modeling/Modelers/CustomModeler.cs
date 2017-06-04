@@ -40,7 +40,7 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers
             //For example, Input neuron 1 will have as input '.2', neuron 2 will have '.1', and neuron 3 will have '.1'
             //Expected value for Output neuron 1 is '0' and for Output Neuron 2 is '.4'
             //Neural Network will try to replicate procedure f for every unknown input. That's what NN do :)
-            NeuralNetworkModel = new NeuralNetworkModeling()
+            NeuralNetworkModel = new NeuralNetworkTrainModelCreate()
                                         
                                         .SetHiddenNeurons(5)                                //Set the number of hidden neurons
                                         //--OR--                                

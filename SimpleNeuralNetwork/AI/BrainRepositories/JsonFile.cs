@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using SimpleNeuralNetwork.AI.Models;
-using SimpleNeuralNetwork.AI.Modeling.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SimpleNeuralNetwork.AI.BrainRepositories.JsonFileHelpers.Models;
+using SimpleNeuralNetwork.AI.Interfaces;
 
 namespace SimpleNeuralNetwork.AI.BrainRepositories
 {
@@ -24,6 +24,7 @@ namespace SimpleNeuralNetwork.AI.BrainRepositories
         {
             var savedNeuralNetwork = new SavedNeuralNetwork();
             savedNeuralNetwork.MathFunctions = neuralNetwork.MathFunctions;
+            savedNeuralNetwork.Divisor = neuralNetwork.Divisor;
 
             foreach (var neuron in neuralNetwork.InputNeurons)
             {
@@ -79,7 +80,7 @@ namespace SimpleNeuralNetwork.AI.BrainRepositories
 
 
             TextWriter writer = null;
-            var json = JsonConvert.SerializeObject(savedNeuralNetwork, Formatting.None,
+            var json = JsonConvert.SerializeObject(savedNeuralNetwork, Formatting.Indented,
                                                         new JsonSerializerSettings
                                                         {
                                                             ReferenceLoopHandling = ReferenceLoopHandling.Serialize
@@ -99,6 +100,7 @@ namespace SimpleNeuralNetwork.AI.BrainRepositories
 
             var neuralNetwork = new NeuralNetwork();
             neuralNetwork.MathFunctions = savedNeuralNetwork.MathFunctions;
+            neuralNetwork.Divisor = savedNeuralNetwork.Divisor;
 
             foreach (var savedNeuron in savedNeuralNetwork.InputNeurons)
                 neuralNetwork.InputNeurons.Add(new Neuron() { Index = savedNeuron.Index, Value = savedNeuron.Value, Error = savedNeuron.Error });

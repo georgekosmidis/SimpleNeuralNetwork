@@ -43,12 +43,6 @@ namespace SimpleNeuralNetwork.AI
         }
 
 
-
-        //public double[] Run(double[] inputSample)
-        //{
-        //    return _neuralNetworkRunner.Run(_neuralNetwork, inputSample);
-        //}
-
         public Runner Train(NeuralNetworkTrainModel neuralNetworkTrainModel)
         {
             _neuralNetwork = _neuralNetworkTrainer.Train(neuralNetworkTrainModel);

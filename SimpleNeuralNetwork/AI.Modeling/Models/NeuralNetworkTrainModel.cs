@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleNeuralNetwork.AI.Modeling.Models
 {
-    public class NeuralNetworkTrainModel : List<Models.NeuronTrainModel>
+    public class NeuralNetworkTrainModel : List<Models.NeuronModel>
     {
         public string NeuronNetworkName { get; set; }
 
@@ -17,6 +17,8 @@ namespace SimpleNeuralNetwork.AI.Modeling.Models
         public MathFunctions MathFunctions { get; set; } = MathFunctions.Sigmoid;
 
         public double AcceptedError { get; set; } = .02;
+
+        public double Divisor { get; set; }
 
         public int ValuesCount
         {
@@ -29,7 +31,7 @@ namespace SimpleNeuralNetwork.AI.Modeling.Models
 
         public double[] GetValuesForLayer(NeuronLayer layer, int cycle)
         {
-            return this.Where(x => x.Layer == layer).Select(x => x.Values[cycle]).ToArray();
+            return this.Where(x => x.Layer == layer).Select(x => x.Values[cycle] / Divisor).ToArray();
         }
 
     }

@@ -44,7 +44,7 @@ namespace SimpleNeuralNetwork.AI
 
             neuralNetwork.MathFunctions = neuralNetworkTrainModel.MathFunctions;
             neuralNetwork.Name = neuralNetworkTrainModel.NeuronNetworkName;
-
+            neuralNetwork.Divisor = neuralNetworkTrainModel.Divisor;
 
             var iteration = 0;
             while (++iteration < int.MaxValue)
@@ -52,11 +52,12 @@ namespace SimpleNeuralNetwork.AI
                 //train
                 _trainSet.Train(neuralNetwork, neuralNetworkTrainModel);
 
+                OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(iteration, neuralNetwork.NeuralNetworkError));
+
                 //can NN train any more?
                 if (_validationSet.StopIterations(neuralNetwork, neuralNetworkTrainModel))
                     break;
 
-                OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(iteration, neuralNetwork.NeuralNetworkError));
             }
 
             //store NN

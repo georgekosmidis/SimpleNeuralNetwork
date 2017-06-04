@@ -18,7 +18,6 @@ namespace SimpleNeuralNetwork.AI.Models
         {
             FromNeuron = fromNeuron;
             ToNeuron = toNeuron;
-            Weight = new Random(DateTime.Now.Ticks.GetHashCode()).NextDouble();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SimpleNeuralNetwork.AI.Interfaces;
+using SimpleNeuralNetwork.AI.Modeling.Models;
 using SimpleNeuralNetwork.AI.Models;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,11 @@ namespace SimpleNeuralNetwork.AI
 
         public double[] Run(NeuralNetwork neuralNetwork, double[] inputData)
         {
+            for (var i = 0; i < inputData.Length; i++)
+                inputData[i] /= neuralNetwork.Divisor;
             _feedForward.Compute(neuralNetwork, inputData);
-            return neuralNetwork.OutputNeurons.Select(a => a.Value).ToArray();
+
+            return neuralNetwork.OutputNeurons.Select(a => a.Value * neuralNetwork.Divisor).ToArray();
         }
     }
 }

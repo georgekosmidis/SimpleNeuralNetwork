@@ -11,59 +11,65 @@ using System.ComponentModel;
 
 namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
 {
-    public class NeuralNetworkModeling
+    public class NeuralNetworkTrainModelCreate
     {
-        NeuralNetworkTrainModel neuralNetworkTrainModel = new NeuralNetworkTrainModel();
+        NeuralNetworkTrainModel neuralNetworkTrainModel;
 
-        public NeuralNetworkModeling() { }
-
-        public NeuralNetworkModeling AddInputNeuron(Action<NeuronValue> addValuesExpression)
+        public NeuralNetworkTrainModelCreate()
         {
-            var neuronTrainModel =  new Models.NeuronTrainModel() { Layer = NeuronLayer.Input };
-            var neronValue = new NeuronValue(neuronTrainModel);
+            neuralNetworkTrainModel = new NeuralNetworkTrainModel();
+        }
+
+        public NeuralNetworkTrainModelCreate AddInputNeuron(Action<NeuronValues> addValuesExpression)
+        {
+            var neuronTrainModel = new Models.NeuronModel() { Layer = NeuronLayer.Input };
+            var neronValue = new NeuronValues(neuronTrainModel);
             addValuesExpression(neronValue);
 
             neuralNetworkTrainModel.Add(neuronTrainModel);
-                       
+
+            neuralNetworkTrainModel.Divisor = Math.Max(neuralNetworkTrainModel.Divisor, neronValue.Divisor);
+
             return this;
         }
-        public NeuralNetworkModeling AddOutputNeuron(Action<NeuronValue> addValuesExpression)
+
+        public NeuralNetworkTrainModelCreate AddOutputNeuron(Action<NeuronValues> addValuesExpression)
         {
-            var neuronTrainModel = new Models.NeuronTrainModel() { Layer = NeuronLayer.Output };
-            var neronValue = new NeuronValue(neuronTrainModel);
+            var neuronTrainModel = new Models.NeuronModel() { Layer = NeuronLayer.Output };
+            var neronValue = new NeuronValues(neuronTrainModel);
             addValuesExpression(neronValue);
 
             neuralNetworkTrainModel.Add(neuronTrainModel);
             return this;
         }
 
-        public NeuralNetworkModeling AutoAdjustHiddenLayer()
+        public NeuralNetworkTrainModelCreate AutoAdjustHiddenLayer()
         {
             neuralNetworkTrainModel.AutoAdjuctHiddenLayer = true;
             neuralNetworkTrainModel.HiddenNeuronsCount = -1;
             return this;
         }
-        public NeuralNetworkModeling SetHiddenNeurons(int hiddenNeurons)
+        public NeuralNetworkTrainModelCreate SetHiddenNeurons(int hiddenNeurons)
         {
             neuralNetworkTrainModel.HiddenNeuronsCount = hiddenNeurons;
             return this;
         }
 
-        public NeuralNetworkModeling SetMathFunctions(MathFunctions mathFunctions)
+        public NeuralNetworkTrainModelCreate SetMathFunctions(MathFunctions mathFunctions)
         {
             neuralNetworkTrainModel.MathFunctions = mathFunctions;
             return this;
         }
 
-        public NeuralNetworkModeling SetAcceptedError(double error)
+        public NeuralNetworkTrainModelCreate SetAcceptedError(double error)
         {
             neuralNetworkTrainModel.AcceptedError = error;
             return this;
         }
 
-        public NeuralNetworkModeling SetNeuralNetworkName(string name)
+        public NeuralNetworkTrainModelCreate SetNeuralNetworkName(string name)
         {
-            if(name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+            if (name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
                 throw new InvalidOperationException("Neural Network Name must must be a valid filename!");
             neuralNetworkTrainModel.NeuronNetworkName = name;
             return this;
@@ -88,8 +94,10 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
 
             var valuesCount = neuralNetworkTrainModel.First().Values.Count();
             foreach (var neuron in neuralNetworkTrainModel)
+            {
                 if (valuesCount != neuron.Values.Count())
                     throw new InvalidOperationException("All neurons must have same count of values!");
+            }
 
 
             return neuralNetworkTrainModel;
