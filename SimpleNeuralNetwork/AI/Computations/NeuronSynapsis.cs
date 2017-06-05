@@ -10,15 +10,16 @@ namespace SimpleNeuralNetwork.AI.Computations
 {
     public class NeuronSynapsis : INeuronSynapsis
     {
+
         public NeuronSynapsis()
         {
         }
 
-        public void Set(Neuron neuron, List<Neuron> inputNeurons)
+        public void Set(IMaths maths, Neuron neuron, List<Neuron> inputNeurons)
         {
             foreach (var inputNeuron in inputNeurons)
             {
-                var synapse = new Synapse(inputNeuron, neuron);
+                var synapse = new Synapse(inputNeuron, neuron) { Weight = maths.Random() };
                 inputNeuron.OutputSynapses.Add(synapse);
                 neuron.InputSynapses.Add(synapse);
             }

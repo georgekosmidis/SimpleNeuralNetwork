@@ -18,5 +18,6 @@ namespace SimpleNeuralNetwork.AI.BrainRepositories.JsonFileHelpers.Models
 
         public MathFunctions MathFunctions { get; set; }
 
+        public double Divisor { get; set; }
     }
 }

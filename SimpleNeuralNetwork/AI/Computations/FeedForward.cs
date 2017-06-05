@@ -10,19 +10,16 @@ namespace SimpleNeuralNetwork.AI.Computations
 {
     public class FeedForward : IFeedForward
     {
+        IMathFactory _mathFactory;
 
-        public FeedForward()
+        public FeedForward(IMathFactory mathFactory)
         {
-
+            _mathFactory = mathFactory;
         }
 
         public void Compute(NeuralNetwork neuralNetwork, double[] inputData)
         {
-            IMaths _mathMethods;
-            if (neuralNetwork.MathFunctions == MathFunctions.Sigmoid)
-                _mathMethods = new AI.Computations.Maths.Sigmoid();
-            else
-                _mathMethods = new AI.Computations.Maths.HyperTan();
+            var _mathMethods = _mathFactory.Get(neuralNetwork);
 
             var i = 0;
             foreach (var inputNeuron in neuralNetwork.InputNeurons)

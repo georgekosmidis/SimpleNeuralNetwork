@@ -15,6 +15,8 @@ namespace SimpleNeuralNetwork.AI.Models
 
         public double NeuralNetworkError { get; set; } = 1;
 
+        public double Divisor { get; set; }
+
         public MathFunctions MathFunctions { get; set; } = MathFunctions.Sigmoid;
         public string Name { get; set; } = "NueralNetwork";
     }

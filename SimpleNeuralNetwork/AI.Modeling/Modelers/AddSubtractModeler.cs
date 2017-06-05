@@ -14,7 +14,7 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers
     public class AddSubtractModeler : IModeler
     {
 
-        public NeuralNetworkTrainModel NeuralNetworkModel { get; } = new NeuralNetworkTrainModel();
+        public NeuralNetworkTrainModel NeuralNetworkModel { get; }
 
         public AddSubtractModeler()
         {
@@ -27,19 +27,19 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers
             var input3 = new double[samples];
             var output1 = new double[samples];
             var output2 = new double[samples];
-            var rnd = new Random(1);//same samples each time
+            var rnd = new Random(1);//same samples each time for testing
             for (var i = 0; i < samples; i++)
             {
-                input1[i] = Math.Round(rnd.NextDouble() / 3.33, 3);
-                input2[i] = Math.Round(rnd.NextDouble() / 3.33, 3);
-                input3[i] = Math.Round(rnd.NextDouble() / 3.34, 3);
+                input1[i] = rnd.Next();
+                input2[i] = rnd.Next();
+                input3[i] = rnd.Next();
                 output1[i] = input1[i] + input2[i] + input3[i];
                 output2[i] = input1[i] - input2[i] - input3[i];
             }
-            NeuralNetworkModel = new NeuralNetworkModeling()
+            NeuralNetworkModel = new NeuralNetworkTrainModelCreate()
                                         //.SetHiddenNeurons(3)
                                         .AutoAdjustHiddenLayer()
-                                        .SetMathFunctions(MathFunctions.HyperTan)
+                                        //.SetMathFunctions(MathFunctions.HyperTan)
                                         .SetAcceptedError(.02)
                                         .SetNeuralNetworkName("AddSubtract")
 
@@ -52,5 +52,6 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers
 
                                         .Get();
         }
+
     }
 }

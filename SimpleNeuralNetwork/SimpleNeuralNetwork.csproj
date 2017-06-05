@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI.Modeling\Modelers\ModelingHelpers\NeuronValue.cs" />
+    <Compile Include="AI.Modeling\Modelers\ModelingHelpers\NeuronValues.cs" />
     <Compile Include="AI.Modeling\Models\eNeuronLayer.cs" />
     <Compile Include="AI.Modeling\Interfaces\IModeler.cs" />
     <Compile Include="AI\BrainRepositories\JsonFileHelpers\Models\SavedNeuralNetwork.cs" />
@@ -53,6 +53,8 @@
     <Compile Include="AI\BrainRepositories\JsonFileHelpers\Models\SavedSynapsis.cs" />
     <Compile Include="AI\Computations\BackPropagate.cs" />
     <Compile Include="AI\Computations\FeedForward.cs" />
+    <Compile Include="AI\Interfaces\IMathFactory.cs" />
+    <Compile Include="AI\Computations\Maths\MathFactory.cs" />
     <Compile Include="AI\Interfaces\IOuputDeviation.cs" />
     <Compile Include="AI\Computations\Maths\HyperTan.cs" />
     <Compile Include="AI\Computations\OuputDeviation.cs" />
@@ -71,10 +73,11 @@
     <Compile Include="AI\NeuralNetworkRunner.cs" />
     <Compile Include="AI\Interfaces\IValidationSet.cs" />
     <Compile Include="AI\Interfaces\ITestSet.cs" />
-    <Compile Include="AI\Training\ITrainSet.cs" />
-    <Compile Include="AI\Training\TestSet.cs" />
-    <Compile Include="AI\Training\TrainSet.cs" />
-    <Compile Include="AI\Training\ValidationSet.cs" />
+    <Compile Include="AI\Interfaces\ITrainSet.cs" />
+    <Compile Include="AI\NeuralNetworkTrainerHelpers\AbstractSet.cs" />
+    <Compile Include="AI\NeuralNetworkTrainerHelpers\TestSet.cs" />
+    <Compile Include="AI\NeuralNetworkTrainerHelpers\TrainSet.cs" />
+    <Compile Include="AI\NeuralNetworkTrainerHelpers\ValidationSet.cs" />
     <Compile Include="EventArguments\ProgressEventArgs.cs" />
     <Compile Include="Helpers\NeuralNetworkFactoryHelper.cs" />
     <Compile Include="AI\Interfaces\IMaths.cs" />
@@ -88,8 +91,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AI.Modeling\Modelers\AddSubtractModeler.cs" />
     <Compile Include="AI.Modeling\Modelers\CustomModeler.cs" />
-    <Compile Include="AI.Modeling\Modelers\ModelingHelpers\NeuralNetworkModeling.cs" />
-    <Compile Include="AI.Modeling\Models\NeuronTrainModel.cs" />
+    <Compile Include="AI.Modeling\Modelers\ModelingHelpers\NeuralNetworkTrainModelCreate.cs" />
+    <Compile Include="AI.Modeling\Models\NeuronModel.cs" />
     <Compile Include="AI.Modeling\Models\NeuralNetworkTrainModel.cs" />
     <Compile Include="AI.Modeling\Modelers\XorModeler.cs" />
   </ItemGroup>

@@ -43,12 +43,6 @@ namespace SimpleNeuralNetwork.AI
         }
 
 
-
-        //public double[] Run(double[] inputSample)
-        //{
-        //    return _neuralNetworkRunner.Run(_neuralNetwork, inputSample);
-        //}
-
         public Runner Train(NeuralNetworkTrainModel neuralNetworkTrainModel)
         {
             _neuralNetwork = _neuralNetworkTrainer.Train(neuralNetworkTrainModel);
@@ -78,6 +72,9 @@ namespace SimpleNeuralNetwork.AI
             }
             public double[] Run(double[] inputSample)
             {
+                if (inputSample.Length != NeuralNetwork.InputNeurons.Count())
+                    throw new InvalidOperationException("You have " + NeuralNetwork.InputNeurons.Count() + " Input Neurons!");
+
                 return _neuralNetworkRunner.Run(NeuralNetwork, inputSample);
             }
 

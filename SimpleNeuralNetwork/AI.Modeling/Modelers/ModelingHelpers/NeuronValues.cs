@@ -8,17 +8,24 @@ using System.Threading.Tasks;
 
 namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
 {
-    public class NeuronValue
+    public class NeuronValues
     {
-        private NeuronTrainModel _neuronTrainModel;
+        private NeuronModel _neuronTrainModel;
+        public double Divisor { get; private set; }
 
-        public NeuronValue(NeuronTrainModel neuronTrainModel)
+        public NeuronValues(NeuronModel neuronTrainModel)
         {
             _neuronTrainModel = neuronTrainModel;
         }
 
-        public NeuronValue AddValues(params double[] values)
+        public NeuronValues AddValues(params double[] values)
         {
+            foreach (var value in values)
+            {
+                var divisor = Math.Pow(10, Math.Round(value).ToString().Length);
+                Divisor = Math.Max(Divisor, divisor);
+            }
+
             _neuronTrainModel.Values.AddRange(values);
             return this;
         }

@@ -4,5 +4,7 @@
     {
         double DerivativeMethod(double val);
         double OutputMethod(double val);
+
+        double Random();
     }
 }

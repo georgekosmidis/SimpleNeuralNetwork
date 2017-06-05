@@ -17,14 +17,15 @@ namespace SimpleNeuralNetwork
 
         static void Main(string[] args)
         {
-            //Choose NN, and remember to change the values for the Input Neurons
-            Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, new double[] { .2, .2, .1 });
+            //Choose NN, and remember to change the values for the Input Neurons. 
+            //Bigger Numbers require, bigger dataset and alot more training time
+            Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, 1, 1, 2);
 
             Console.ReadKey(true);
 
         }
 
-        private static void Run(NeuralNetworkFactoryHelper.NetworkFor networkFor, double[] tests)
+        private static void Run(NeuralNetworkFactoryHelper.NetworkFor networkFor, params double[] values)
         {
             var factoryHelper = new NeuralNetworkFactoryHelper(trainedNetworksPath);
             factoryHelper.OnUpdateStatus += Factory_OnUpdateStatus;
@@ -34,14 +35,18 @@ namespace SimpleNeuralNetwork
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("Computation with the newly trained network:");
-            var result = neuralNetwork.Run(tests);
+            var liveValues = new double[values.Length];
+            values.CopyTo(liveValues, 0);
+            var result = neuralNetwork.Run(liveValues);
             WriteMatrix(result);
 
             //LOAD TRAINED NEURAL NETWORK
             neuralNetwork = factoryHelper.Load(networkFor);
             Console.WriteLine("");
             Console.WriteLine("Computation with the saved trained network:");
-            result = neuralNetwork.Run(tests);
+            liveValues = new double[values.Length];
+            values.CopyTo(liveValues, 0);
+            result = neuralNetwork.Run(liveValues);
             WriteMatrix(result);
         }
 

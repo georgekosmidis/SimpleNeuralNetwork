@@ -10,17 +10,16 @@ namespace SimpleNeuralNetwork.AI.Computations
 {
     public class BackPropagate : IBackPropagate
     {
-        public BackPropagate()
+        IMathFactory _mathFactory;
+        public BackPropagate(IMathFactory mathFactory)
         {
+            _mathFactory = mathFactory;
         }
 
         public void Compute(NeuralNetwork neuralNetwork, double[] outputData)
         {
-            IMaths _mathMethods;
-            if (neuralNetwork.MathFunctions == MathFunctions.Sigmoid)
-                _mathMethods = new AI.Computations.Maths.Sigmoid();
-            else
-                _mathMethods = new AI.Computations.Maths.HyperTan();
+
+            var _mathMethods = _mathFactory.Get(neuralNetwork);
 
             //calculate ouput error
             for (var i = 0; i < neuralNetwork.OutputNeurons.Count(); i++)
