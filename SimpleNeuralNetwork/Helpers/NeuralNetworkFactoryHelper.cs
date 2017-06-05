@@ -86,7 +86,7 @@ namespace SimpleNeuralNetwork.Helpers
                 default:
                     throw new NotImplementedException("Network " + networkFor + " not implemented!");
             }
-            
+
             var runner = neuralNetworkFactory.Train(modeler.NeuralNetworkModel);
             OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + Environment.NewLine + new String('=', 50)));
             OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + "Training Completed!"));
@@ -101,7 +101,7 @@ namespace SimpleNeuralNetwork.Helpers
 
         public AI.NeuralNetworkFactory.Runner Load(NetworkFor networkFor)
         {
-            return  new AI.NeuralNetworkFactory(
+            return new AI.NeuralNetworkFactory(
                         new NeuralNetworkRepository(
                             new JsonFile(_trainedNetworksPath)
                         ),
@@ -142,7 +142,12 @@ namespace SimpleNeuralNetwork.Helpers
 
         private void NeuralNetworkFactory_OnNetworkReconfigured(object sender, NetworkReconfiguredEventArgs e)
         {
-            var status = Environment.NewLine + Environment.NewLine + "Hidden Neurons: " + e.HiddenNeuronsCount + Environment.NewLine;
+            var s = "";
+            for (var i = 0; i < e.HiddenLayers.Count; i++)
+                s += "HL" + i + "N" + e.HiddenLayers[i] + "-";
+            s = s.Trim('-');
+
+            var status = Environment.NewLine + Environment.NewLine + "NN Setup: " + s + Environment.NewLine;
             OnUpdateStatus?.Invoke(sender, new ProgressEventArgs(status));
         }
 

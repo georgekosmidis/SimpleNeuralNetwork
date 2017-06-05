@@ -40,7 +40,7 @@ namespace SimpleNeuralNetwork.AI
                                                       neuralNetworkTrainModel.OutputNeurons.Count(),
                                                       neuralNetworkTrainModel.AutoAdjuctHiddenLayer);
 
-            OnNetworkReconfigured?.Invoke(this, new NetworkReconfiguredEventArgs(neuralNetwork.HiddenLayers.Sum(x => x.Count())));//TODO: HIDDEN LAYERS
+            OnNetworkReconfigured?.Invoke(this, new NetworkReconfiguredEventArgs(neuralNetwork.HiddenLayers.Aggregate(new List<int>(), (list, layer) => { list.Add(layer.Count()); return list; })));
 
             neuralNetwork.MathFunctions = neuralNetworkTrainModel.MathFunctions;
             neuralNetwork.Name = neuralNetworkTrainModel.NeuronNetworkName;

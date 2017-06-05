@@ -30,15 +30,26 @@ namespace SimpleNeuralNetwork.AI.Computations
 
             if (autoAdjustHiddenLayer)
             {
+                var hiddenNeuronsStatingCount = Convert.ToInt32(Math.Ceiling((inputNeuronsCount + outputNeuronsCount) / 2d));
+                var hiddenNeuronsEndCount = Convert.ToInt32(Math.Ceiling((inputNeuronsCount + outputNeuronsCount) / 2d)) * 2;
+
                 if (neuralNetwork.HiddenLayers.Count() <= 0)
                 {
-                    var hiddenNeuronsCount = Convert.ToInt32(Math.Ceiling((inputNeuronsCount + outputNeuronsCount) / 2d));
-
-                    holdHiddenLayers.Add(hiddenNeuronsCount);
+                    holdHiddenLayers.Add(hiddenNeuronsStatingCount);
                 }
                 else
                 {
-                    holdHiddenLayers[0]++;
+                    var lastHiddenLayer = holdHiddenLayers.Count() - 1;
+                    if (holdHiddenLayers[lastHiddenLayer] >= hiddenNeuronsEndCount)
+                    {
+                        holdHiddenLayers[lastHiddenLayer] = hiddenNeuronsStatingCount;
+                        holdHiddenLayers.Add(hiddenNeuronsStatingCount);
+                    }
+                    else
+                    {
+                        holdHiddenLayers[lastHiddenLayer]++;
+                    }
+
                     //hiddenNeuronsCount = neuralNetwork.HiddenNeurons.Count() + 1;
                     //if (hiddenNeuronsTestCount >= 0)
                     //{
@@ -51,7 +62,7 @@ namespace SimpleNeuralNetwork.AI.Computations
             else
             {
                 for (var i = 0; i < hiddenLayers.Count(); i++)
-                    holdHiddenLayers.Add(hiddenLayers[i].NeuronsCount);               
+                    holdHiddenLayers.Add(hiddenLayers[i].NeuronsCount);
             }
             neuralNetwork = new NeuralNetwork();
 
