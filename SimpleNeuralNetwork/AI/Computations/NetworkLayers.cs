@@ -30,33 +30,34 @@ namespace SimpleNeuralNetwork.AI.Computations
 
             if (autoAdjustHiddenLayer)
             {
-                var hiddenNeuronsStatingCount = Convert.ToInt32(Math.Ceiling((inputNeuronsCount + outputNeuronsCount) / 2d));
-                var hiddenNeuronsEndCount = Convert.ToInt32(Math.Ceiling((inputNeuronsCount + outputNeuronsCount) / 2d)) * 2;
+                var hiddenNeuronsStartCount = Convert.ToInt32(Math.Ceiling((inputNeuronsCount + outputNeuronsCount) / 2d));
+                var hiddenNeuronsEndCount = Convert.ToInt32(Math.Ceiling((inputNeuronsCount + outputNeuronsCount) / 2d)) * 3;
 
                 if (neuralNetwork.HiddenLayers.Count() <= 0)
                 {
-                    holdHiddenLayers.Add(hiddenNeuronsStatingCount);
+                    holdHiddenLayers.Add(hiddenNeuronsStartCount);
                 }
                 else
                 {
-                    var lastHiddenLayer = holdHiddenLayers.Count() - 1;
-                    if (holdHiddenLayers[lastHiddenLayer] >= hiddenNeuronsEndCount)
+                    for (var i = 0; i < holdHiddenLayers.Count(); i++)
                     {
-                        holdHiddenLayers[lastHiddenLayer] = hiddenNeuronsStatingCount;
-                        holdHiddenLayers.Add(hiddenNeuronsStatingCount);
-                    }
-                    else
-                    {
-                        holdHiddenLayers[lastHiddenLayer]++;
-                    }
+                        if (holdHiddenLayers[i] >= hiddenNeuronsEndCount)
+                        {
+                            if (i == holdHiddenLayers.Count() - 1)
+                            {
+                                holdHiddenLayers.Add(hiddenNeuronsStartCount);
+                                for (var j = 0; j < holdHiddenLayers.Count(); j++)
+                                    holdHiddenLayers[j] = hiddenNeuronsStartCount;
+                                break;
+                            }
 
-                    //hiddenNeuronsCount = neuralNetwork.HiddenNeurons.Count() + 1;
-                    //if (hiddenNeuronsTestCount >= 0)
-                    //{
-                    //    hiddenNeuronsCount++;
-                    //    hiddenNeuronsTestCount = 0;
-                    //}
-                    //hiddenNeuronsTestCount++;
+                        }
+                        else
+                        {
+                            holdHiddenLayers[i]++;
+                            break;
+                        }
+                    }
                 }
             }
             else

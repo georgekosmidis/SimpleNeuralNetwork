@@ -144,7 +144,7 @@ namespace SimpleNeuralNetwork.Helpers
         {
             var s = "";
             for (var i = 0; i < e.HiddenLayers.Count; i++)
-                s += "HL" + i + "N" + e.HiddenLayers[i] + "-";
+                s += "HL" + (i + 1) + "N" + e.HiddenLayers[i] + "-";
             s = s.Trim('-');
 
             var status = Environment.NewLine + Environment.NewLine + "NN Setup: " + s + Environment.NewLine;
