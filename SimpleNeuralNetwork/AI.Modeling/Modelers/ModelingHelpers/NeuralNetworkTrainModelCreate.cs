@@ -83,6 +83,9 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
             if (neuralNetworkTrainModel.AutoAdjuctHiddenLayer && neuralNetworkTrainModel.HiddenNeuronsCount > -1)
                 throw new InvalidOperationException("You cannot auto-adjuct the hidden layer AND add hidden neurons!");
 
+            if (neuralNetworkTrainModel.AutoAdjuctHiddenLayer && neuralNetworkTrainModel.MathFunctions != MathFunctions.Unknown)
+                throw new InvalidOperationException("You cannot auto-adjuct the hidden layer AND set Math Functions!");
+
             if (neuralNetworkTrainModel.Count(x => x.Layer == NeuronLayer.Input) == 0)
                 throw new InvalidOperationException("You need at least one input neuron in your model!");
 
@@ -99,6 +102,10 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
                     throw new InvalidOperationException("All neurons must have same count of values!");
             }
 
+            if (neuralNetworkTrainModel.SelectMany(x => x.Values).Count(x => x < 0) > 0)
+                neuralNetworkTrainModel.MathFunctions = MathFunctions.HyperTan;
+            else
+                neuralNetworkTrainModel.MathFunctions = MathFunctions.Sigmoid;
 
             return neuralNetworkTrainModel;
         }

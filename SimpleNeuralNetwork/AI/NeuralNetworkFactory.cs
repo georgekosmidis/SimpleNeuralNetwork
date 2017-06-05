@@ -72,6 +72,9 @@ namespace SimpleNeuralNetwork.AI
             }
             public double[] Run(double[] inputSample)
             {
+                if (inputSample.Length != NeuralNetwork.InputNeurons.Count())
+                    throw new InvalidOperationException("You have " + NeuralNetwork.InputNeurons.Count() + " Input Neurons!");
+
                 return _neuralNetworkRunner.Run(NeuralNetwork, inputSample);
             }
 

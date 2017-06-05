@@ -19,7 +19,7 @@ namespace SimpleNeuralNetwork
         {
             //Choose NN, and remember to change the values for the Input Neurons. 
             //Bigger Numbers require, bigger dataset and alot more training time
-            Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, 1, 2, 3);
+            Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, 1, 1, 2);
 
             Console.ReadKey(true);
 

@@ -14,7 +14,7 @@ namespace SimpleNeuralNetwork.AI.Modeling.Models
         public int HiddenNeuronsCount { get; set; } = -1;
         public bool AutoAdjuctHiddenLayer { get; set; } = false;
 
-        public MathFunctions MathFunctions { get; set; } = MathFunctions.Sigmoid;
+        public MathFunctions MathFunctions { get; set; } = MathFunctions.Unknown;
 
         public double AcceptedError { get; set; } = .02;
 

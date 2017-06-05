@@ -27,6 +27,7 @@ namespace SimpleNeuralNetwork.AI.NeuralNetworkTrainerHelpers
             var trainSetCount = Convert.ToInt32(Math.Floor(neuralNetworkTrainModel.ValuesCount * .7));
             var validationSetCount = Convert.ToInt32(Math.Floor((neuralNetworkTrainModel.ValuesCount - trainSetCount) * .7));
 
+
             var innerLastOutputDeviation = 0d;
             //var suffle = Suffle(trainSetCount, validationSetCount);
             //foreach (var i in suffle)

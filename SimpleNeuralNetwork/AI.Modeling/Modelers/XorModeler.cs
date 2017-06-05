@@ -19,8 +19,7 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers
         public XorModeler()
         {
             NeuralNetworkModel = new NeuralNetworkTrainModelCreate()
-                                        .AutoAdjustHiddenLayer() //.SetHiddenNeurons(5)
-                                        .SetMathFunctions(MathFunctions.Sigmoid)
+                                        .AutoAdjustHiddenLayer() //.SetHiddenNeurons(5).SetMathFunctions(MathFunctions.Sigmoid)
                                         .SetAcceptedError(.02)
                                         .SetNeuralNetworkName("XOR")
 

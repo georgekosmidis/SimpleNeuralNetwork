@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace SimpleNeuralNetwork.AI.Models
 {
-    public enum MathFunctions { Sigmoid, HyperTan }
+    public enum MathFunctions { Unknown, Sigmoid, HyperTan }
 }

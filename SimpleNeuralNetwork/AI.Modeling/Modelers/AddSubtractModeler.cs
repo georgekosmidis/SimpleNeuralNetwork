@@ -39,7 +39,7 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers
             NeuralNetworkModel = new NeuralNetworkTrainModelCreate()
                                         //.SetHiddenNeurons(3)
                                         .AutoAdjustHiddenLayer()
-                                        .SetMathFunctions(MathFunctions.HyperTan)
+                                        //.SetMathFunctions(MathFunctions.HyperTan)
                                         .SetAcceptedError(.02)
                                         .SetNeuralNetworkName("AddSubtract")
 
