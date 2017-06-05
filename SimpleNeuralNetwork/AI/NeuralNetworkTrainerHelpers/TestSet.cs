@@ -29,8 +29,8 @@ namespace SimpleNeuralNetwork.AI.NeuralNetworkTrainerHelpers
             var testError = 0d;
             for (var i = trainSetCount + validationSetCount; i < trainSetCount + validationSetCount + testSet; i++)
             {
-                _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Input, i));
-                testError += _ouputDeviation.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Output, i));
+                _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetInputValues(i));
+                testError += _ouputDeviation.Compute(neuralNetwork, neuralNetworkTrainModel.GetOutputValues(i));
             }
             neuralNetwork.NeuralNetworkError = testError / testSet;//update with test error
         }

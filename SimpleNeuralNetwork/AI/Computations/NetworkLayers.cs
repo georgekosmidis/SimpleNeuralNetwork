@@ -1,4 +1,5 @@
 ﻿using SimpleNeuralNetwork.AI.Interfaces;
+using SimpleNeuralNetwork.AI.Modeling.Models;
 using SimpleNeuralNetwork.AI.Models;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace SimpleNeuralNetwork.AI.Computations
     public class NetworkLayers : INetworkLayers
     {
 
-
+        List<int> holdHiddenLayers = new List<int>();
         INeuronSynapsis _neuronSynapsis;
         NeuralNetwork neuralNetwork = new NeuralNetwork();
         //int hiddenNeuronsTestCount = 0;
@@ -23,17 +24,22 @@ namespace SimpleNeuralNetwork.AI.Computations
             _mathFactory = mathFactory;
         }
 
-        public NeuralNetwork Create(int inputNeuronsCount, int hiddenNeuronsCount, int outputNeuronsCount, bool autoAdjustHiddenLayer)
+        public NeuralNetwork Create(int inputNeuronsCount, List<HiddenLayerModel> hiddenLayers, int outputNeuronsCount, bool autoAdjustHiddenLayer)
         {
             var _mathMethods = _mathFactory.Get(neuralNetwork);
 
             if (autoAdjustHiddenLayer)
             {
-                if (neuralNetwork.HiddenNeurons.Count() <= 0)
-                    hiddenNeuronsCount = Convert.ToInt32(Math.Ceiling((inputNeuronsCount + outputNeuronsCount) / 2d));
+                if (neuralNetwork.HiddenLayers.Count() <= 0)
+                {
+                    var hiddenNeuronsCount = Convert.ToInt32(Math.Ceiling((inputNeuronsCount + outputNeuronsCount) / 2d));
+
+                    holdHiddenLayers.Add(hiddenNeuronsCount);
+                }
                 else
                 {
-                    hiddenNeuronsCount = neuralNetwork.HiddenNeurons.Count() + 1;
+                    holdHiddenLayers[0]++;
+                    //hiddenNeuronsCount = neuralNetwork.HiddenNeurons.Count() + 1;
                     //if (hiddenNeuronsTestCount >= 0)
                     //{
                     //    hiddenNeuronsCount++;
@@ -41,29 +47,41 @@ namespace SimpleNeuralNetwork.AI.Computations
                     //}
                     //hiddenNeuronsTestCount++;
                 }
-                //neuralNetwork = new NeuralNetwork();
             }
-            //else
+            else
+            {
+                for (var i = 0; i < hiddenLayers.Count(); i++)
+                    holdHiddenLayers.Add(hiddenLayers[i].NeuronsCount);               
+            }
             neuralNetwork = new NeuralNetwork();
 
+            var neuronsIndex = 0;
 
             for (var i = 0; i < inputNeuronsCount; i++)
-                neuralNetwork.InputNeurons.Add(new Neuron() { Index = i, Error = 0 });
+                neuralNetwork.InputNeurons.Add(new Neuron() { Index = neuronsIndex++, Error = 0, Layer = 0 });
 
-            if (hiddenNeuronsCount == -1)
-                hiddenNeuronsCount = Convert.ToInt32(Math.Ceiling((inputNeuronsCount + outputNeuronsCount) / 2d));
 
-            for (var j = 0; j < hiddenNeuronsCount; j++)
+            //hidden layers
+            for (var i = 0; i < holdHiddenLayers.Count(); i++)
             {
-                var neuron = new Neuron() { Index = j, Error = _mathMethods.Random() };
-                _neuronSynapsis.Set(_mathMethods, neuron, neuralNetwork.InputNeurons);
-                neuralNetwork.HiddenNeurons.Add(neuron);
+                neuralNetwork.HiddenLayers.Add(new List<Neuron>());
+                for (var j = 0; j < holdHiddenLayers[i]; j++)
+                {
+                    var neuron = new Neuron() { Index = neuronsIndex++, Error = _mathMethods.Random(), Layer = i + 1 };
+                    if (i == 0)
+                        _neuronSynapsis.Set(_mathMethods, neuron, neuralNetwork.InputNeurons);
+                    else
+                        _neuronSynapsis.Set(_mathMethods, neuron, neuralNetwork.HiddenLayers[i - 1]);
+
+                    neuralNetwork.HiddenLayers[i].Add(neuron);
+                }
             }
 
+            //from last hidden layer to output
             for (int k = 0; k < outputNeuronsCount; k++)
             {
-                var neuron = new Neuron() { Index = k, Error = _mathMethods.Random() };
-                _neuronSynapsis.Set(_mathMethods, neuron, neuralNetwork.HiddenNeurons);
+                var neuron = new Neuron() { Index = neuronsIndex++, Error = _mathMethods.Random(), Layer = holdHiddenLayers.Count() + 1 };
+                _neuronSynapsis.Set(_mathMethods, neuron, neuralNetwork.HiddenLayers.Last());
                 neuralNetwork.OutputNeurons.Add(neuron);
             }
 

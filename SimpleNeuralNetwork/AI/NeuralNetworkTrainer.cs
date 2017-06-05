@@ -35,12 +35,12 @@ namespace SimpleNeuralNetwork.AI
 
         public NeuralNetwork Train(NeuralNetworkTrainModel neuralNetworkTrainModel)
         {
-            var neuralNetwork = _networkLayers.Create(neuralNetworkTrainModel.Count(x => x.Layer == NeuronLayer.Input),
-                                                      neuralNetworkTrainModel.HiddenNeuronsCount,
-                                                      neuralNetworkTrainModel.Count(x => x.Layer == NeuronLayer.Output),
+            var neuralNetwork = _networkLayers.Create(neuralNetworkTrainModel.InputNeurons.Count(),
+                                                      neuralNetworkTrainModel.HiddenLayers,
+                                                      neuralNetworkTrainModel.OutputNeurons.Count(),
                                                       neuralNetworkTrainModel.AutoAdjuctHiddenLayer);
 
-            OnNetworkReconfigured?.Invoke(this, new NetworkReconfiguredEventArgs(neuralNetwork.HiddenNeurons.Count()));
+            OnNetworkReconfigured?.Invoke(this, new NetworkReconfiguredEventArgs(neuralNetwork.HiddenLayers.Sum(x => x.Count())));//TODO: HIDDEN LAYERS
 
             neuralNetwork.MathFunctions = neuralNetworkTrainModel.MathFunctions;
             neuralNetwork.Name = neuralNetworkTrainModel.NeuronNetworkName;
@@ -66,7 +66,7 @@ namespace SimpleNeuralNetwork.AI
             //check if we have to reconfigure or retrain NN
             if (!_validationSet.StopTraining(neuralNetwork, neuralNetworkTrainModel))
                 neuralNetwork = Train(neuralNetworkTrainModel);
-                        
+
             //choose best NN Setup
             neuralNetwork = _neuralNetworkSetup.OrderBy(x => x.NeuralNetworkError).First();
 

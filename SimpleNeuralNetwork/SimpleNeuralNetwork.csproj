@@ -45,9 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI.Modeling\Modelers\ModelingHelpers\HiddenLayers.cs" />
     <Compile Include="AI.Modeling\Modelers\ModelingHelpers\NeuronValues.cs" />
     <Compile Include="AI.Modeling\Models\eNeuronLayer.cs" />
     <Compile Include="AI.Modeling\Interfaces\IModeler.cs" />
+    <Compile Include="AI.Modeling\Models\HiddenLayerModel.cs" />
     <Compile Include="AI\BrainRepositories\JsonFileHelpers\Models\SavedNeuralNetwork.cs" />
     <Compile Include="AI\BrainRepositories\JsonFileHelpers\Models\SavedNeuron.cs" />
     <Compile Include="AI\BrainRepositories\JsonFileHelpers\Models\SavedSynapsis.cs" />

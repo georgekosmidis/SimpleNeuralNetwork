@@ -27,14 +27,13 @@ namespace SimpleNeuralNetwork.AI.NeuralNetworkTrainerHelpers
             var trainSetCount = Convert.ToInt32(Math.Floor(neuralNetworkTrainModel.ValuesCount * .7));
             var validationSetCount = Convert.ToInt32(Math.Floor((neuralNetworkTrainModel.ValuesCount - trainSetCount) * .7));
 
-
             var innerLastOutputDeviation = 0d;
             //var suffle = Suffle(trainSetCount, validationSetCount);
             //foreach (var i in suffle)
             for (var i = trainSetCount; i < trainSetCount + validationSetCount; i++)
             {
-                _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Input, i));
-                innerLastOutputDeviation += _ouputDeviation.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Output, i));
+                _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetInputValues(i));
+                innerLastOutputDeviation += _ouputDeviation.Compute(neuralNetwork, neuralNetworkTrainModel.GetOutputValues(i));
             }
             innerLastOutputDeviation /= validationSetCount;
 
@@ -60,10 +59,14 @@ namespace SimpleNeuralNetwork.AI.NeuralNetworkTrainerHelpers
             if (neuralNetworkTrainModel.AutoAdjuctHiddenLayer && neuralNetwork.NeuralNetworkError > neuralNetworkTrainModel.AcceptedError)
             {
                 //reconfigure for up to ten times the sum of input/output neurons
-                if (neuralNetwork.HiddenNeurons.Count() < (neuralNetwork.InputNeurons.Count() + neuralNetwork.OutputNeurons.Count()) * 10)
+                foreach (var layer in neuralNetwork.HiddenLayers)
                 {
-                    return false;
+                    if (layer.Count() >= (neuralNetwork.InputNeurons.Count() + neuralNetwork.OutputNeurons.Count()) * 10)
+                    {
+                        return true;
+                    }
                 }
+                return false;
             }
             return true;
         }

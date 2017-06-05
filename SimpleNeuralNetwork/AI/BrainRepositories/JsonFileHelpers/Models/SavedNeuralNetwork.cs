@@ -10,9 +10,10 @@ namespace SimpleNeuralNetwork.AI.BrainRepositories.JsonFileHelpers.Models
     public class SavedNeuralNetwork
     {
         public List<SavedNeuron> InputNeurons { get; set; } = new List<SavedNeuron>();
-        public List<SavedNeuron> HiddenNeurons { get; set; } = new List<SavedNeuron>();
+        public List<List<SavedNeuron>> HiddenLayers { get; set; } = new List<List<SavedNeuron>>();
         public List<SavedNeuron> OutputNeurons { get; set; } = new List<SavedNeuron>();
 
+        public List<SavedSynapsis> Synapsis { get; set; } = new List<SavedSynapsis>();
         public List<SavedSynapsis> InputHiddenSynapsis { get; set; } = new List<SavedSynapsis>();
         public List<SavedSynapsis> HiddenOutputSynapsis { get; set; } = new List<SavedSynapsis>();
 

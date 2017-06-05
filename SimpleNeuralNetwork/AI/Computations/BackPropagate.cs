@@ -18,6 +18,7 @@ namespace SimpleNeuralNetwork.AI.Computations
 
         public void Compute(NeuralNetwork neuralNetwork, double[] outputData)
         {
+            neuralNetwork.HiddenLayers.Reverse();
 
             var _mathMethods = _mathFactory.Get(neuralNetwork);
 
@@ -25,9 +26,12 @@ namespace SimpleNeuralNetwork.AI.Computations
             for (var i = 0; i < neuralNetwork.OutputNeurons.Count(); i++)
                 neuralNetwork.OutputNeurons.ElementAt(i).Error = _mathMethods.DerivativeMethod(neuralNetwork.OutputNeurons.ElementAt(i).Value) * (outputData[i] - neuralNetwork.OutputNeurons.ElementAt(i).Value);
 
+
             //propagate error to hidden neurons
-            foreach (var hiddenNeuron in neuralNetwork.HiddenNeurons)
-                hiddenNeuron.Error = hiddenNeuron.OutputSynapses.Sum(x => x.ToNeuron.Error * x.Weight) * _mathMethods.DerivativeMethod(hiddenNeuron.Value);
+            
+            foreach (var hiddenLayer in neuralNetwork.HiddenLayers)
+                foreach (var hiddenNeuron in hiddenLayer)
+                    hiddenNeuron.Error = hiddenNeuron.OutputSynapses.Sum(x => x.ToNeuron.Error * x.Weight) * _mathMethods.DerivativeMethod(hiddenNeuron.Value);
 
 
             //calculate weight of hidden->output synapsis
@@ -39,13 +43,14 @@ namespace SimpleNeuralNetwork.AI.Computations
 
 
             //caclulcate weight of input->hidden synapsis
-            foreach (var hiddenNeuron in neuralNetwork.HiddenNeurons)
-            {
-                foreach (var synapse in hiddenNeuron.InputSynapses)
-                    synapse.Weight += neuralNetwork.LearningRate * hiddenNeuron.Error * synapse.FromNeuron.Value;
-            }
+            foreach (var hiddenLayer in neuralNetwork.HiddenLayers)
+                foreach (var hiddenNeuron in hiddenLayer)
+                {
+                    foreach (var synapse in hiddenNeuron.InputSynapses)
+                        synapse.Weight += neuralNetwork.LearningRate * hiddenNeuron.Error * synapse.FromNeuron.Value;
+                }
 
-
+            neuralNetwork.HiddenLayers.Reverse();
         }
     }
 }
