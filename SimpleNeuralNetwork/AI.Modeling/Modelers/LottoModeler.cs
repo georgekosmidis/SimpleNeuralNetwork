@@ -49,9 +49,7 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers
 
 
             var modelCreate = new NeuralNetworkTrainModelCreate()
-                                        //.AutoAdjustHiddenLayer()
-                                        .AddHiddenLayers( x=> x.AddHiddenLayer(20).AddHiddenLayer(20))
-                                        .SetMathFunctions( AI.Models.MathFunctions.Sigmoid)
+                                        .AutoAdjustHiddenLayer()
                                         .SetAcceptedError(.02)
                                         .SetNeuralNetworkName("Lotto");
             foreach (var input in inputs)
