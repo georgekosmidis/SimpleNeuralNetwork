@@ -29,7 +29,7 @@ namespace SimpleNeuralNetwork.Helpers
         public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
         public event StatusUpdateHandler OnUpdateStatus;
 
-        public AI.NeuralNetworkFactory.Runner Train(NetworkFor networkFor)
+        public AI.NeuralNetworkFactory.Runner Train(NetworkFor networkFor, bool saveNeuralNetwork = false)
         {
             var neuralNetworkFactory = new AI.NeuralNetworkFactory(
                                           new NeuralNetworkRepository(
@@ -93,7 +93,8 @@ namespace SimpleNeuralNetwork.Helpers
             //TODO: OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + "Hidden Neurons: " + runner.NeuralNetwork.HiddenNeurons.Count()));
             OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + "Neural Network Accuracy: " + (100 - (Math.Round(runner.NeuralNetwork.NeuralNetworkError, 4) * 100)).ToString(CultureInfo.InvariantCulture) + "%"));
 
-            neuralNetworkFactory.Save();
+            if (saveNeuralNetwork)
+                neuralNetworkFactory.Save();
 
             return runner;
         }
@@ -147,7 +148,7 @@ namespace SimpleNeuralNetwork.Helpers
                 s += "HL" + (i + 1) + "N" + e.HiddenLayers[i] + "-";
             s = s.Trim('-');
 
-            var status = Environment.NewLine + Environment.NewLine + "NN Setup: " + s + Environment.NewLine;
+            var status = Environment.NewLine + Environment.NewLine + "Hidden Layers Setup: " + s + Environment.NewLine;
             OnUpdateStatus?.Invoke(sender, new ProgressEventArgs(status));
         }
 

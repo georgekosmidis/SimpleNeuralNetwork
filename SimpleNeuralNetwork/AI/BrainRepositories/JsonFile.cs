@@ -96,6 +96,8 @@ namespace SimpleNeuralNetwork.AI.BrainRepositories
         }
         public NeuralNetwork Load(string name)
         {
+            if (!File.Exists(_folder + Path.DirectorySeparatorChar + name + ".json"))
+                throw new FileNotFoundException("File not found: " + _folder + Path.DirectorySeparatorChar + name + ".json" + Environment.NewLine + "Have you saved it after training?");
             var reader = new StreamReader(_folder + Path.DirectorySeparatorChar + name + ".json");
             var json = reader.ReadToEnd();
             reader.Close();

@@ -31,7 +31,7 @@ namespace SimpleNeuralNetwork.AI.Computations
             if (autoAdjustHiddenLayer)
             {
                 var hiddenNeuronsStartCount = Convert.ToInt32(Math.Ceiling((inputNeuronsCount + outputNeuronsCount) / 2d));
-                var hiddenNeuronsEndCount = Convert.ToInt32(Math.Ceiling((inputNeuronsCount + outputNeuronsCount) / 2d)) * 3;
+                var hiddenNeuronsEndCount = Convert.ToInt32(Math.Ceiling((inputNeuronsCount + outputNeuronsCount) / 2d)) * 5;
 
                 if (neuralNetwork.HiddenLayers.Count() <= 0)
                 {

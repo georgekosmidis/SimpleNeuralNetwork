@@ -17,9 +17,11 @@ namespace SimpleNeuralNetwork
 
         static void Main(string[] args)
         {
+            System.AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
             //Choose NN, and remember to change the values for the Input Neurons. 
             //Bigger Numbers require, bigger dataset and alot more training time
-            Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, 1, 1, 2);
+            Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, 2, 1, 1);
 
             Console.ReadKey(true);
 
@@ -31,7 +33,7 @@ namespace SimpleNeuralNetwork
             factoryHelper.OnUpdateStatus += Factory_OnUpdateStatus;
 
             //TRAIN THE NUERAL NETWORK
-            var neuralNetwork = factoryHelper.Train(networkFor);
+            var neuralNetwork = factoryHelper.Train(networkFor, false);
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("Computation with the newly trained network:");
@@ -61,6 +63,19 @@ namespace SimpleNeuralNetwork
         {
             Console.Write(e.Status);
         }
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine();
+            Console.WriteLine(new String('*', 50));
+            Console.WriteLine("Exception:");
+            Console.WriteLine(((Exception)e.ExceptionObject).Message);
+            Console.WriteLine(new String('*', 50));
+            Console.ReadLine();
+            Environment.Exit(1);
+        }
+
 
     }
 }
