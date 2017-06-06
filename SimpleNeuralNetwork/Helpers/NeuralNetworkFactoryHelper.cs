@@ -24,7 +24,7 @@ namespace SimpleNeuralNetwork.Helpers
             _trainedNetworksPath = trainedNetworksPath;
         }
 
-        public enum NetworkFor { AddSubtract, XOR, Custom }
+        public enum NetworkFor { AddSubtract, XOR, Lotto, Custom }
 
         public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
         public event StatusUpdateHandler OnUpdateStatus;
@@ -68,7 +68,6 @@ namespace SimpleNeuralNetwork.Helpers
                                           )
                                       );
 
-            //neuralNetworkFactory.OnSampleLearned += NeuralNetworkFactory_OnSampleLearned;
             neuralNetworkFactory.OnLearningCycleComplete += NeuralNetworkFactory_OnLearningCycleComplete;
             neuralNetworkFactory.OnNetworkReconfigured += NeuralNetworkFactory_OnNetworkReconfigured;
             IModeler modeler;
@@ -76,6 +75,9 @@ namespace SimpleNeuralNetwork.Helpers
             {
                 case NetworkFor.AddSubtract:
                     modeler = new AddSubtractModeler();
+                    break;
+                case NetworkFor.Lotto:
+                    modeler = new LottoModeler();
                     break;
                 case NetworkFor.XOR:
                     modeler = new XorModeler();

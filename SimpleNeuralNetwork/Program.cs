@@ -17,11 +17,15 @@ namespace SimpleNeuralNetwork
 
         static void Main(string[] args)
         {
+#if !DEBUG
             System.AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-
+#endif
             //Choose NN, and remember to change the values for the Input Neurons. 
-            //Bigger Numbers require, bigger dataset and alot more training time
-            Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, WriteMatrix, 2, 1, 1);
+            var lottoInput = new double[49];
+            for (var i = 0; i < 49; i++)
+                lottoInput[i] = i + 1;
+            Run(NeuralNetworkFactoryHelper.NetworkFor.Lotto, LottoWriteMatrix, lottoInput);
+            //Run(NeuralNetworkFactoryHelper.NetworkFor.XOR, DefaultWriteMatrix, 1, 1);
 
             Console.ReadKey(true);
 
@@ -33,7 +37,7 @@ namespace SimpleNeuralNetwork
             factoryHelper.OnUpdateStatus += Factory_OnUpdateStatus;
 
             //TRAIN THE NUERAL NETWORK
-            var neuralNetwork = factoryHelper.Train(networkFor, false);
+            var neuralNetwork = factoryHelper.Train(networkFor, true);
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("Computation with the newly trained network:");
@@ -58,6 +62,23 @@ namespace SimpleNeuralNetwork
                 Console.WriteLine("Output Neuron " + (i + 1) + ": " + result[i].ToString("0.000", CultureInfo.InvariantCulture));
 
         }
+
+        private static void LottoWriteMatrix(double[] result)
+        {
+            var numbers = new Dictionary<int, double>();
+
+            for (var i = 0; i < result.Length; i++)
+                numbers[i] = result[i];
+
+            foreach (var number in numbers.OrderByDescending(x => x.Value))
+            {
+                var line = String.Format("Probability of number {0,2}: {1,10} ", (number.Key + 1), number.Value.ToString("00.000 %", CultureInfo.InvariantCulture));
+                Console.WriteLine(line);
+            }
+
+
+        }
+
 
         private static void Factory_OnUpdateStatus(object sender, ProgressEventArgs e)
         {

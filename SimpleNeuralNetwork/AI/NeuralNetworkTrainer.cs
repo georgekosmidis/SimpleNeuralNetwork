@@ -52,16 +52,19 @@ namespace SimpleNeuralNetwork.AI
                 //train
                 _trainSet.Train(neuralNetwork, neuralNetworkTrainModel);
 
-                OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(iteration, neuralNetwork.NeuralNetworkError));
-
                 //can NN train any more?
                 if (_validationSet.StopIterations(neuralNetwork, neuralNetworkTrainModel))
+                {
+                    OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(iteration, neuralNetwork.NeuralNetworkError));
                     break;
+                }
+                OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(iteration, neuralNetwork.NeuralNetworkError));
 
             }
 
             //store NN
             _neuralNetworkSetup.Add(neuralNetwork);
+            _neuralNetworkSetup = _neuralNetworkSetup.OrderBy(x => x.NeuralNetworkError).Take(5).ToList();
 
             //check if we have to reconfigure or retrain NN
             if (!_validationSet.StopTraining(neuralNetwork, neuralNetworkTrainModel))

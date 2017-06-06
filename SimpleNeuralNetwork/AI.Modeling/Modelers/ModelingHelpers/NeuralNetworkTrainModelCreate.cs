@@ -33,7 +33,7 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
             return this;
         }
 
-        public NeuralNetworkTrainModelCreate AddHiddenLayer(Action<HiddenLayers> addNeuronsExpression)
+        public NeuralNetworkTrainModelCreate AddHiddenLayers(Action<HiddenLayers> addNeuronsExpression)
         {
             var hiddenLayer = new List<HiddenLayerModel>();
             var hiddenLayers = new HiddenLayers(hiddenLayer);
