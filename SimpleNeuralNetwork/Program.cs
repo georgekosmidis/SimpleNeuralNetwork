@@ -21,13 +21,13 @@ namespace SimpleNeuralNetwork
 
             //Choose NN, and remember to change the values for the Input Neurons. 
             //Bigger Numbers require, bigger dataset and alot more training time
-            Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, 2, 1, 1);
+            Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, WriteMatrix, 2, 1, 1);
 
             Console.ReadKey(true);
 
         }
 
-        private static void Run(NeuralNetworkFactoryHelper.NetworkFor networkFor, params double[] values)
+        private static void Run(NeuralNetworkFactoryHelper.NetworkFor networkFor, Action<double[]> displayAction, params double[] values)
         {
             var factoryHelper = new NeuralNetworkFactoryHelper(trainedNetworksPath);
             factoryHelper.OnUpdateStatus += Factory_OnUpdateStatus;
@@ -40,7 +40,7 @@ namespace SimpleNeuralNetwork
             var liveValues = new double[values.Length];
             values.CopyTo(liveValues, 0);
             var result = neuralNetwork.Run(liveValues);
-            WriteMatrix(result);
+            displayAction(result);
 
             //LOAD TRAINED NEURAL NETWORK
             neuralNetwork = factoryHelper.Load(networkFor);
@@ -49,10 +49,10 @@ namespace SimpleNeuralNetwork
             liveValues = new double[values.Length];
             values.CopyTo(liveValues, 0);
             result = neuralNetwork.Run(liveValues);
-            WriteMatrix(result);
+            displayAction(result);
         }
 
-        private static void WriteMatrix(double[] result)
+        private static void DefaultWriteMatrix(double[] result)
         {
             for (var i = 0; i < result.Length; i++)
                 Console.WriteLine("Output Neuron " + (i + 1) + ": " + result[i].ToString("0.000", CultureInfo.InvariantCulture));

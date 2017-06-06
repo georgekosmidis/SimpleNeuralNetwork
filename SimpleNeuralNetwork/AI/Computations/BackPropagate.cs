@@ -39,6 +39,7 @@ namespace SimpleNeuralNetwork.AI.Computations
             {
                 foreach (var synapse in outputNeuron.InputSynapses)
                     synapse.Weight += neuralNetwork.LearningRate * outputNeuron.Error * synapse.FromNeuron.Value;
+
             }
 
 
@@ -48,6 +49,7 @@ namespace SimpleNeuralNetwork.AI.Computations
                 {
                     foreach (var synapse in hiddenNeuron.InputSynapses)
                         synapse.Weight += neuralNetwork.LearningRate * hiddenNeuron.Error * synapse.FromNeuron.Value;
+
                 }
 
             neuralNetwork.HiddenLayers.Reverse();
