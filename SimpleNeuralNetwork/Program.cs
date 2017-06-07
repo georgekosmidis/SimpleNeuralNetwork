@@ -23,10 +23,10 @@ namespace SimpleNeuralNetwork
             //Choose NN, and remember to change the values for the Input Neurons. 
             //*****************************************************************************
             ////LOTTO
-            //var lottoInput = new double[49];
-            //for (var i = 0; i < 49; i++)
-            //    lottoInput[i] = i + 1;
-            //Run(NeuralNetworkFactoryHelper.NetworkFor.Lotto, LottoWriteMatrix, lottoInput);
+            var lottoInput = new double[49];
+            for (var i = 0; i < 49; i++)
+                lottoInput[i] = i + 1;
+            Run(NeuralNetworkFactoryHelper.NetworkFor.Lotto, LottoWriteMatrix, lottoInput);
             //*****************************************************************************
             ////Add-Subtract
             //Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, DefaultWriteMatrix, 1, 2, 1);
