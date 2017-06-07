@@ -25,16 +25,19 @@ namespace SimpleNeuralNetwork.AI.Computations
             foreach (var inputNeuron in neuralNetwork.InputNeurons)
                 inputNeuron.Value = inputData[i++];
 
-            foreach (var hiddenNeuron in neuralNetwork.HiddenNeurons)
+            foreach (var hiddenLayer in neuralNetwork.HiddenLayers)
             {
-                var total = hiddenNeuron.InputSynapses.Sum(x => x.FromNeuron.Value * x.Weight);
-                hiddenNeuron.Value = _mathMethods.OutputMethod(total);
+                foreach (var hiddenNeuron in hiddenLayer)
+                {
+                    var total = hiddenNeuron.InputSynapses.Sum(x => x.FromNeuron.Value * x.Weight);
+                    hiddenNeuron.Value = _mathMethods.OutputMethod(total);// + hiddenNeuron.Bias;
+                }
             }
 
             foreach (var outputNeuron in neuralNetwork.OutputNeurons)
             {
                 var total = outputNeuron.InputSynapses.Sum(x => x.FromNeuron.Value * x.Weight);
-                outputNeuron.Value = _mathMethods.OutputMethod(total);
+                outputNeuron.Value = _mathMethods.OutputMethod(total);// + outputNeuron.Bias;
             }
         }
     }

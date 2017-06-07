@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SimpleNeuralNetwork.AI.Modeling.Models
 {
-    public class NeuronModel
-    { 
-        public List<double> Values { get; } = new List<double>();
+    public class HiddenLayerModel
+    {
+        public int NeuronsCount { get; set; }
     }
 }

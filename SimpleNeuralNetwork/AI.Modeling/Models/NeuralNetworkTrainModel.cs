@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace SimpleNeuralNetwork.AI.Modeling.Models
 {
-    public class NeuralNetworkTrainModel : List<Models.NeuronModel>
+    public class NeuralNetworkTrainModel
     {
         public string NeuronNetworkName { get; set; }
 
-        public int HiddenNeuronsCount { get; set; } = -1;
         public bool AutoAdjuctHiddenLayer { get; set; } = false;
 
         public MathFunctions MathFunctions { get; set; } = MathFunctions.Unknown;
@@ -20,19 +19,26 @@ namespace SimpleNeuralNetwork.AI.Modeling.Models
 
         public double Divisor { get; set; }
 
+        public List<Models.NeuronModel> InputNeurons { get; set; } = new List<Models.NeuronModel>();
+        public List<Models.HiddenLayerModel> HiddenLayers { get; set; } = new List<Models.HiddenLayerModel>();
+        public List<Models.NeuronModel> OutputNeurons { get; set; } = new List<Models.NeuronModel>();
+
         public int ValuesCount
         {
             get
             {
-                return this.First().Values.Count();
+                return this.InputNeurons.First().Values.Count();
             }
 
         }
 
-        public double[] GetValuesForLayer(NeuronLayer layer, int cycle)
+        public double[] GetInputValues(int cycle)
         {
-            return this.Where(x => x.Layer == layer).Select(x => x.Values[cycle] / Divisor).ToArray();
+            return InputNeurons.Select(x => x.Values[cycle] / Divisor).ToArray();
         }
-
+        public double[] GetOutputValues(int cycle)
+        {
+            return OutputNeurons.Select(x => x.Values[cycle] / Divisor).ToArray();
+        }
     }
 }

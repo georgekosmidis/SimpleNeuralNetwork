@@ -42,8 +42,8 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers
             NeuralNetworkModel = new NeuralNetworkTrainModelCreate()
 
                                         //-----------------------------------------------------------------------------------
-                                        .SetMathFunctions(MathFunctions.HyperTan)           //Set the algorithms to be used                         
-                                        .SetHiddenNeurons(5)                                //Set the number of hidden neurons
+                                        //.SetMathFunctions(MathFunctions.HyperTan)           //Set the algorithms to be used                         
+                                        //.SetHiddenNeurons(5)                                //Set the number of hidden neurons
                                         //--OR--                                
                                         .AutoAdjustHiddenLayer()                            //Let the network handle hidden neurons in order to find optimal solution
                                         //-----------------------------------------------------------------------------------

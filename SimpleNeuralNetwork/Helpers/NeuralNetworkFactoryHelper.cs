@@ -24,12 +24,12 @@ namespace SimpleNeuralNetwork.Helpers
             _trainedNetworksPath = trainedNetworksPath;
         }
 
-        public enum NetworkFor { AddSubtract, XOR, Custom }
+        public enum NetworkFor { AddSubtract, XOR, Lotto, Custom }
 
         public delegate void StatusUpdateHandler(object sender, ProgressEventArgs e);
         public event StatusUpdateHandler OnUpdateStatus;
 
-        public AI.NeuralNetworkFactory.Runner Train(NetworkFor networkFor)
+        public AI.NeuralNetworkFactory.Runner Train(NetworkFor networkFor, bool saveNeuralNetwork = false)
         {
             var neuralNetworkFactory = new AI.NeuralNetworkFactory(
                                           new NeuralNetworkRepository(
@@ -68,7 +68,6 @@ namespace SimpleNeuralNetwork.Helpers
                                           )
                                       );
 
-            //neuralNetworkFactory.OnSampleLearned += NeuralNetworkFactory_OnSampleLearned;
             neuralNetworkFactory.OnLearningCycleComplete += NeuralNetworkFactory_OnLearningCycleComplete;
             neuralNetworkFactory.OnNetworkReconfigured += NeuralNetworkFactory_OnNetworkReconfigured;
             IModeler modeler;
@@ -76,6 +75,9 @@ namespace SimpleNeuralNetwork.Helpers
             {
                 case NetworkFor.AddSubtract:
                     modeler = new AddSubtractModeler();
+                    break;
+                case NetworkFor.Lotto:
+                    modeler = new LottoModeler();
                     break;
                 case NetworkFor.XOR:
                     modeler = new XorModeler();
@@ -86,14 +88,15 @@ namespace SimpleNeuralNetwork.Helpers
                 default:
                     throw new NotImplementedException("Network " + networkFor + " not implemented!");
             }
-            
+
             var runner = neuralNetworkFactory.Train(modeler.NeuralNetworkModel);
             OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + Environment.NewLine + new String('=', 50)));
             OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + "Training Completed!"));
-            OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + "Hidden Neurons: " + runner.NeuralNetwork.HiddenNeurons.Count()));
+            //TODO: OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + "Hidden Neurons: " + runner.NeuralNetwork.HiddenNeurons.Count()));
             OnUpdateStatus?.Invoke(this, new ProgressEventArgs(Environment.NewLine + "Neural Network Accuracy: " + (100 - (Math.Round(runner.NeuralNetwork.NeuralNetworkError, 4) * 100)).ToString(CultureInfo.InvariantCulture) + "%"));
 
-            neuralNetworkFactory.Save();
+            if (saveNeuralNetwork)
+                neuralNetworkFactory.Save();
 
             return runner;
         }
@@ -101,7 +104,7 @@ namespace SimpleNeuralNetwork.Helpers
 
         public AI.NeuralNetworkFactory.Runner Load(NetworkFor networkFor)
         {
-            return  new AI.NeuralNetworkFactory(
+            return new AI.NeuralNetworkFactory(
                         new NeuralNetworkRepository(
                             new JsonFile(_trainedNetworksPath)
                         ),
@@ -142,7 +145,12 @@ namespace SimpleNeuralNetwork.Helpers
 
         private void NeuralNetworkFactory_OnNetworkReconfigured(object sender, NetworkReconfiguredEventArgs e)
         {
-            var status = Environment.NewLine + Environment.NewLine + "Hidden Neurons: " + e.HiddenNeuronsCount + Environment.NewLine;
+            var s = "";
+            for (var i = 0; i < e.HiddenLayers.Count; i++)
+                s += "HL" + (i + 1) + "N" + e.HiddenLayers[i] + "-";
+            s = s.Trim('-');
+
+            var status = Environment.NewLine + Environment.NewLine + "Hidden Layers Setup: " + s + Environment.NewLine;
             OnUpdateStatus?.Invoke(sender, new ProgressEventArgs(status));
         }
 

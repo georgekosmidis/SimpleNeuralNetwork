@@ -27,7 +27,7 @@ namespace SimpleNeuralNetwork.AI.Computations.Maths
 
         public double Random()
         {
-            return rnd.NextDouble();
+            return rnd.NextDouble() * 2 - 1;
         }
     }
 }

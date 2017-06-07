@@ -37,9 +37,10 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers
                 output2[i] = input1[i] - input2[i] - input3[i];
             }
             NeuralNetworkModel = new NeuralNetworkTrainModelCreate()
-                                        //.SetHiddenNeurons(3)
+
                                         .AutoAdjustHiddenLayer()
                                         //.SetMathFunctions(MathFunctions.HyperTan)
+                                        //.AddHiddenLayer(x => x.AddHiddenLayer(5).AddHiddenLayer(5))
                                         .SetAcceptedError(.02)
                                         .SetNeuralNetworkName("AddSubtract")
 

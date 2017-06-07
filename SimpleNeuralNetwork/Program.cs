@@ -17,28 +17,42 @@ namespace SimpleNeuralNetwork
 
         static void Main(string[] args)
         {
+#if !DEBUG
+            System.AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+#endif
             //Choose NN, and remember to change the values for the Input Neurons. 
-            //Bigger Numbers require, bigger dataset and alot more training time
-            Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, 1, 1, 2);
+            //*****************************************************************************
+            ////LOTTO
+            //var lottoInput = new double[49];
+            //for (var i = 0; i < 49; i++)
+            //    lottoInput[i] = i + 1;
+            //Run(NeuralNetworkFactoryHelper.NetworkFor.Lotto, LottoWriteMatrix, lottoInput);
+            //*****************************************************************************
+            ////Add-Subtract
+            //Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, DefaultWriteMatrix, 1, 2, 1);
+            //*****************************************************************************
+            ////XOR
+            //Run(NeuralNetworkFactoryHelper.NetworkFor.XOR, DefaultWriteMatrix, 1, 1);
+            //*****************************************************************************
 
             Console.ReadKey(true);
 
         }
 
-        private static void Run(NeuralNetworkFactoryHelper.NetworkFor networkFor, params double[] values)
+        private static void Run(NeuralNetworkFactoryHelper.NetworkFor networkFor, Action<double[]> displayAction, params double[] values)
         {
             var factoryHelper = new NeuralNetworkFactoryHelper(trainedNetworksPath);
             factoryHelper.OnUpdateStatus += Factory_OnUpdateStatus;
 
             //TRAIN THE NUERAL NETWORK
-            var neuralNetwork = factoryHelper.Train(networkFor);
+            var neuralNetwork = factoryHelper.Train(networkFor);//,true as second argument to save the trained network
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("Computation with the newly trained network:");
             var liveValues = new double[values.Length];
             values.CopyTo(liveValues, 0);
             var result = neuralNetwork.Run(liveValues);
-            WriteMatrix(result);
+            displayAction(result);
 
             //LOAD TRAINED NEURAL NETWORK
             neuralNetwork = factoryHelper.Load(networkFor);
@@ -47,13 +61,29 @@ namespace SimpleNeuralNetwork
             liveValues = new double[values.Length];
             values.CopyTo(liveValues, 0);
             result = neuralNetwork.Run(liveValues);
-            WriteMatrix(result);
+            displayAction(result);
         }
 
-        private static void WriteMatrix(double[] result)
+        private static void DefaultWriteMatrix(double[] result)
         {
             for (var i = 0; i < result.Length; i++)
                 Console.WriteLine("Output Neuron " + (i + 1) + ": " + result[i].ToString("0.000", CultureInfo.InvariantCulture));
+
+        }
+
+        private static void LottoWriteMatrix(double[] result)
+        {
+            var numbers = new Dictionary<int, double>();
+
+            for (var i = 0; i < result.Length; i++)
+                numbers[i] = result[i];
+
+            foreach (var number in numbers.OrderByDescending(x => x.Value))
+            {
+                var line = String.Format("Probability of number {0,2}: {1,10} ", (number.Key + 1), number.Value.ToString("00.000 %", CultureInfo.InvariantCulture));
+                Console.WriteLine(line);
+            }
+
 
         }
 
@@ -61,6 +91,19 @@ namespace SimpleNeuralNetwork
         {
             Console.Write(e.Status);
         }
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine();
+            Console.WriteLine(new String('*', 50));
+            Console.WriteLine("Exception:");
+            Console.WriteLine(((Exception)e.ExceptionObject).Message);
+            Console.WriteLine(new String('*', 50));
+            Console.ReadLine();
+            Environment.Exit(1);
+        }
+
 
     }
 }

@@ -35,12 +35,12 @@ namespace SimpleNeuralNetwork.AI
 
         public NeuralNetwork Train(NeuralNetworkTrainModel neuralNetworkTrainModel)
         {
-            var neuralNetwork = _networkLayers.Create(neuralNetworkTrainModel.Count(x => x.Layer == NeuronLayer.Input),
-                                                      neuralNetworkTrainModel.HiddenNeuronsCount,
-                                                      neuralNetworkTrainModel.Count(x => x.Layer == NeuronLayer.Output),
+            var neuralNetwork = _networkLayers.Create(neuralNetworkTrainModel.InputNeurons.Count(),
+                                                      neuralNetworkTrainModel.HiddenLayers,
+                                                      neuralNetworkTrainModel.OutputNeurons.Count(),
                                                       neuralNetworkTrainModel.AutoAdjuctHiddenLayer);
 
-            OnNetworkReconfigured?.Invoke(this, new NetworkReconfiguredEventArgs(neuralNetwork.HiddenNeurons.Count()));
+            OnNetworkReconfigured?.Invoke(this, new NetworkReconfiguredEventArgs(neuralNetwork.HiddenLayers.Aggregate(new List<int>(), (list, layer) => { list.Add(layer.Count()); return list; })));
 
             neuralNetwork.MathFunctions = neuralNetworkTrainModel.MathFunctions;
             neuralNetwork.Name = neuralNetworkTrainModel.NeuronNetworkName;
@@ -52,21 +52,25 @@ namespace SimpleNeuralNetwork.AI
                 //train
                 _trainSet.Train(neuralNetwork, neuralNetworkTrainModel);
 
-                OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(iteration, neuralNetwork.NeuralNetworkError));
-
                 //can NN train any more?
                 if (_validationSet.StopIterations(neuralNetwork, neuralNetworkTrainModel))
+                {
+                    OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(iteration, neuralNetwork.NeuralNetworkError));
                     break;
+                }
+                OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(iteration, neuralNetwork.NeuralNetworkError));
 
+                //neuralNetwork.LearningRate = neuralNetwork.LearningRate * 1d / (iteration + 1);
             }
 
             //store NN
             _neuralNetworkSetup.Add(neuralNetwork);
+            _neuralNetworkSetup = _neuralNetworkSetup.OrderBy(x => x.NeuralNetworkError).Take(5).ToList();
 
             //check if we have to reconfigure or retrain NN
             if (!_validationSet.StopTraining(neuralNetwork, neuralNetworkTrainModel))
                 neuralNetwork = Train(neuralNetworkTrainModel);
-                        
+
             //choose best NN Setup
             neuralNetwork = _neuralNetworkSetup.OrderBy(x => x.NeuralNetworkError).First();
 

@@ -22,38 +22,49 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
 
         public NeuralNetworkTrainModelCreate AddInputNeuron(Action<NeuronValues> addValuesExpression)
         {
-            var neuronTrainModel = new Models.NeuronModel() { Layer = NeuronLayer.Input };
-            var neronValue = new NeuronValues(neuronTrainModel);
+            var neuronModel = new Models.NeuronModel();
+            var neronValue = new NeuronValues(neuronModel);
             addValuesExpression(neronValue);
 
-            neuralNetworkTrainModel.Add(neuronTrainModel);
+            neuralNetworkTrainModel.InputNeurons.Add(neuronModel);
 
             neuralNetworkTrainModel.Divisor = Math.Max(neuralNetworkTrainModel.Divisor, neronValue.Divisor);
 
             return this;
         }
 
+        public NeuralNetworkTrainModelCreate AddHiddenLayers(Action<HiddenLayers> addNeuronsExpression)
+        {
+            var hiddenLayer = new List<HiddenLayerModel>();
+            var hiddenLayers = new HiddenLayers(hiddenLayer);
+            addNeuronsExpression(hiddenLayers);
+            
+            neuralNetworkTrainModel.HiddenLayers.AddRange(hiddenLayer);
+
+            return this;
+        }
+
         public NeuralNetworkTrainModelCreate AddOutputNeuron(Action<NeuronValues> addValuesExpression)
         {
-            var neuronTrainModel = new Models.NeuronModel() { Layer = NeuronLayer.Output };
-            var neronValue = new NeuronValues(neuronTrainModel);
+            var neuronModel = new Models.NeuronModel();
+            var neronValue = new NeuronValues(neuronModel);
             addValuesExpression(neronValue);
 
-            neuralNetworkTrainModel.Add(neuronTrainModel);
+            neuralNetworkTrainModel.OutputNeurons.Add(neuronModel);
             return this;
         }
 
         public NeuralNetworkTrainModelCreate AutoAdjustHiddenLayer()
         {
             neuralNetworkTrainModel.AutoAdjuctHiddenLayer = true;
-            neuralNetworkTrainModel.HiddenNeuronsCount = -1;
+            neuralNetworkTrainModel.HiddenLayers = new List<HiddenLayerModel>();
             return this;
         }
-        public NeuralNetworkTrainModelCreate SetHiddenNeurons(int hiddenNeurons)
-        {
-            neuralNetworkTrainModel.HiddenNeuronsCount = hiddenNeurons;
-            return this;
-        }
+        //public NeuralNetworkTrainModelCreate SetHiddenNeurons(int hiddenNeurons)
+        //{
+        //    neuralNetworkTrainModel.HiddenNeuronsCount = hiddenNeurons;
+        //    return this;
+        //}
 
         public NeuralNetworkTrainModelCreate SetMathFunctions(MathFunctions mathFunctions)
         {
@@ -80,29 +91,28 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
             if (neuralNetworkTrainModel.NeuronNetworkName == null || neuralNetworkTrainModel.NeuronNetworkName?.Trim() == "")
                 throw new InvalidOperationException("Neural Network must have a name!");
 
-            if (neuralNetworkTrainModel.AutoAdjuctHiddenLayer && neuralNetworkTrainModel.HiddenNeuronsCount > -1)
-                throw new InvalidOperationException("You cannot auto-adjuct the hidden layer AND add hidden neurons!");
+            if (!neuralNetworkTrainModel.AutoAdjuctHiddenLayer && neuralNetworkTrainModel.HiddenLayers.Count() == 0)
+                throw new InvalidOperationException("You have to set either auto-adjuct or hidden layers!");
+            if (neuralNetworkTrainModel.AutoAdjuctHiddenLayer && neuralNetworkTrainModel.HiddenLayers.Count() > 0)
+                throw new InvalidOperationException("You have to set either auto-adjuct or hidden layers!");
 
             if (neuralNetworkTrainModel.AutoAdjuctHiddenLayer && neuralNetworkTrainModel.MathFunctions != MathFunctions.Unknown)
                 throw new InvalidOperationException("You cannot auto-adjuct the hidden layer AND set Math Functions!");
 
-            if (neuralNetworkTrainModel.Count(x => x.Layer == NeuronLayer.Input) == 0)
+            if (neuralNetworkTrainModel.InputNeurons.Count() == 0)
                 throw new InvalidOperationException("You need at least one input neuron in your model!");
 
-            if (!neuralNetworkTrainModel.AutoAdjuctHiddenLayer && neuralNetworkTrainModel.HiddenNeuronsCount < 1)
-                throw new InvalidOperationException("You have to set either auto-adjuct or hidden neurons!");
-
-            if (neuralNetworkTrainModel.Count(x => x.Layer == NeuronLayer.Output) == 0)
+            if (neuralNetworkTrainModel.OutputNeurons.Count() == 0)
                 throw new InvalidOperationException("You need at least one output neuron in your model!");
 
-            var valuesCount = neuralNetworkTrainModel.First().Values.Count();
-            foreach (var neuron in neuralNetworkTrainModel)
+            var valuesCount = neuralNetworkTrainModel.InputNeurons.First().Values.Count();
+            foreach (var neuron in neuralNetworkTrainModel.InputNeurons)
             {
                 if (valuesCount != neuron.Values.Count())
                     throw new InvalidOperationException("All neurons must have same count of values!");
             }
 
-            if (neuralNetworkTrainModel.SelectMany(x => x.Values).Count(x => x < 0) > 0)
+            if (neuralNetworkTrainModel.InputNeurons.SelectMany(x => x.Values).Count(x => x < 0) > 0 || neuralNetworkTrainModel.OutputNeurons.SelectMany(x => x.Values).Count(x => x < 0) > 0 )
                 neuralNetworkTrainModel.MathFunctions = MathFunctions.HyperTan;
             else
                 neuralNetworkTrainModel.MathFunctions = MathFunctions.Sigmoid;

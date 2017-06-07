@@ -10,12 +10,12 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
 {
     public class NeuronValues
     {
-        private NeuronModel _neuronTrainModel;
+        private NeuronModel _neuronModel;
         public double Divisor { get; private set; }
 
-        public NeuronValues(NeuronModel neuronTrainModel)
+        public NeuronValues(NeuronModel neuronModel)
         {
-            _neuronTrainModel = neuronTrainModel;
+            _neuronModel = neuronModel;
         }
 
         public NeuronValues AddValues(params double[] values)
@@ -23,10 +23,10 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
             foreach (var value in values)
             {
                 var divisor = Math.Pow(10, Math.Round(value).ToString().Length);
-                Divisor = Math.Max(Divisor, divisor);
+                Divisor =  Math.Max(Divisor, divisor);
             }
 
-            _neuronTrainModel.Values.AddRange(values);
+            _neuronModel.Values.AddRange(values);
             return this;
         }
     }

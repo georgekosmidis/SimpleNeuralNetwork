@@ -22,9 +22,9 @@ namespace SimpleNeuralNetwork.AI.NeuralNetworkTrainerHelpers
 
         public void Train(NeuralNetwork neuralNetwork, NeuralNetworkTrainModel neuralNetworkTrainModel)
         {
-            var trainSetCount = Convert.ToInt32(Math.Floor(neuralNetworkTrainModel.ValuesCount * .7));
+            var trainSetCount = Convert.ToInt32(Math.Floor(neuralNetworkTrainModel.ValuesCount * .66));
 
-            if (trainSetCount < neuralNetwork.InputNeurons.Count() + neuralNetwork.HiddenNeurons.Count() + neuralNetwork.OutputNeurons.Count())
+            if (trainSetCount < neuralNetwork.InputNeurons.Count() + neuralNetwork.HiddenLayers.Sum(x => x.Count()) + neuralNetwork.OutputNeurons.Count())
                 trainSetCount = neuralNetworkTrainModel.ValuesCount;
 
 
@@ -32,8 +32,8 @@ namespace SimpleNeuralNetwork.AI.NeuralNetworkTrainerHelpers
             //foreach (var i in suffle)
             for (var i = 0; i < trainSetCount; i++)
             {
-                _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Input, i));
-                _backPropagate.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Output, i));
+                _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetInputValues(i));
+                _backPropagate.Compute(neuralNetwork, neuralNetworkTrainModel.GetOutputValues(i));
             }
         }
 

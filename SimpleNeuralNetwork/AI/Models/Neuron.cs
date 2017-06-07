@@ -15,7 +15,9 @@ namespace SimpleNeuralNetwork.AI
 
         public Double Value { get; set; }
         public Double Error { get; set; }
+        //public Double Bias { get; set; }
 
+        public int Layer { get; set; } //0:input, last:output
         public int Index { get; set; }
 
         public Neuron()

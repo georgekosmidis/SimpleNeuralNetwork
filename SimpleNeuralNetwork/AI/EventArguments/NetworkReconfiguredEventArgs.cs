@@ -8,10 +8,10 @@ namespace SimpleNeuralNetwork.AI.EventArguments
 {
     public class NetworkReconfiguredEventArgs : EventArgs
     {
-        public int HiddenNeuronsCount { get; }
-        public NetworkReconfiguredEventArgs(int hiddenNeuronsCount)
+        public List<int> HiddenLayers { get; }
+        public NetworkReconfiguredEventArgs(List<int> hiddenLayers)
         {
-            HiddenNeuronsCount = hiddenNeuronsCount;
+            HiddenLayers = hiddenLayers;
         }
     }
 }

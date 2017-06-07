@@ -37,7 +37,7 @@ namespace SimpleNeuralNetwork.AI.BrainRepositories
 
                 foreach (var synapsis in neuron.OutputSynapses)
                 {
-                    savedNeuralNetwork.InputHiddenSynapsis.Add(new SavedSynapsis()
+                    savedNeuralNetwork.Synapsis.Add(new SavedSynapsis()
                     {
                         Index = synapsis.Index,
                         Weight = synapsis.Weight,
@@ -47,26 +47,30 @@ namespace SimpleNeuralNetwork.AI.BrainRepositories
                 }
             }
 
-            foreach (var neuron in neuralNetwork.HiddenNeurons)
+            for (var i = 0; i < neuralNetwork.HiddenLayers.Count(); i++)
             {
-                savedNeuralNetwork.HiddenNeurons.Add(new SavedNeuron()
+                savedNeuralNetwork.HiddenLayers.Add(new List<SavedNeuron>());
+                for (var j = 0; j < neuralNetwork.HiddenLayers[i].Count(); j++)
                 {
-                    Index = neuron.Index,
-                    Value = neuron.Value,
-                    Error = neuron.Error
-                });
-                foreach (var synapsis in neuron.OutputSynapses)
-                {
-                    savedNeuralNetwork.HiddenOutputSynapsis.Add(new SavedSynapsis()
+                    savedNeuralNetwork.HiddenLayers[i].Add(new SavedNeuron()
                     {
-                        Index = synapsis.Index,
-                        Weight = synapsis.Weight,
-                        FromNeuronIndex = synapsis.FromNeuron.Index,
-                        ToNeuronIndex = synapsis.ToNeuron.Index
+                        Index = neuralNetwork.HiddenLayers[i][j].Index,
+                        Value = neuralNetwork.HiddenLayers[i][j].Value,
+                        Error = neuralNetwork.HiddenLayers[i][j].Error
                     });
+                    foreach (var synapsis in neuralNetwork.HiddenLayers[i][j].OutputSynapses)
+                    {
+                        savedNeuralNetwork.Synapsis.Add(new SavedSynapsis()
+                        {
+                            Index = synapsis.Index,
+                            Weight = synapsis.Weight,
+                            FromNeuronIndex = synapsis.FromNeuron.Index,
+                            ToNeuronIndex = synapsis.ToNeuron.Index
+                        });
+                    }
                 }
-            }
 
+            }
             foreach (var neuron in neuralNetwork.OutputNeurons)
             {
                 savedNeuralNetwork.OutputNeurons.Add(new SavedNeuron()
@@ -76,7 +80,6 @@ namespace SimpleNeuralNetwork.AI.BrainRepositories
                     Error = neuron.Error
                 });
             }
-
 
 
             TextWriter writer = null;
@@ -93,6 +96,8 @@ namespace SimpleNeuralNetwork.AI.BrainRepositories
         }
         public NeuralNetwork Load(string name)
         {
+            if (!File.Exists(_folder + Path.DirectorySeparatorChar + name + ".json"))
+                throw new FileNotFoundException("File not found: " + _folder + Path.DirectorySeparatorChar + name + ".json" + Environment.NewLine + "Have you saved it after training?");
             var reader = new StreamReader(_folder + Path.DirectorySeparatorChar + name + ".json");
             var json = reader.ReadToEnd();
             reader.Close();
@@ -105,78 +110,39 @@ namespace SimpleNeuralNetwork.AI.BrainRepositories
             foreach (var savedNeuron in savedNeuralNetwork.InputNeurons)
                 neuralNetwork.InputNeurons.Add(new Neuron() { Index = savedNeuron.Index, Value = savedNeuron.Value, Error = savedNeuron.Error });
 
-            foreach (var savedNeuron in savedNeuralNetwork.HiddenNeurons)
-                neuralNetwork.HiddenNeurons.Add(new Neuron() { Index = savedNeuron.Index, Value = savedNeuron.Value, Error = savedNeuron.Error });
+            for (var i = 0; i < savedNeuralNetwork.HiddenLayers.Count(); i++)
+            {
+                neuralNetwork.HiddenLayers.Add(new List<Neuron>());
+                foreach (var savedNeuron in savedNeuralNetwork.HiddenLayers[i])
+                    neuralNetwork.HiddenLayers[i].Add(new Neuron() { Index = savedNeuron.Index, Value = savedNeuron.Value, Error = savedNeuron.Error });
+            }
 
             foreach (var savedNeuron in savedNeuralNetwork.OutputNeurons)
                 neuralNetwork.OutputNeurons.Add(new Neuron() { Index = savedNeuron.Index, Value = savedNeuron.Value, Error = savedNeuron.Error });
 
-            foreach (var savedSynapsis in savedNeuralNetwork.InputHiddenSynapsis)
+            foreach (var savedSynapsis in savedNeuralNetwork.Synapsis)
             {
+                var neurons = neuralNetwork.InputNeurons.Concat(neuralNetwork.OutputNeurons);
+                foreach (var layer in neuralNetwork.HiddenLayers)
+                    neurons = neurons.Concat(layer);
 
-                var fromNeuron = neuralNetwork.InputNeurons.First(x => x.Index == savedSynapsis.FromNeuronIndex);
-                var toNeuron = neuralNetwork.HiddenNeurons.First(x => x.Index == savedSynapsis.ToNeuronIndex);
 
-                var synapse = new Synapse(neuralNetwork.InputNeurons.First(x => x.Index == savedSynapsis.FromNeuronIndex), neuralNetwork.HiddenNeurons.First(x => x.Index == savedSynapsis.ToNeuronIndex))
+                var fromNeuron = neurons.First(x => x.Index == savedSynapsis.FromNeuronIndex);
+                var toNeuron = neurons.First(x => x.Index == savedSynapsis.ToNeuronIndex);
+
+                var synapse = new Synapse(fromNeuron, toNeuron)
                 {
                     Index = savedSynapsis.Index,
                     Weight = savedSynapsis.Weight
                 };
 
-                neuralNetwork.InputNeurons.First(x => x.Index == savedSynapsis.FromNeuronIndex).OutputSynapses.Add(synapse);
-                neuralNetwork.HiddenNeurons.First(x => x.Index == savedSynapsis.ToNeuronIndex).InputSynapses.Add(synapse);
+                fromNeuron.OutputSynapses.Add(synapse);
+                toNeuron.InputSynapses.Add(synapse);
 
-            }
-
-            foreach (var savedSynapsis in savedNeuralNetwork.HiddenOutputSynapsis)
-            {
-
-                var fromNeuron = neuralNetwork.HiddenNeurons.First(x => x.Index == savedSynapsis.FromNeuronIndex);
-                var toNeuron = neuralNetwork.OutputNeurons.FirstOrDefault(x => x.Index == savedSynapsis.ToNeuronIndex);
-                if (toNeuron == null)
-                    continue;
-                var synapse = new Synapse(neuralNetwork.HiddenNeurons.First(x => x.Index == savedSynapsis.FromNeuronIndex), neuralNetwork.OutputNeurons.FirstOrDefault(x => x.Index == savedSynapsis.ToNeuronIndex))
-                {
-                    Index = savedSynapsis.Index,
-                    Weight = savedSynapsis.Weight
-                };
-
-                neuralNetwork.HiddenNeurons.First(x => x.Index == savedSynapsis.FromNeuronIndex).OutputSynapses.Add(synapse);
-                neuralNetwork.OutputNeurons.FirstOrDefault(x => x.Index == savedSynapsis.ToNeuronIndex).InputSynapses.Add(synapse);
-
-            }
-            
-            return neuralNetwork;
-        }
-
-        private NeuralNetwork ReviveReferences(NeuralNetwork neuralNetwork)
-        {
-
-            for (var i = 0; i < neuralNetwork.InputNeurons.Count(); i++)
-            {
-                for (var j = 0; j < neuralNetwork.InputNeurons.ToArray()[i].OutputSynapses.Count(); j++)
-                {
-                    neuralNetwork.InputNeurons.ElementAt(i).OutputSynapses.ElementAt(j).FromNeuron = neuralNetwork.InputNeurons.ElementAt(i);
-                    neuralNetwork.InputNeurons.ElementAt(i).OutputSynapses.ElementAt(j).ToNeuron = neuralNetwork.HiddenNeurons.ElementAt(j);
-
-                    neuralNetwork.HiddenNeurons.ElementAt(j).InputSynapses.ElementAt(i).FromNeuron = neuralNetwork.InputNeurons.ElementAt(i);
-                    neuralNetwork.HiddenNeurons.ElementAt(j).InputSynapses.ElementAt(i).ToNeuron = neuralNetwork.HiddenNeurons.ElementAt(j);
-                }
-            }
-
-            for (var i = 0; i < neuralNetwork.HiddenNeurons.Count(); i++)
-            {
-                for (var j = 0; j < neuralNetwork.HiddenNeurons.ElementAt(i).OutputSynapses.Count(); j++)
-                {
-                    neuralNetwork.HiddenNeurons.ElementAt(i).OutputSynapses.ElementAt(j).FromNeuron = neuralNetwork.HiddenNeurons.ElementAt(i);
-                    neuralNetwork.HiddenNeurons.ElementAt(i).OutputSynapses.ElementAt(j).ToNeuron = neuralNetwork.OutputNeurons.ElementAt(j);
-
-                    neuralNetwork.OutputNeurons.ElementAt(j).InputSynapses.ElementAt(i).FromNeuron = neuralNetwork.HiddenNeurons.ElementAt(i);
-                    neuralNetwork.OutputNeurons.ElementAt(j).InputSynapses.ElementAt(i).ToNeuron = neuralNetwork.OutputNeurons.ElementAt(j);
-                }
             }
 
             return neuralNetwork;
         }
+
     }
 }

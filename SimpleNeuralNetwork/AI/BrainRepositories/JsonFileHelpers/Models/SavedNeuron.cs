@@ -11,6 +11,7 @@ namespace SimpleNeuralNetwork.AI.BrainRepositories.JsonFileHelpers.Models
         public Double Value { get; set; }
         public Double Error { get; set; }
 
+        public int Layer { get; set; }
         public int Index { get; set; }
 
     }

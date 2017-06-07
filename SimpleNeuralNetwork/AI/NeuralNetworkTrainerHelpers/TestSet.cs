@@ -22,17 +22,17 @@ namespace SimpleNeuralNetwork.AI.NeuralNetworkTrainerHelpers
 
         public void Test(NeuralNetwork neuralNetwork, NeuralNetworkTrainModel neuralNetworkTrainModel)
         {
-            var trainSetCount = Convert.ToInt32(Math.Floor(neuralNetworkTrainModel.ValuesCount * .7));
-            var validationSetCount = Convert.ToInt32(Math.Floor((neuralNetworkTrainModel.ValuesCount - trainSetCount) * .7));
+            var trainSetCount = Convert.ToInt32(Math.Floor(neuralNetworkTrainModel.ValuesCount * .66));
+            var validationSetCount = Convert.ToInt32(Math.Floor((neuralNetworkTrainModel.ValuesCount - trainSetCount) * .66));
             var testSet = Convert.ToInt32(neuralNetworkTrainModel.ValuesCount - trainSetCount - validationSetCount);
 
             var testError = 0d;
             for (var i = trainSetCount + validationSetCount; i < trainSetCount + validationSetCount + testSet; i++)
             {
-                _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Input, i));
-                testError += _ouputDeviation.Compute(neuralNetwork, neuralNetworkTrainModel.GetValuesForLayer(NeuronLayer.Output, i));
+                _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetInputValues(i));
+                testError = Math.Max(testError, _ouputDeviation.Compute(neuralNetwork, neuralNetworkTrainModel.GetOutputValues(i)));
             }
-            neuralNetwork.NeuralNetworkError = testError / testSet;//update with test error
+            neuralNetwork.NeuralNetworkError = testError;// / testSet;//update with test error
         }
     }
 }
