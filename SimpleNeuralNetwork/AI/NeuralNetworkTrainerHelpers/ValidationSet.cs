@@ -41,14 +41,15 @@ namespace SimpleNeuralNetwork.AI.NeuralNetworkTrainerHelpers
             neuralNetwork.NeuralNetworkError = innerLastOutputDeviation;
 
             //check to stop cycles with this setup
-            if (stopIterations_lastOutputDeviation <= Math.Round(innerLastOutputDeviation, neuralNetwork.Divisor.ToString().Length) ||  //if important digits stopped correcting, stop iterations
-                innerLastOutputDeviation < neuralNetworkTrainModel.AcceptedError ||                                                     //if we are in the accepted error range, stop iterations
-                Math.Abs(stopIterations_lastOutputDeviation - innerLastOutputDeviation) < 1 / (neuralNetwork.Divisor * 1000))           //if the correction is too small stop iterations
+            if (//Math.Round(stopIterations_lastOutputDeviation, neuralNetwork.Divisor.ToString().Length)
+                //           <= Math.Round(innerLastOutputDeviation, neuralNetwork.Divisor.ToString().Length) ||                                      //if important digits stopped correcting, stop iterations
+                innerLastOutputDeviation < neuralNetworkTrainModel.AcceptedError ||                                                                 //if we are in the accepted error range, stop iterations
+                Math.Abs(Math.Abs(stopIterations_lastOutputDeviation) - Math.Abs(innerLastOutputDeviation)) < 1 / (neuralNetwork.Divisor * 1000))   //if the correction is too small stop iterations
             {
                 stopIterations_lastOutputDeviation = double.MaxValue;
                 return true;
             }
-            stopIterations_lastOutputDeviation = Math.Round(innerLastOutputDeviation, neuralNetwork.Divisor.ToString().Length);
+            stopIterations_lastOutputDeviation = innerLastOutputDeviation;
 
             return false;
         }
