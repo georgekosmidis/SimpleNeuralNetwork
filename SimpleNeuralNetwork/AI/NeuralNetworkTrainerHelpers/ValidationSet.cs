@@ -13,7 +13,7 @@ namespace SimpleNeuralNetwork.AI.NeuralNetworkTrainerHelpers
     {
         private IOuputDeviation _ouputDeviation;
         private IFeedForward _feedForward;
-        double stopIterations_lastOutputDeviation = double.MaxValue;
+        double stopIterations_lasMaxtOutputDeviation = double.MaxValue;
         //double stopTraining_lastOutputDeviation = double.MaxValue;
 
         public ValidationSet(IFeedForward feedForward, IOuputDeviation ouputDeviation)
@@ -24,32 +24,30 @@ namespace SimpleNeuralNetwork.AI.NeuralNetworkTrainerHelpers
 
         public bool StopIterations(NeuralNetwork neuralNetwork, NeuralNetworkTrainModel neuralNetworkTrainModel)
         {
-            var trainSetCount = Convert.ToInt32(Math.Floor(neuralNetworkTrainModel.ValuesCount * .7));
-            var validationSetCount = Convert.ToInt32(Math.Floor((neuralNetworkTrainModel.ValuesCount - trainSetCount) * .7));
+            var trainSetCount = Convert.ToInt32(Math.Floor(neuralNetworkTrainModel.ValuesCount * .66));
+            var validationSetCount = Convert.ToInt32(Math.Floor((neuralNetworkTrainModel.ValuesCount - trainSetCount) * .66));
 
             var innerLastOutputDeviation = 0d;
-            //var suffle = Suffle(trainSetCount, validationSetCount);
-            //foreach (var i in suffle)
             for (var i = trainSetCount; i < trainSetCount + validationSetCount; i++)
             {
                 _feedForward.Compute(neuralNetwork, neuralNetworkTrainModel.GetInputValues(i));
-                innerLastOutputDeviation += _ouputDeviation.Compute(neuralNetwork, neuralNetworkTrainModel.GetOutputValues(i));
+                innerLastOutputDeviation = Math.Max(innerLastOutputDeviation, _ouputDeviation.Compute(neuralNetwork, neuralNetworkTrainModel.GetOutputValues(i)));
             }
-            innerLastOutputDeviation /= validationSetCount;
+            //innerLastOutputDeviation /= validationSetCount;
 
             //check deviation to break training
             neuralNetwork.NeuralNetworkError = innerLastOutputDeviation;
 
             //check to stop cycles with this setup
-            if (//Math.Round(stopIterations_lastOutputDeviation, neuralNetwork.Divisor.ToString().Length)
-                //           <= Math.Round(innerLastOutputDeviation, neuralNetwork.Divisor.ToString().Length) ||                                      //if important digits stopped correcting, stop iterations
+            if (Math.Round(stopIterations_lasMaxtOutputDeviation, neuralNetwork.Divisor.ToString().Length)
+                           <= Math.Round(innerLastOutputDeviation, neuralNetwork.Divisor.ToString().Length) ||                                      //if important digits stopped correcting, stop iterations
                 innerLastOutputDeviation < neuralNetworkTrainModel.AcceptedError ||                                                                 //if we are in the accepted error range, stop iterations
-                Math.Abs(Math.Abs(stopIterations_lastOutputDeviation) - Math.Abs(innerLastOutputDeviation)) < 1 / (neuralNetwork.Divisor * 1000))   //if the correction is too small stop iterations
+                Math.Abs(Math.Abs(stopIterations_lasMaxtOutputDeviation) - Math.Abs(innerLastOutputDeviation)) < 1 / (neuralNetwork.Divisor * 1000))   //if the correction is too small stop iterations
             {
-                stopIterations_lastOutputDeviation = double.MaxValue;
+                stopIterations_lasMaxtOutputDeviation = double.MaxValue;
                 return true;
             }
-            stopIterations_lastOutputDeviation = innerLastOutputDeviation;
+            stopIterations_lasMaxtOutputDeviation = innerLastOutputDeviation;
 
             return false;
         }

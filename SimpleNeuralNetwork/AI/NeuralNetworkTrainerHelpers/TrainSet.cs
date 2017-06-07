@@ -22,7 +22,7 @@ namespace SimpleNeuralNetwork.AI.NeuralNetworkTrainerHelpers
 
         public void Train(NeuralNetwork neuralNetwork, NeuralNetworkTrainModel neuralNetworkTrainModel)
         {
-            var trainSetCount = Convert.ToInt32(Math.Floor(neuralNetworkTrainModel.ValuesCount * .7));
+            var trainSetCount = Convert.ToInt32(Math.Floor(neuralNetworkTrainModel.ValuesCount * .66));
 
             if (trainSetCount < neuralNetwork.InputNeurons.Count() + neuralNetwork.HiddenLayers.Sum(x => x.Count()) + neuralNetwork.OutputNeurons.Count())
                 trainSetCount = neuralNetworkTrainModel.ValuesCount;

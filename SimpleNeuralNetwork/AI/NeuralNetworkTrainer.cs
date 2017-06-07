@@ -60,6 +60,7 @@ namespace SimpleNeuralNetwork.AI
                 }
                 OnLearningCycleComplete?.Invoke(this, new LearningCycleCompleteEventArgs(iteration, neuralNetwork.NeuralNetworkError));
 
+                //neuralNetwork.LearningRate = neuralNetwork.LearningRate * 1d / (iteration + 1);
             }
 
             //store NN

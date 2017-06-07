@@ -21,11 +21,19 @@ namespace SimpleNeuralNetwork
             System.AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 #endif
             //Choose NN, and remember to change the values for the Input Neurons. 
-            var lottoInput = new double[49];
-            for (var i = 0; i < 49; i++)
-                lottoInput[i] = i + 1;
-            Run(NeuralNetworkFactoryHelper.NetworkFor.Lotto, LottoWriteMatrix, lottoInput);
+            //*****************************************************************************
+            ////LOTTO
+            //var lottoInput = new double[49];
+            //for (var i = 0; i < 49; i++)
+            //    lottoInput[i] = i + 1;
+            //Run(NeuralNetworkFactoryHelper.NetworkFor.Lotto, LottoWriteMatrix, lottoInput);
+            //*****************************************************************************
+            ////Add-Subtract
+            //Run(NeuralNetworkFactoryHelper.NetworkFor.AddSubtract, DefaultWriteMatrix, 1, 2, 1);
+            //*****************************************************************************
+            ////XOR
             //Run(NeuralNetworkFactoryHelper.NetworkFor.XOR, DefaultWriteMatrix, 1, 1);
+            //*****************************************************************************
 
             Console.ReadKey(true);
 
@@ -37,7 +45,7 @@ namespace SimpleNeuralNetwork
             factoryHelper.OnUpdateStatus += Factory_OnUpdateStatus;
 
             //TRAIN THE NUERAL NETWORK
-            var neuralNetwork = factoryHelper.Train(networkFor, true);
+            var neuralNetwork = factoryHelper.Train(networkFor);//,true as second argument to save the trained network
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("Computation with the newly trained network:");
@@ -78,7 +86,6 @@ namespace SimpleNeuralNetwork
 
 
         }
-
 
         private static void Factory_OnUpdateStatus(object sender, ProgressEventArgs e)
         {

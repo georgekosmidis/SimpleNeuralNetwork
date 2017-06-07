@@ -8,7 +8,7 @@ namespace SimpleNeuralNetwork.AI.Models
 {
     public class NeuralNetwork
     {
-        public double LearningRate = 0.3;
+        public double LearningRate = 0.01;
 
         public List<Neuron> InputNeurons { get; } = new List<Neuron>();
         public List<List<Neuron>> HiddenLayers { get; } = new List<List<Neuron>>();

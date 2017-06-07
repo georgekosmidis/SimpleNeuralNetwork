@@ -23,7 +23,7 @@ namespace SimpleNeuralNetwork.AI.Modeling.Modelers.ModelingHelpers
             foreach (var value in values)
             {
                 var divisor = Math.Pow(10, Math.Round(value).ToString().Length);
-                Divisor = Math.Max(Divisor, divisor);
+                Divisor =  Math.Max(Divisor, divisor);
             }
 
             _neuronModel.Values.AddRange(values);

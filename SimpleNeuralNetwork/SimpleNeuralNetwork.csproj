@@ -106,6 +106,9 @@
     <None Include="AI\TrainedNetworks\AddSubtract.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="AI\TrainedNetworks\Lotto.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="AI\TrainedNetworks\.gitkeep">
