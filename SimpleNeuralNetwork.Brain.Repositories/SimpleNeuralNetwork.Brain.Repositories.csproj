@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleNeuralNetwork.Brain\SimpleNeuralNetwork.Brain.csproj" />
+    <ProjectReference Include="..\SimpleNeuralNetwork.Models\SimpleNeuralNetwork.Models.csproj" />
+    <ProjectReference Include="..\SimpleNeuralNetwork.ProblemModeler\SimpleNeuralNetwork.ProblemModeler.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Implementations\JsonFileHelpers\Repository\.gitkeep">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Implementations\JsonFileHelpers\Repository\AddSubtract.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Implementations\JsonFileHelpers\Repository\Lotto.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

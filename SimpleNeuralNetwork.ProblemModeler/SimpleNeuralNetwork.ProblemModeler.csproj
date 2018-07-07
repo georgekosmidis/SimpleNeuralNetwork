@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleNeuralNetwork.Brain\SimpleNeuralNetwork.Brain.csproj" />
+    <ProjectReference Include="..\SimpleNeuralNetwork.Models\SimpleNeuralNetwork.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Problems\lotto_results.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
