@@ -1,6 +1,7 @@
 # Simple Neural Network in C#
 ### AI
 A multi-layer perceptron (one input, one output and multiple hidden layers), forward feed neural network with backward propagation and x number of neurons for each layer.
+
 #### Characteristics
 * 1 Input, [1-..] Hidden, 1 Output layer
 * Unlimited neurons per layer
