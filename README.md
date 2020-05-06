@@ -78,4 +78,3 @@ return new ProblemDescriptionCreator()
 
 ## Output after training
 ![Results](https://raw.githubusercontent.com/georgekosmidis/SimpleNeuralNetwork/master/README/Capture.PNG)
-
